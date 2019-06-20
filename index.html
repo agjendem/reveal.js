@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="no">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -50,20 +50,43 @@
 					</aside>
 				</section>
 
-				<section data-timing="180">
-					<h1>Dilemmaet med felleskode</h1>
-					<aside class="notes">
-						<h6>En av oss:</h6>
-						<p>
-							(3 min)
-							Intro: Dilemmaet med felleskode: gevinst vs kobling
-						</p>
-					</aside>
+				<section>
+					<section data-timing="180">
+						<h1>Dilemmaet med felleskode</h1>
+
+						<aside class="notes">
+							<h6>En av oss:</h6>
+							<p>
+								(3 min)
+								Intro: Dilemmaet med felleskode: gevinst vs kobling
+							</p>
+						</aside>
+					</section>
+
+					<section>
+						<ul>
+							<li>Hvorfor</li>
+							<li>Hva
+								<ul>
+									<li>Monolit != Monorepo</li>
+									<li>core</li>
+									<li>Polyglot?</li>
+								</ul>
+							</li>
+						</ul>
+
+						<aside class="notes">
+							<h6>En av oss:</h6>
+							<p>
+							</p>
+						</aside>
+					</section>
 				</section>
 
 				<section data-timing="300">
 					<h1>... men det er ikke noe galt med klassiskt multirepo?</h1>
-					<img src="img/felleskode-pr.png">
+					<img src="img/felleskode-pr.png" alt="Bumping av versjonsnummer på mange interne bibliotek"/>
+
 					<aside class="notes">
 						<h6>En av oss:</h6>
 						<p>
@@ -76,6 +99,7 @@
 
 				<section>
 					<h1>Møt monorepo!</h1>
+
 					<aside class="notes">
 						<h6>En av oss:</h6>
 						<p>
@@ -87,73 +111,52 @@
 				</section>
 
 				<section>
-					<h1>Vår reise fra multi- til monorepo</h1>
-					<aside class="notes">
-						<h6>En av oss:</h6>
-						<p>
-							(15 min)
-							Vår reise fra multi til monorepo.
-							Gå kjapt gjennom toolingen og repooppsettet vi hadde.
-							Hvordan kan vi få de gode egenskapene til monorepo uten å snu hele verden opp ned?
-						</p>
-					</aside>
-				</section>
-
-				<section>
-					<h1>Rosa sky eller tornekratt?</h1>
-					<aside class="notes">
-						<h6>En av oss:</h6>
-						<p>
-							(7 min)
-							Hvilke nye utfordringer får vi nå?
-							* Umodne verktøy (Maven vs Bazel, BitBucket / GitHub vs Gerrit)
-							* Tvinges til mer kortlevde brancher
-							* Skalering
-						</p>
-					</aside>
-				</section>
-
-				<section>
-					<h1>Effekter</h1>
-					<aside class="notes">
-						<h6>En av oss:</h6>
-						<p>
-							(7 min)
-							Med monorepo; hva blir mer viktig, og hva blir mindre viktig?
-							Hvordan påvirker monorepo samarbeidet i organisasjonen?
-							Positive bi-effekter av monorepo.
-						</p>
-					</aside>
-				</section>
-
-
-
-				<!-- ...................................................... -->
-
-				<section>
-					<h1>WIP / Bonus slides</h1>
-				</section>
-				<section>
 					<section>
-						<h1>Hvorfor?</h1>
+						<h1>Vår reise fra multi- til monorepo</h1>
+
+						<aside class="notes">
+							<h6>En av oss:</h6>
+							<p>
+								(15 min)
+								Vår reise fra multi til monorepo.
+								Gå kjapt gjennom toolingen og repooppsettet vi hadde.
+								Hvordan kan vi få de gode egenskapene til monorepo uten å snu hele verden opp ned?
+							</p>
+						</aside>
 					</section>
 
 					<section>
+						<h1>Aktiviteter</h1>
 						<ul>
-							<li>Hvorfor</li>
-							<li>Hva</li>
-							<ul>
-								<li>Monolit != Monorepo</li>
-								<li>core</li>
-								<li>Polyglot?</li>
-							</ul>
+							<li>Bazel?
+								<ul>
+									<li>JVM-external</li>
+									<li>Maven-dependencies</li>
+									<li>IntelliJ-støtte</li>
+								</ul>
+							</li>
+							<li>Codeowners-plugin til BitBucket</li>
+							<li>Lage maven vs bazel repo some "giveaways" + QR</li>
+							<li>Python i Monorepo?</li>
+							<li>Rydde i repo</li>
+							<li>Archeunit.org - medisin mot monolitt i monorepo
+								<ul>
+									<li>no.sb1.apps.app_a</li>
+									<li>no.sb1.libs</li>
+									<li>Hva med Python og Go?</li>
+								</ul>
+							</li>
 						</ul>
 					</section>
-				</section>
 
-				<section>
 					<section>
-						<h1>Hvordan?</h1>
+						<h1>Løsninger</h1>
+						<ul>
+							<li>Git VFS / large file storage</li>
+							<li>Bazel?</li>
+							<li>Codeowners-plugin / de store bruker andre systemer?</li>
+							<li>Archunit?</li>
+						</ul>
 					</section>
 
 					<section>
@@ -164,72 +167,101 @@
 							<li>Maven partial-build-plugin</li>
 							<li>Git sparse checkout</li>
 							<li>Git merge strategies</li>
+							<li>Code Owners plugin</li>
 						</ul>
+
+						<aside class="notes">
+							<h6>En av oss:</h6>
+							<p>
+							</p>
+						</aside>
 					</section>
 				</section>
 
 				<section>
 					<section>
-						<h1>Utfordringer</h1>
+						<h1>Rosa sky eller tornekratt?</h1>
+
+						<aside class="notes">
+							<h6>En av oss:</h6>
+							<p>
+								(7 min)
+								Hvilke nye utfordringer får vi nå?
+								* Umodne verktøy (Maven vs Bazel, BitBucket / GitHub vs Gerrit)
+								* Tvinges til mer kortlevde brancher
+								* Skalering
+							</p>
+						</aside>
 					</section>
 
 					<section>
 						<ul>
 							<li>Byggetid</li>
 							<li>Merge</li>
-							<li>Repository size</li>
-							<ul>
-								<li>Maskinlæringsmodeller</li>
-							</ul>
+							<li>Repository size
+								<ul>
+									<li>Maskinlæringsmodeller</li>
+								</ul>
+							</li>
 							<li>Konsistens</li>
 							<li>Standardisering
-							<ul>
-								<li>Generator / Yeoman</li>
-							</ul>
+								<ul>
+									<li>Generator / Yeoman</li>
+								</ul>
+							</li>
 						</ul>
+
+						<aside class="notes">
+							<h6>En av oss:</h6>
+							<p>
+							</p>
+						</aside>
 					</section>
 				</section>
 
 				<section>
-					<section>
-						<h1>Løsninger</h1>
-					</section>
+					<h1>Effekter</h1>
+
+					<aside class="notes">
+						<h6>En av oss:</h6>
+						<p>
+							(7 min)
+							Med monorepo; hva blir mer viktig, og hva blir mindre viktig?
+							Hvordan påvirker monorepo samarbeidet i organisasjonen?
+							Positive bi-effekter av monorepo.
+						</p>
+					</aside>
 
 					<section>
-						<ul>
-							<li>Git VFS / large file storage</li>
-							<li>Bazel?</li>
-							<li>Codeowners-plugin / de store bruker andre systemer?</li>
-							<li>Archunit?</li>
-						</ul>
+
+						<aside class="notes">
+							<h6>En av oss:</h6>
+							<p>
+							</p>
+						</aside>
 					</section>
 				</section>
 
 				<section>
-					<section>
-						<h1>Aktiviteter</h1>
-					</section>
+					<h1>Takk for oss</h1>
 
-					<section>
-						<ul>
-							<li>Bazel?</li>
-							<ul>
-								<li>JVM-external</li>
-								<li>Maven-dependencies</li>
-								<li>IntelliJ-støtte</li>
-							</ul>
-							<li>Codeowners-plugin til BitBucket</li>
-							<li>Lage maven vs bazel repo some "giveaways" + QR</li>
-							<li>Python i Monorepo?</li>
-							<li>Rydde i repo</li>
-							<li>Archeunit.org - medisin mot monolitt i monorepo</li>
-							<ul>
-								<li>no.sb1.apps.app_a</li>
-								<li>no.sb1.libs</li>
-								<li>Hva med Python og Go?</li>
-							</ul>
-						</ul>
-					</section>
+					<p>
+						<a href="http://kortreistkode.no/monorepo">TODO: Lenke til eksempelrepo</a><br/>
+						&lt;QR-kode til repo her&gt;
+					</p>
+
+					<h4>kortreistkode.no</h4>
+					<h4>Jonas Nordstrand / Anders Gjendem</h4>
+
+					<aside class="notes">
+						<h6>En av oss:</h6>
+						<p>
+							(7 min)
+							Med monorepo; hva blir mer viktig, og hva blir mindre viktig?
+							Hvordan påvirker monorepo samarbeidet i organisasjonen?
+							Positive bi-effekter av monorepo.
+						</p>
+					</aside>
 				</section>
 			</div>
 		</div>
