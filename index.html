@@ -125,6 +125,115 @@
 						</aside>
 					</section>
 
+                    <section>
+                        <pre><code data-trim data-noescape>
+.
+├── apps
+│   ├── app1
+│   │   ├── pom.xml
+│   │   └── src
+│   ├── app2
+│   │   ├── pom.xml
+│   │   └── src
+│   └── pom.xml
+├── libs
+│   ├── lib1
+│   │   ├── pom.xml
+│   │   └── src
+│   ├── lib2
+│   │   ├── pom.xml
+│   │   └── src
+│   └── pom.xml
+├── pom.xml
+├── README.md
+
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <img src="img/maven-moduler.png" style="background:none; border:none; box-shadow:none; ">
+                        <aside class="notes">
+
+                            <h6>En av oss:</h6>
+                            <p>Maven ær i grunden ett rekursivt byggsystem, ikke ett DAG-baserat 
+                               som bazel.
+                            </p>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <img src="img/maven-moduler-deps.png" style="background:none; border:none; box-shadow:none; ">
+                        <aside class="notes">
+
+                            <h6>En av oss:</h6>
+                            <p>Men kan ha avhængigheter på tværs av filtrædstruktur
+                            </p>
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code data-trim data-noescape>
+$ mvn clean install
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO]
+[INFO] root                                                               [pom]
+[INFO] libs                                                               [pom]
+[INFO] lib2                                                               [jar]
+[INFO] lib1                                                               [jar]
+[INFO] apps                                                               [pom]
+[INFO] app1                                                               [jar]
+[INFO] app2                                                               [jar]
+[INFO]
+                        </code></pre>
+                        <aside class="notes">
+
+                            <h6>En av oss:</h6>
+                            <p>Det ær avhængigheterna mellan modulerna som bestæmmer i vilken ordning
+                               modulerna byggs.
+                            </p>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <pre><code data-trim data-noescape>
+$ apps/app1 $ mvn clean install
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< no.monorepo:app1 >--------------------------
+[INFO] Building app1 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+
+                        </code></pre>
+
+                        <aside class="notes">
+                            Hær bygget maven rekursivt från apps/app1 och bygger inga avhængigheter
+                            till app1 som ligger utanfør i filsystemet.
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code data-trim data-noescape>
+apps/app1 $ mvn <mark>-f ../.. -am -pl :app1</mark> clean install
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO]
+[INFO] root                                                               [pom]
+[INFO] libs                                                               [pom]
+[INFO] lib2                                                               [jar]
+[INFO] lib1                                                               [jar]
+[INFO] apps                                                               [pom]
+[INFO] app1                                                               [jar]
+[INFO]
+                        </code></pre>
+                    </section>
+                    <section>
+                        <ul>
+                            <li>-f</li>
+                            <li>-pl</li>
+                            <li>-am</li>
+                        </ul>
+                    </section>
 					<section>
 						<h1>Aktiviteter</h1>
 						<ul>
