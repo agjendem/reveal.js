@@ -26,6 +26,113 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
+					<h1>&lt;Ventebilde/&gt;</h1>
+					<aside class="notes">
+						Speaker notes til intro?
+					</aside>
+				</section>
+
+				<section>
+					<h1>Agenda</h1>
+					<ul>
+						<li>Dilemmaet med felleskode</li>
+						<li>Utfordringer..?</li>
+						<li>Møt Monorepo</li>
+						<li>Vår reise fra multi- til monorepo</li>
+						<li>Rosa sky eller tornekratt?</li>
+						<li>Effekter</li>
+					</ul>
+					<aside class="notes">
+						<h6>En av oss:</h6>
+						<p>
+							Jeg heter ... og dette er ... og i dag skal vi snakke om våre erfaringer med monorepo.
+						</p>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Dilemmaet med felleskode</h1>
+					<aside class="notes">
+						<h6>En av oss:</h6>
+						<p>
+							(3 min)
+							Intro: Dilemmaet med felleskode: gevinst vs kobling
+						</p>
+					</aside>
+				</section>
+
+				<section>
+					<h1>... men det er ikke noe galt med klassiskt multirepo?</h1>
+					<aside class="notes">
+						<h6>En av oss:</h6>
+						<p>
+							(5 min)
+							Utfordringer med klassisk modell for å håndtere felleskode:
+								Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
+						</p>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Møt monorepo!</h1>
+					<aside class="notes">
+						<h6>En av oss:</h6>
+						<p>
+							(7 min)
+							Vi ønsker oss enkelheten til ett repo, men fordelene fra å ha mange:
+								Møt monorepo: Egenskaper (Cross cutting refactoring, søkbarhet, versjonering), og hvem passer det for?
+						</p>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Vår reise fra multi- til monorepo</h1>
+					<aside class="notes">
+						<h6>En av oss:</h6>
+						<p>
+							(15 min)
+							Vår reise fra multi til monorepo.
+							Gå kjapt gjennom toolingen og repooppsettet vi hadde.
+							Hvordan kan vi få de gode egenskapene til monorepo uten å snu hele verden opp ned?
+						</p>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Rosa sky eller tornekratt?</h1>
+					<aside class="notes">
+						<h6>En av oss:</h6>
+						<p>
+							(7 min)
+							Hvilke nye utfordringer får vi nå?
+							* Umodne verktøy (Maven vs Bazel, BitBucket / GitHub vs Gerrit)
+							* Tvinges til mer kortlevde brancher
+							* Skalering
+						</p>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Effekter</h1>
+					<aside class="notes">
+						<h6>En av oss:</h6>
+						<p>
+							(7 min)
+							Med monorepo; hva blir mer viktig, og hva blir mindre viktig?
+							Hvordan påvirker monorepo samarbeidet i organisasjonen?
+							Positive bi-effekter av monorepo.
+						</p>
+					</aside>
+				</section>
+
+
+
+				<!-- ...................................................... -->
+
+				<section>
+					<h1>WIP / Bonus slides</h1>
+				</section>
+				<section>
 					<section>
 						<h1>Hvorfor?</h1>
 					</section>
@@ -110,11 +217,11 @@
 								<li>Maven-dependencies</li>
 								<li>IntelliJ-støtte</li>
 							</ul>
-							<li>Codeowners-plugin til BitBucket?</li>
+							<li>Codeowners-plugin til BitBucket</li>
 							<li>Lage maven vs bazel repo some "giveaways" + QR</li>
 							<li>Python i Monorepo?</li>
 							<li>Rydde i repo</li>
-							<li>Archeunit.org</li>
+							<li>Archeunit.org - medisin mot monolitt i monorepo</li>
 							<ul>
 								<li>no.sb1.apps.app_a</li>
 								<li>no.sb1.libs</li>
