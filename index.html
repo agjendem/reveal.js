@@ -78,6 +78,11 @@
 						<aside class="notes">
 							<h6>En av oss:</h6>
 							<p>
+                            <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
+                                Advantages and Disadvantages of a Monolithic Repository - A case study at Google
+                            </a>
+                            <br/>
+                            <a href="https://docs.microsoft.com/en-us/azure/devops/learn/git/race-to-push">The race to push</a>
 							</p>
 						</aside>
 					</section>
@@ -213,7 +218,7 @@ $ apps/app1 $ mvn clean install
                     </section>
                     <section>
                         <pre><code data-trim data-noescape>
-apps/app1 $ mvn <mark>-f ../.. -am -pl :app1</mark> clean install
+apps/app1 $ mvn <mark>-f ../.. pl :app1 -am</mark> clean install
 [INFO] Scanning for projects...
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Build Order:
@@ -226,17 +231,144 @@ apps/app1 $ mvn <mark>-f ../.. -am -pl :app1</mark> clean install
 [INFO] app1                                                               [jar]
 [INFO]
                         </code></pre>
-                    </section>
-                    <section>
-                        <ul>
-                            <li>-f</li>
-                            <li>-pl</li>
-                            <li>-am</li>
-                        </ul>
+						<aside class="notes">
+							<ul>
+								<li>-f: --file (ange filsti till rot-pom, krævs før att Maven ska upptæcka alla moduler)</li>
+								<li>-pl: --projects (projektlistan, vilka moduler Maven ska bygga) </li>
+								<li>-am: --also-make (instruerar Maven att bygga alla avhængigheter till modulerna
+									som angetts i projektlistan) </li>
+							</ul>
+						</aside>
                     </section>
 					<section>
-						<h1>Aktiviteter</h1>
+						<h1>partial-build-plugin</h1>
+					</section>
+					<section>
+						<h1>Mavenutfodringar</h1>
 						<ul>
+							<li>version - bør hærledas från versionskontroll instællet</li>
+							<li>groupId - bør hærledes från filtrædstruktur istællet</li>
+							<li>Trenger ny version av Maven: minnelæckagefixar och CI-friendly versions</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Bruk av project.verision  før att referer till monorepointerna dependencies</li>
+								<li>ci-profil som sætter revision-property'n från miljøvariabel: fungerar næstan</li>
+								<li>https://issues.apache.org/jira/browse/MNG-6412</li>
+							</ul>
+							<p>Bazel har inget versionsbegrepp, bygger filstrukturen på disk som versionshanteras av VCS</p>
+							<p>Bazel har inget grupperingsbegrepp à la maven groupId,
+								gruppering på disk ær identiskt med katalogstrukturken</p>
+
+						</aside>
+					</section>
+					<section>
+                        <h1>Versionering i Maven</h1>
+                        <pre><code data-trim data-noescape>
+&lt;project&gt;
+  &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
+  &lt;artifactId&gt;lib1&lt;/artifactId&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+					</code></pre>
+                    </section>
+                    <section>
+                        <h1>CI-friendly versioning</h1>
+                        <pre><code data-trim data-noescape>
+&lt;project&gt;
+  &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
+  &lt;artifactId&gt;lib1&lt;/artifactId&gt;
+  &lt;version&gt;${revision}&lt;/version&gt;
+
+  &lt;properties&gt;
+    &lt;revision&gt;1.0-SNAPSHOT&lt;/revision&gt;
+  &lt;/properties&gt;
+                        </code></pre>
+						<pre class="fragment fade-up"><code data-trim data-noescape>
+$ mvn -Drevision=$(git rev-parse HEAD) clean install
+						</code></pre>
+						<aside class="notes">
+							<p>Med <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a>
+								trenger man inte mutera pom-filer med mvn versions:set
+							</p>
+						</aside>
+                    </section>
+					<section>
+						<h1>Flata pom-filer</h1>
+						<aside class="notes">
+							<p>Før att undgå att pom-filer med ikke-resolverade $revision inslag blir installerade bør
+							man bruka Maven flatten-plugin'en. Denna resolva'r revsion och installerar en flat pom.xml fil
+							som man kan bruka vidare utan problem</p>
+						</aside>
+					</section>
+					<section>
+                        <pre><code data-trim data-noescape>
+&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
+    &lt;artifactId&gt;lib1&lt;/artifactId&gt;
+    &lt;version&gt;${project.version}&lt;/version&gt;
+  &lt;/dependency&gt;
+						</code></pre>
+					</section>
+					<section>
+						<h1>filsti == groupId</h1>
+						<p><span><code>libs/lib1</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.libs.lib1</code></p>
+						<p><span class="fragment fade-in"><code>apps/app2</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.apps.app2</code></p>
+						<aside class="notes">
+							<p>Maven's namespace før moduler ær baserat på groupId-begreppet. I ett monorepo ær name space
+							ivaratatt av filkatalog-hiearkin. Nær man brukar Maven før monorepo bør man vurdera att sætta
+							groupId identisk med filsti.</p>
+						</aside>
+					</section>
+					<section>
+						<h1>CODEOWNERS</h1>
+						<pre class="fragment fade-up"><code data-trim data-noescape>
+# Default owner
+/ @nordstrand
+
+# Code owner for the applications
+/apps/app1/   @nordstrand
+/apps/app2/   @agjendem
+						</code></pre>
+
+						<img src="img/codereview-in-github.png" class="fragment fade-in"/>
+
+						<aside class="notes">
+							<p>En av de stor førdelarna med multirepo ær att det ær lætt før team att vara autonoma och sætta
+							upp egna rutiner kring tilgång till kællkod och rutiner kring peer review, Pull Requests på egen hand.
+							I ett monorepo måste detta centraliseras i større utstræckning på tværs av team. Ett vanligt
+							uppsætt ær att øppna før read før alla, men kræva godkænd pull request før att få lov att ta ned kode på trunk.</p>
+
+							<p>
+							En CODEOWNERS-fil i monorepot gør det møjligt att ange vilka team/teammedlemmar som æger koden under olika filstier.
+							Detta kan brukas till f.eks. automatiskt lægga in ægare som reviewers på Pull requester som træffar
+								deras respektive kode.</p>
+
+							<p>CODEOWNERS-filformatet ær <a href="https://help.github.com/articles/about-codeowners/">standardiserat</a>
+							och støds av Github (før tillfællet bara i betalt/PRO-utførande), Gitlab och Bitbucket Server (med plugin).
+							</p>
+
+							<p>I detta exemplet blir Anders automatiskt lagt till som reviewer (med speciell-nøkkehålikon) på alla PR:s
+							som træffar hans app - app2.</p>
+						</aside>
+					</section>
+
+
+					<section>
+						<h1>Løsninger</h1>
+						<ul>
+							<li>Git VFS / large file storage</li>
+							<li>Bazel?</li>
+							<li>Archunit?</li>
+						</ul>
+					</section>
+
+					<section>
+						<ul>
+							<li>CI-vennlig + flatten</li>
+							<li>Jenkinsfile / git diff</li>
+							<li>Git sparse checkout</li>
+							<li>Git merge strategies</li>
 							<li>Bazel?
 								<ul>
 									<li>JVM-external</li>
@@ -255,28 +387,7 @@ apps/app1 $ mvn <mark>-f ../.. -am -pl :app1</mark> clean install
 									<li>Hva med Python og Go?</li>
 								</ul>
 							</li>
-						</ul>
-					</section>
 
-					<section>
-						<h1>Løsninger</h1>
-						<ul>
-							<li>Git VFS / large file storage</li>
-							<li>Bazel?</li>
-							<li>Codeowners-plugin / de store bruker andre systemer?</li>
-							<li>Archunit?</li>
-						</ul>
-					</section>
-
-					<section>
-						<ul>
-							<li>CI-vennlig + flatten</li>
-							<li>Maven -pl -am</li>
-							<li>Jenkinsfile / git diff</li>
-							<li>Maven partial-build-plugin</li>
-							<li>Git sparse checkout</li>
-							<li>Git merge strategies</li>
-							<li>Code Owners plugin</li>
 						</ul>
 
 						<aside class="notes">
@@ -355,8 +466,8 @@ apps/app1 $ mvn <mark>-f ../.. -am -pl :app1</mark> clean install
 					<h1>Takk for oss</h1>
 
 					<p>
-						<a href="http://kortreistkode.no/monorepo">TODO: Lenke til eksempelrepo</a><br/>
-						&lt;QR-kode til repo her&gt;
+						<a href="https://github.com/SpareBank1/monorepo-sample">github.com/SpareBank1/monorepo-sample</a><br/>
+						<img width="300" height="300" src="img/repo-url-qr.png" />
 					</p>
 
 					<h4>kortreistkode.no</h4>
@@ -365,10 +476,7 @@ apps/app1 $ mvn <mark>-f ../.. -am -pl :app1</mark> clean install
 					<aside class="notes">
 						<h6>En av oss:</h6>
 						<p>
-							(7 min)
-							Med monorepo; hva blir mer viktig, og hva blir mindre viktig?
-							Hvordan påvirker monorepo samarbeidet i organisasjonen?
-							Positive bi-effekter av monorepo.
+							Hejdå!
 						</p>
 					</aside>
 				</section>
