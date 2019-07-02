@@ -89,12 +89,28 @@
 				</section>
 
 				<section data-timing="300">
-					<h1>... men det er ikke noe galt med klassiskt multirepo?</h1>
 					<img src="img/felleskode-pr.png" alt="Bumping av versjonsnummer på mange interne bibliotek"/>
 
 					<aside class="notes">
 						<h6>En av oss:</h6>
 						<p>
+							Har du någon gång får en PR att review'a med en sådan hær diff?
+                            En diff som bara innehåller bumpning'ar av versionsnummer før
+                            felleskodeavhængigheter som appen din trenger?<br/>
+
+                            Hur kændes det? Tog du dig bryet att eftergå exakt vilka kodeændringar
+                            dessa, på ytan, så oskyldiga ændringar av versionnummer inførde?<br/>
+
+                            Inte det..? Det ær svårt att klandra någon før det egentligen. Vi har
+                            ofta mycket att gøra och finna fram till kodediffar i olika repo's baserat
+                            på en diff som denna ær border-line infeasible i en arbetsvardagen.
+                            Att man kapitulerar och trots den lilla (eller stora) knuten i magen 
+                            væljer att Approve'a ær bara naturligt.<br />
+
+                            Måste det vara så hær? Kan man jobba felleskode på ett annat, smartare
+                            sætt som leder till PR:s dær man faktiskt kan se vad det ær før kodeændringar
+                            som inførs?
+
 							(5 min)
 							Utfordringer med klassisk modell for å håndtere felleskode:
 								Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
@@ -102,6 +118,50 @@
 					</aside>
 				</section>
 
+                <section>
+                    <img src="img/app-deps-utan-jar.png" style="background:none; border:none; box-shadow:none;">
+
+
+                    <aside class="notes">
+                        <h6>En av oss:</h6>
+                        <p>
+                        Ett exempel: app1 ær en applikation som avhænger på felleskode i lib1,
+                        app2 ær en applikation som avhænger på både lib1 och lib2
+
+                        (5 min)
+                        Utfordringer med klassisk modell for å håndtere felleskode:
+                        Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
+                        </p>
+                    </aside>
+                </section>
+                <section>
+                    <img src="img/app-deps-med-jar.png" style="background:none; border:none; box-shadow:none;">
+
+
+                   <aside class="notes">
+                       <h6>En av oss:</h6>
+                       <p>
+                         Det vi praktiken gør med maven  ær att vi inte dependar på koden till våra avhængigheter,
+                         istællet avhængigheter vi på byggda, versionerte artefakter, av koden. Detta føljer av
+                         att varje kodebas tradionellt versionskontrollers i var sitt repo.
+
+                         Ett exempel: man ønskar laga en feature i app1 som innebær att felleskode i lib1 samtidigt
+                         måste ændras. Detta måste rent praktiskt ordnas som två PR-processer:
+                         først en PR i lib1 dær
+                         man inte ser ut felleskodeændringen træffar en ny app och som dærfør inte heller
+                         ær møjlig att testa i en testmiljø.
+                         Nær denna PR ær mergead, och artefakt ær byggd, kan man få vidare med app1
+                         dær man nu lagar en PR som bumpar versionnumret før artefakten. Denna PR kan
+                        man inte se kodeændringen i libet i. Men man kan deploy'a och testa appen.
+
+                        Som en lite kicker: ingen har tænkt på app2 i sammahangen. Denna kan nu vara knæckt!
+
+                       (5 min)
+                       Utfordringer med klassisk modell for å håndtere felleskode:
+                       Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
+                       </p>
+                   </aside>
+                </section>
 				<section>
 					<h1>Møt monorepo!</h1>
 
@@ -213,7 +273,7 @@ $ apps/app1 $ mvn clean install
 
                         <aside class="notes">
                             Hær bygget maven rekursivt från apps/app1 och bygger inga avhængigheter
-                            till app1 som ligger utanfør i filsystemet.
+                            till app1 som ligger utanfør aktuell arbetskatalog i filsystemet.
                         </aside>
                     </section>
                     <section>
