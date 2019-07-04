@@ -25,12 +25,19 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>
-                    <h1>Monorepo med Git og Maven</h1
-                    ><h3>hvordan læra gamle hunder nye triks</h3>
-					<aside class="notes">
+                <section data-background="img/old-dog.jpg" data-background-size="contain">
+                    <h2 style="text-shadow: 2px 2px 2px #C7C7C7;">Monorepo med Git og Maven</h2>
+                    <br/><br/>
+                    <h4 style="font-style: italic;color: white;text-shadow: 2px 2px 2px #282828;">hvordan læra gamle hunder nye triks</h4>
+                    <br/><br/>
+                    <br/><br/>
+                    <br/><br/>
+                    <hr/>
+                    <small style="font-style: italic;color: white;">Anders Gjendem, Jonas Nordstrand</small>
+                    <aside class="notes">
 						Speaker notes til intro?
-					</aside>
+                        Bildkælla: https://pixabay.com/photos/dog-great-dane-old-animal-pet-2514968/ 
+                    </aside>
 				</section>
 
 				<section>
@@ -701,7 +708,10 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </ul>
                         <aside class="notes">
                             <p>
-                            Førsta release av Maven slæpptes 30 mars 2002. Maven firar snart 20-årsjubileum...
+                            Førsta release av Maven slæpptes 30 mars 2002. 
+                            Maven ær ældre æn git, FaceBook och java generics.
+                            
+                            Maven firar snart 20-årsjubileum...
                             <a href="https://maven.apache.org/docs/history.html">Maven release history</a><br/>
 
                             Maven clunkyness i monorepo-sammanhang:
