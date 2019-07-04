@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+        <title>Monorepo med Git og Maven: hvordan læra gamle hunder nye triks</title>
 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/reveal.css">
@@ -26,7 +26,8 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h1>&lt;Ventebilde/&gt;</h1>
+                    <h1>Monorepo med Git og Maven</h1
+                    ><h3>hvordan læra gamle hunder nye triks</h3>
 					<aside class="notes">
 						Speaker notes til intro?
 					</aside>
@@ -35,8 +36,8 @@
 				<section>
 					<h1>Agenda</h1>
 					<ul>
+                        <li>Monorepo 101</h1>
 						<li>Dilemmaet med felleskode</li>
-						<li>Utfordringer..?</li>
 						<li>Møt Monorepo</li>
 						<li>Vår reise fra multi- til monorepo</li>
 						<li>Rosa sky eller tornekratt?</li>
@@ -50,60 +51,79 @@
 					</aside>
 				</section>
 
-				<section>
-					<section data-timing="180">
-						<h1>Dilemmaet med felleskode</h1>
+                <section>
+                    <h1>Monorepo 101</h1>
+           
+                    <ul>
+                        <li>øverblick</li>
+                        <li>vedlikholdbarhet</li>
+                        <li>versionering</li>
+                        <li>tillgång på mogna verktyg</li>
+                    </ul>
 
-						<aside class="notes">
-							<h6>En av oss:</h6>
-							<p>
-								(3 min)
-								Intro: Dilemmaet med felleskode: gevinst vs kobling
-							</p>
-						</aside>
-					</section>
+                    <aside class="notes">
+                        Monorepo ær ett kællkodesrepository dær man versioners ALL kode i en organisation.
 
-					<section>
-						<ul>
-							<li>Hvorfor</li>
-							<li>Hva
-								<ul>
-									<li>Monolit != Monorepo</li>
-									<li>core</li>
-									<li>Polyglot?</li>
-								</ul>
-							</li>
-						</ul>
+                        All kode kan innebæra alla appar, all felleskode, all frontendkode, nativemobilapp kode, alla programmeringsspråk etc
 
-						<aside class="notes">
-							<h6>En av oss:</h6>
-							<p>
-                            <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
-                                Advantages and Disadvantages of a Monolithic Repository - A case study at Google
-                            </a>
-                            <br/>
-                            <a href="https://docs.microsoft.com/en-us/azure/devops/learn/git/race-to-push">The race to push</a>
-							</p>
-						</aside>
-					</section>
-				</section>
+                        Detta ær ett radikalt annorlunda sætt att jobba med kode æn multirepo och ger før- och nackdelar 
+                        på olika områden som:
+                        <ul>
+                            <li>øverblick</li>
+                            <li>vedlikholdbarhet</li>
+                            <li>versionering</li>
+                            <li>tillgång på mogna verktyg</li>
+                        </ul>
+                        Koden ær modularisering/avdelad i ett filtræd.
+                        Trunkbaserad utveckling...
 
-				<section data-timing="300">
-					<img src="img/felleskode-pr.png" alt="Bumping av versjonsnummer på mange interne bibliotek"/>
 
-					<aside class="notes">
-						<h6>En av oss:</h6>
-						<p>
-							Har du någon gång får en PR att review'a med en sådan hær diff?
+                        Maven hanterar moduler med GAV-koordinater (groupId, artifcatId, version) i ett monorepo trengs inte
+                        alla dessa koncepterna utan man kan bruka filsti istf. groupId/artifactId och git istf version.
+                        
+                        Monorepo != Monolit. 
+                    </aside>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Felleskode: a mixed blessing</h1>
+                        <ul>
+                            <li>Gevinst</li>
+                            <li>Koppling</li>
+                        </ul>
+                        <aside class="notes">
+                            (3 min)
+                            Har du inte felleskode så trenger du inte monorepo!
+                            Om man har supermicroservice-arkitektur så har man kanske inte behov
+                            før felleskode.
+
+                            Men till och med google har felleskode.
+
+                            VI trenger felleskode før vi ær en bank och vi ønskar inte
+                            ha 18 olika implementationer av sessionsetablering (och egentligen ønskar vi inte
+                            sessioner heller).
+                        </aside>
+                    </section>
+
+                    <section data-timing="300">
+                        <img src="img/felleskode-pr.png" alt="Bumping av versjonsnummer på mange interne bibliotek"/>
+
+                        <aside class="notes">
+                            <h6>En av oss:</h6>
+                            <p>
+                            Har du någon gång får en PR att review'a med en sådan hær diff?
                             En diff som bara innehåller bumpning'ar av versionsnummer før
                             felleskodeavhængigheter som appen din trenger?<br/>
+
+                            Instick: versionsnummer i diffen: varfør står det dev och inte master dær? </br>
 
                             Hur kændes det? Tog du dig bryet att eftergå exakt vilka kodeændringar
                             dessa, på ytan, så oskyldiga ændringar av versionnummer inførde?<br/>
 
                             Inte det..? Det ær svårt att klandra någon før det egentligen. Vi har
                             ofta mycket att gøra och finna fram till kodediffar i olika repo's baserat
-                            på en diff som denna ær border-line infeasible i en arbetsvardagen.
+                            på en diff som denna ær border-line infeasible i arbetsvardagen.
                             Att man kapitulerar och trots den lilla (eller stora) knuten i magen 
                             væljer att Approve'a ær bara naturligt.<br />
 
@@ -111,69 +131,228 @@
                             sætt som leder till PR:s dær man faktiskt kan se vad det ær før kodeændringar
                             som inførs?
 
-							(5 min)
-							Utfordringer med klassisk modell for å håndtere felleskode:
-								Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
-						</p>
-					</aside>
-				</section>
+                            <hr/>
+                            (5 min)
+                            Utfordringer med klassisk modell for å håndtere felleskode:
+                            Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
+                            </p>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <img src="img/app-deps-utan-jar.png" style="background:none; border:none; box-shadow:none;">
+
+
+                        <aside class="notes">
+                            <h6>En av oss:</h6>
+                            <p>
+                            TODO: se om det blir bættre om man lægger apparna i en kolonn till vænster och
+                            libs i en kolonn till høger
+
+
+                            Ett exempel: app1 ær en applikation som avhænger på felleskode i lib1,
+                            app2 ær en applikation som avhænger på både lib1 och lib2
+
+                            <hr/>
+                            (5 min)
+                            Utfordringer med klassisk modell for å håndtere felleskode:
+                            Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
+                            </p>
+                        </aside>
+                    </section>
+                    <section>
+                        <img src="img/app-deps-med-jar.png" style="background:none; border:none; box-shadow:none;">
+
+                        <aside class="notes">
+                            <h6>En av oss:</h6>
+                            <p>
+                            Det vi praktiken gør med maven ær att vi inte depend:ar på koden till våra avhængigheter,
+                            direkte istællet avhængiger vi på byggda, versionerte artefakter, av koden. Detta føljer av
+                            att varje kodebas tradionellt versionskontrollers i var sitt repo.
+
+                            Ett exempel: man ønskar laga en feature i app1 som innebær att felleskode i lib1 samtidigt
+                            måste ændras. Detta måste rent praktiskt ordnas som två PR-processer:
+                            </p>
+                            <ul>
+                                <li>først en PR i lib1 dær
+                                man inte ser ut felleskodeændringen træffar en ny app och som dærfør inte heller
+                                ær møjlig att testa i en testmiljø.</li>
+                                <li>
+                                Nær denna PR ær mergead, och artefakt ær byggd, kan man få vidare med app1
+                                dær man nu lagar en PR som bumpar versionnumret før artefakten. Denna PR kan
+                                man inte se kodeændringen i libet i. Men man kan deploy'a och testa appen.
+                                </li>
+                            </ul>
+                            <p>
+                            Som en lite kicker: ingen har tænkt på app2 i detta sammahanget. Denna kan nu vara knæckt!
+                            <hr/>
+                            (5 min)
+                            Utfordringer med klassisk modell for å håndtere felleskode:
+                            Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
+                            </p>
+                        </aside>
+                    </section>
+                </section>
 
                 <section>
-                    <img src="img/app-deps-utan-jar.png" style="background:none; border:none; box-shadow:none;">
+                    <section>
+                        <h1>Monorepo 201</h1>
+                        <h4>Google's definition</h4>
+                                <ol>
+                                    <li class="fragment fade-in">Centralization</li>
+                                    <li class="fragment fade-in">Visibility</li>
+                                    <li class="fragment fade-in">Synchronization</li>
+                                    <li class="fragment fade-in">Completeness</li>
+                                    <li class="fragment fade-in">Standarization</li>
+                                </ol>
+                                <br/><br/><br/>
+                                <p><small>Efter: 
+                        <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
+                            Advantages and Disadvantages of a Monolithic Repository - A case study at Google
+                        </a>
+                    </small></p>
+                        <aside class="notes">
+                            <h6>En av oss:</h6>
+                            <p>
+                            <br/>
+                                (7 min)
+                                Vi ønsker oss enkelheten til ett repo, men fordelene fra å ha mange:
+                                    Møt monorepo: Egenskaper (Cross cutting refactoring, søkbarhet, versjonering), og hvem passer det for?
+                            </p>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h1>Centralization</h1>
+
+                        <blockquote>The codebase is contained in a single
+                            repo encompassing multiple projects
+                        </blockquote>
+                        <pre class="fragment"><code data-trim data-noescape>
+.
+├── apps
+│   ├── app1
+│   │   ├── pom.xml
+│   │   └── src
+│   ├── app2
+│   │   ├── pom.xml
+│   │   └── src
+│   └── pom.xml
+├── libs
+│   ├── lib1
+│   │   ├── pom.xml
+│   │   └── src
+│   ├── lib2
+│   │   ├── pom.xml
+│   │   └── src
+│   └── pom.xml
+├── pom.xml
+├── README.md
+                        </code></pre>
+                        <aside class="notes">
+                            Uppenbart det som diffentierar en monorepo-orgranisation från en som ær baserad på multirepo.
+                            Istællet før att modularisera olika appar och fellesbibliotek baser på många olika repos
+                            låter man dem hanteras i repo och brukar filtrædet før att hålla dem især.
+                            (1) Centralization: The codebase is contained in a single
+                            repo encompassing multiple projects.
+
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h1>Visibility</h1>
+                        <blockquote>Code is viewable and searchable by all</blockquote>
+                        <pre class="fragment"><code data-trim data-noescape>
+$ git grep lib1 -- '**/pom.xml'
+apps/app1/pom.xml:            <groupId>no.monorepo.libs.lib1</groupId>
+apps/app1/pom.xml:            <artifactId>lib1</artifactId>
+libs/lib1/pom.xml:    <groupId>no.monorepo.libs.lib1</groupId>
+libs/lib1/pom.xml:    <artifactId>lib1</artifactId>
+libs/pom.xml:        <module>lib1</module>
+                        </code></pre>
+                        <aside class="notes">
+                            TODO: fix lt; etc. i xml ovan
 
 
-                    <aside class="notes">
-                        <h6>En av oss:</h6>
-                        <p>
-                        Ett exempel: app1 ær en applikation som avhænger på felleskode i lib1,
-                        app2 ær en applikation som avhænger på både lib1 och lib2
+                            (2) Visibility: Code is viewable and searchable by all
+                            engineers in the organization.
+                            - Her ligger en av de store gevinstene for oss. 
+                            Våre verktøy i dag er helt ubrukelig til å søke etter kode i. 
+                            Om du er så heldig å finne noe, så aner du ikke om den versjonen du ser er den som er i bruk.
+                        </aside>
+                    </section>
 
-                        (5 min)
-                        Utfordringer med klassisk modell for å håndtere felleskode:
-                        Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
-                        </p>
-                    </aside>
+                    <section>
+                        <h1>Synchronization</h1>
+
+                        <blockquote>The development process is trunkbased; engineers commit to the head of the repo</blockquote>
+                        <pre class="fragment"><code data-trim data-noescape>
+$ find . -name '*.md' | \
+  xargs sed -i 's/sparebank1/SpareBank 1/gi'
+                        </code></pre>
+
+                        <aside class="notes">
+                            (3) Synchronization: The development process is trunkbased; engineers commit to the head of the repo.
+                            - Når vi gjør endringer i felleskode i dag, så kan det ta månedsvis før alle har tatt inn endringene, og
+                            det er vanskelig for den som endrer å gå rundt i alle prosjektene som bruker koden og rette det selv.
+                            Det gjør at når noen etterslepere endelig skal oppgradere, og har spørsmål, har man for lengst glemt hva det handlet om.
+                            Med monorepo må man også endre alle konsumentene, hvis ikke bryter bygget.
+
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h1>Completenes</h1>
+
+                        <blockquote>Any project in the repo can be built
+                            only from dependencies also checked into the repo.
+                            Dependencies are unversioned; projects must use
+                            whatever version of their dependency is at the repo
+                            head.</blockquote>
+
+                        <aside class="notes">
+                            (4) Completeness: Any project in the repo can be built
+                            only from dependencies also checked into the repo.
+                            Dependencies are unversioned; projects must use
+                            whatever version of their dependency is at the repo
+                            head.
+                            - Denne er krevende å få til for en halvstor organisasjon.
+                            Vi drar skillelinjen mellom tredjepartskode og vår felleskode.
+                            De store kan ta kostnaden med å dra denne strikken enda lengre, og
+                            versjonere _alt_ i eget repo, det er for ressurskrevende å følge
+                            all tredjepartskode i detalj.
+                            Vi har valgt å sjekke inn vår BOM som holder oversikt over- og
+                            definerer hvilke tredjepartsbibliotek vi bruker.
+
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h1>Standarization</h1>
+
+                        <blockquote>
+                            A shared set of tooling governs how
+                            engineers interact with the code, including building,
+                            testing, browsing, and reviewing code.
+                        </blockquote>
+
+
+                        <aside class="notes">
+                            (5) Standardization: A shared set of tooling governs how
+                            engineers interact with the code, including building,
+                            testing, browsing, and reviewing code.
+                            - Monorepo har i praksis vært forbeholdt de store aktørene fordi tooling
+                            koster. De nødvendige verktøyene for å bruke monorepo på store prosjekter
+                            begynner nå å bli tilgjengelig. Google har open sourcet deler av sitt byggeverktøy
+                            Bazel som i disse dager blir sluppet i versjon 1.0. Bazel er et graf-basert
+                            byggverktøy. Google har også gjort tilgjengelig en plugin for IntelliJ slik at 
+                            det er relativt lett å ta i bruk. Microsoft har gjort
+                            tilgjengelig sitt GVFS som gjør det mulig å versjonskontrollere
+                            _store_ mengder kode i ett vanlig gitrepo. I tillegg har vi fått standarder som
+                            CODEOWNERS for å håndtere eierskap til kode og reviewers på pull requests. 
+                        </aside>
+                    </section>
                 </section>
-                <section>
-                    <img src="img/app-deps-med-jar.png" style="background:none; border:none; box-shadow:none;">
-
-
-                   <aside class="notes">
-                       <h6>En av oss:</h6>
-                       <p>
-                         Det vi praktiken gør med maven  ær att vi inte dependar på koden till våra avhængigheter,
-                         istællet avhængigheter vi på byggda, versionerte artefakter, av koden. Detta føljer av
-                         att varje kodebas tradionellt versionskontrollers i var sitt repo.
-
-                         Ett exempel: man ønskar laga en feature i app1 som innebær att felleskode i lib1 samtidigt
-                         måste ændras. Detta måste rent praktiskt ordnas som två PR-processer:
-                         først en PR i lib1 dær
-                         man inte ser ut felleskodeændringen træffar en ny app och som dærfør inte heller
-                         ær møjlig att testa i en testmiljø.
-                         Nær denna PR ær mergead, och artefakt ær byggd, kan man få vidare med app1
-                         dær man nu lagar en PR som bumpar versionnumret før artefakten. Denna PR kan
-                        man inte se kodeændringen i libet i. Men man kan deploy'a och testa appen.
-
-                        Som en lite kicker: ingen har tænkt på app2 i sammahangen. Denna kan nu vara knæckt!
-
-                       (5 min)
-                       Utfordringer med klassisk modell for å håndtere felleskode:
-                       Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
-                       </p>
-                   </aside>
-                </section>
-				<section>
-					<h1>Møt monorepo!</h1>
-
-					<aside class="notes">
-						<h6>En av oss:</h6>
-						<p>
-							(7 min)
-							Vi ønsker oss enkelheten til ett repo, men fordelene fra å ha mange:
-								Møt monorepo: Egenskaper (Cross cutting refactoring, søkbarhet, versjonering), og hvem passer det for?
-						</p>
-					</aside>
-				</section>
 
 				<section>
 					<section>
@@ -182,6 +361,7 @@
 						<aside class="notes">
 							<h6>En av oss:</h6>
 							<p>
+                            <hr/>
 								(15 min)
 								Vår reise fra multi til monorepo.
 								Gå kjapt gjennom toolingen og repooppsettet vi hadde.
@@ -232,6 +412,8 @@
 
                             <h6>En av oss:</h6>
                             <p>Men kan ha avhængigheter på tværs av filtrædstruktur
+
+
                             </p>
                         </aside>
                     </section>
@@ -278,7 +460,7 @@ $ apps/app1 $ mvn clean install
                     </section>
                     <section>
                         <pre><code data-trim data-noescape>
-apps/app1 $ mvn <mark>-f ../.. pl :app1 -am</mark> clean install
+apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 [INFO] Scanning for projects...
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Build Order:
@@ -412,8 +594,13 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 							som træffar hans app - app2.</p>
 						</aside>
 					</section>
+                    <section>
+                        <h1>Jenkins(file)</h1>
+                    </section>
 
-
+                    <section>
+                        <h1>Git sparse checkouts</h1>
+                    </section>
 					<section>
 						<h1>Løsninger</h1>
 						<ul>
@@ -462,6 +649,13 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					<section>
 						<h1>Rosa sky eller tornekratt?</h1>
 
+                        <ul>
+                            <li>Stort repo</li>
+                            <li>Långa byggtider</li>
+                            <li>The race to push</li>
+                            <li>Omogna verktyg</li>
+
+                       </ul>
 						<aside class="notes">
 							<h6>En av oss:</h6>
 							<p>
@@ -474,53 +668,115 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						</aside>
 					</section>
 
-					<section>
-						<ul>
-							<li>Byggetid</li>
-							<li>Merge</li>
-							<li>Repository size
-								<ul>
-									<li>Maskinlæringsmodeller</li>
-								</ul>
-							</li>
-							<li>Konsistens</li>
-							<li>Standardisering
-								<ul>
-									<li>Generator / Yeoman</li>
-								</ul>
-							</li>
-						</ul>
+                    <section>
+                        <h1>Stort repo</h1>
+                        <ul>
+                            <li>.git/</li>
+                            <li>working directory</li>
+                        </ul>
+                        <aside class="notes">
+                            Sparse checkouts hjælper med working directory
 
-						<aside class="notes">
-							<h6>En av oss:</h6>
-							<p>
-							</p>
-						</aside>
-					</section>
+                            Næmn något kring andra stora repos som googles, microsoft windowsrepot (som GVFS)
+
+                            Hantering av stora filer/binær. "Git large file support"
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h1>Långa byggtider</h1>
+                        <ul>
+                            <li>Ikke bygg allt alltid/</li>
+                            <li>Ikke bygg fra cleant alltid (vurdera alternativ till Maven)</li>
+                            <li>Bazel har stød før build cache och build workers</li>
+                        </ul>
+                        <aside class="notes">
+                            Bazel har stød før 100% pålitligta inkrementella bygg vilket troligen hjælper till med CI rætt bra.
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h1>The race to push</h1>
+                        <ul>
+                            <li>.git/</li>
+                            <li>working directory</li>
+                        </ul>
+                        <aside class="notes">
+
+                            <a href="https://docs.microsoft.com/en-us/azure/devops/learn/git/race-to-push">The race to push</a>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h1>Omogna verktyg</h1>
+                        <ul>
+                            <li>Maven ær rætt "clunky" i ett monorepo</li>
+                            <li>Bazel er i beta og har middels verktøystøtte foreløpig</li>
+                            <li>CI</li>
+                        </ul>
+                        <aside class="notes">
+                            Førsta release av Maven slæpptes 30 mars 2002. Maven firar snart 20-årsjubileum...
+                            <a href="https://maven.apache.org/docs/history.html">Maven release history</a>
+                        </aside>
+                    </section>
 				</section>
 
 				<section>
-					<h1>Effekter</h1>
+                    <section>
+                        <h1>Effekter</h1>
 
-					<aside class="notes">
-						<h6>En av oss:</h6>
-						<p>
-							(7 min)
-							Med monorepo; hva blir mer viktig, og hva blir mindre viktig?
-							Hvordan påvirker monorepo samarbeidet i organisasjonen?
-							Positive bi-effekter av monorepo.
-						</p>
-					</aside>
-
+                        <aside class="notes">
+                            <h6>En av oss:</h6>
+                            <p>
+                            (7 min)
+                            Med monorepo; hva blir mer viktig, og hva blir mindre viktig?
+                            Hvordan påvirker monorepo samarbeidet i organisasjonen?
+                            Positive bi-effekter av monorepo.
+                            </p>
+                        </aside>
+                    </section>
 					<section>
-
+                        <h1>Versionering</h1>
 						<aside class="notes">
 							<h6>En av oss:</h6>
 							<p>
+                                Tidigare versionerade vi i git _och_ maven. I monorepo versionerar vi bara i git.
+
+                                Konceptuellt lættare att førhålla sig till git (en viss SHA1 tillsvarar att
+                                allt ska vara i sync), æn att førhålla sig till dependency managemnt, semver,
+                                bom'ar, snapshots, dependency version convergence (risiko før detta utgår helt på
+                                egen felleskode i monorepot, 3e part kan fortfarande vara ett issue om dessa ikke
+                                också ligger i monorepot)
 							</p>
 						</aside>
 					</section>
+                    <section>
+                        <h1>Ændring i felleskode</h1>
+                        <h4>Bilde av glada folk med blomster?</h4>
+                        <aside class="notes">
+                            <h6>En av oss:</h6>
+                            <p>
+                                Tidigare kunde man ændra felleskode utan att att ta ansvara før att integrera
+                                ændringen i konsumenterna. Med monorepo blir man mer ansvarligt før konsumenterna,
+                               det blir också praktiskt møjligt att gøra det.
+
+                               Holistiska PR dær man ser alla ændringar och det blir praktiskt møjligt med en
+                               helhetlig code review.
+
+                               Atomiska refaktoreringar.
+
+                               T2M før felleskodeændring/sikkerhetspatching går radikalt ned. True _continous_ integration!
+
+                               Mindre behov før komplex tooling før att hålla appar uppdaterade med nya versioner
+                               av felleskode.
+                                
+                               Praktiskt møjligt att få rask feedback på konsekveserna av ændring av felleskode,
+                               sænker trøskeln før att att folk vågar refaktorer/bidra till felleskode.
+                            </p>
+                        </aside>
+                    </section>
 				</section>
+
 
 				<section>
 					<h1>Takk for oss</h1>
