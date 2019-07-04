@@ -36,11 +36,11 @@
 				<section>
 					<h1>Agenda</h1>
 					<ul>
-                        <li>Monorepo 101</h1>
+                        <li>Monorepo 101</li>
 						<li>Dilemmaet med felleskode</li>
 						<li>Møt Monorepo</li>
 						<li>Vår reise fra multi- til monorepo</li>
-						<li>Rosa sky eller tornekratt?</li>
+						<li>Utfordringar</li>
 						<li>Effekter</li>
 					</ul>
 					<aside class="notes">
@@ -55,10 +55,10 @@
                     <h1>Monorepo 101</h1>
            
                     <ul>
-                        <li>øverblick</li>
+                        <li>Oversikt</li>
                         <li>vedlikholdbarhet</li>
                         <li>versionering</li>
-                        <li>tillgång på mogna verktyg</li>
+                        <li>Forenkling</li>
                     </ul>
 
                     <aside class="notes">
@@ -66,22 +66,17 @@
 
                         All kode kan innebæra alla appar, all felleskode, all frontendkode, nativemobilapp kode, alla programmeringsspråk etc
 
-                        Detta ær ett radikalt annorlunda sætt att jobba med kode æn multirepo och ger før- och nackdelar 
-                        på olika områden som:
-                        <ul>
-                            <li>øverblick</li>
-                            <li>vedlikholdbarhet</li>
-                            <li>versionering</li>
-                            <li>tillgång på mogna verktyg</li>
-                        </ul>
                         Koden ær modularisering/avdelad i ett filtræd.
+                        
                         Trunkbaserad utveckling...
-
+                        
+                        Detta ær ett radikalt annorlunda sætt att jobba med kode æn multirepo och ger før- och nackdelar 
+                        på olika områden,
 
                         Maven hanterar moduler med GAV-koordinater (groupId, artifcatId, version) i ett monorepo trengs inte
                         alla dessa koncepterna utan man kan bruka filsti istf. groupId/artifactId och git istf version.
                         
-                        Monorepo != Monolit. 
+                        Monorepo != Monolit. Vi ønskar sjælvstændig deploy av apparna i monorepot vår.
                     </aside>
                 </section>
 
@@ -111,7 +106,7 @@
 
                         <aside class="notes">
                             <h6>En av oss:</h6>
-                            <p>
+
                             Har du någon gång får en PR att review'a med en sådan hær diff?
                             En diff som bara innehåller bumpning'ar av versionsnummer før
                             felleskodeavhængigheter som appen din trenger?<br/>
@@ -135,7 +130,7 @@
                             (5 min)
                             Utfordringer med klassisk modell for å håndtere felleskode:
                             Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
-                            </p>
+
                         </aside>
                     </section>
 
@@ -198,13 +193,13 @@
                     <section>
                         <h1>Monorepo 201</h1>
                         <h4>Google's definition</h4>
-                                <ol>
+                                <ul>
                                     <li class="fragment fade-in">Centralization</li>
-                                    <li class="fragment fade-in">Visibility</li>
                                     <li class="fragment fade-in">Synchronization</li>
+                                    <li class="fragment fade-in">Visibility</li>
                                     <li class="fragment fade-in">Completeness</li>
-                                    <li class="fragment fade-in">Standarization</li>
-                                </ol>
+                                    <li class="fragment fade-in">Standardization</li>
+                                </ul>
                                 <br/><br/><br/>
                                 <p><small>Efter: 
                         <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
@@ -260,29 +255,6 @@
                     </section>
 
                     <section>
-                        <h1>Visibility</h1>
-                        <blockquote>Code is viewable and searchable by all</blockquote>
-                        <pre class="fragment"><code data-trim data-noescape>
-$ git grep lib1 -- '**/pom.xml'
-apps/app1/pom.xml:            <groupId>no.monorepo.libs.lib1</groupId>
-apps/app1/pom.xml:            <artifactId>lib1</artifactId>
-libs/lib1/pom.xml:    <groupId>no.monorepo.libs.lib1</groupId>
-libs/lib1/pom.xml:    <artifactId>lib1</artifactId>
-libs/pom.xml:        <module>lib1</module>
-                        </code></pre>
-                        <aside class="notes">
-                            TODO: fix lt; etc. i xml ovan
-
-
-                            (2) Visibility: Code is viewable and searchable by all
-                            engineers in the organization.
-                            - Her ligger en av de store gevinstene for oss. 
-                            Våre verktøy i dag er helt ubrukelig til å søke etter kode i. 
-                            Om du er så heldig å finne noe, så aner du ikke om den versjonen du ser er den som er i bruk.
-                        </aside>
-                    </section>
-
-                    <section>
                         <h1>Synchronization</h1>
 
                         <blockquote>The development process is trunkbased; engineers commit to the head of the repo</blockquote>
@@ -298,6 +270,29 @@ $ find . -name '*.md' | \
                             Det gjør at når noen etterslepere endelig skal oppgradere, og har spørsmål, har man for lengst glemt hva det handlet om.
                             Med monorepo må man også endre alle konsumentene, hvis ikke bryter bygget.
 
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h1>Visibility</h1>
+                        <blockquote>Code is viewable and searchable by all</blockquote>
+                        <pre class="fragment"><code data-trim data-noescape>
+$ git grep lib1 -- '**/pom.xml'
+apps/app1/pom.xml:            &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
+apps/app1/pom.xml:            &lt;artifactId&gt;lib1&lt;/artifactId&gt;
+libs/lib1/pom.xml:    &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
+libs/lib1/pom.xml:    &lt;artifactId&gt;lib1&lt;/artifactId&gt;
+libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
+                        </code></pre>
+                        <aside class="notes">
+                            TODO: fix lt; etc. i xml ovan
+
+
+                            (2) Visibility: Code is viewable and searchable by all
+                            engineers in the organization.
+                            - Her ligger en av de store gevinstene for oss. 
+                            Våre verktøy i dag er helt ubrukelig til å søke etter kode i. 
+                            Om du er så heldig å finne noe, så aner du ikke om den versjonen du ser er den som er i bruk.
                         </aside>
                     </section>
 
@@ -328,7 +323,7 @@ $ find . -name '*.md' | \
                     </section>
 
                     <section>
-                        <h1>Standarization</h1>
+                        <h1>Standardization</h1>
 
                         <blockquote>
                             A shared set of tooling governs how
@@ -448,7 +443,7 @@ $ apps/app1 $ mvn clean install
 [INFO] Scanning for projects...
 [INFO]
 [INFO] --------------------------< no.monorepo:app1 >--------------------------
-[INFO] Building app1 1.0-SNAPSHOT
+[INFO] Building app1 1.0.0-SNAPSHOT
 [INFO] --------------------------------[ jar ]---------------------------------
 
                         </code></pre>
@@ -494,7 +489,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 						</ul>
 						<aside class="notes">
 							<ul>
-								<li>Bruk av project.verision  før att referer till monorepointerna dependencies</li>
+								<li>Bruk av project.version før att referer till monorepointerna dependencies</li>
 								<li>ci-profil som sætter revision-property'n från miljøvariabel: fungerar næstan</li>
 								<li>https://issues.apache.org/jira/browse/MNG-6412</li>
 							</ul>
@@ -510,7 +505,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 &lt;project&gt;
   &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
   &lt;artifactId&gt;lib1&lt;/artifactId&gt;
-  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
 					</code></pre>
                     </section>
                     <section>
@@ -611,35 +606,29 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					</section>
 
 					<section>
-						<ul>
-							<li>CI-vennlig + flatten</li>
-							<li>Jenkinsfile / git diff</li>
-							<li>Git sparse checkout</li>
-							<li>Git merge strategies</li>
-							<li>Bazel?
-								<ul>
-									<li>JVM-external</li>
-									<li>Maven-dependencies</li>
-									<li>IntelliJ-støtte</li>
-								</ul>
-							</li>
-							<li>Codeowners-plugin til BitBucket</li>
-							<li>Lage maven vs bazel repo some "giveaways" + QR</li>
-							<li>Python i Monorepo?</li>
-							<li>Rydde i repo</li>
-							<li>Archeunit.org - medisin mot monolitt i monorepo
-								<ul>
-									<li>no.sb1.apps.app_a</li>
-									<li>no.sb1.libs</li>
-									<li>Hva med Python og Go?</li>
-								</ul>
-							</li>
-
-						</ul>
-
+                        Restpost
 						<aside class="notes">
 							<h6>En av oss:</h6>
 							<p>
+                            <ul>
+                                <li>Bazel?
+                                <ul>
+                                    <li>JVM-external</li>
+                                    <li>Maven-dependencies</li>
+                                    <li>IntelliJ-støtte</li>
+                                </ul>
+                                </li>
+                                <li>Python i Monorepo?</li>
+                                <li>Rydde i repo</li>
+                                <li>Archeunit.org - medisin mot monolitt i monorepo
+                                <ul>
+                                    <li>no.sb1.apps.app_a</li>
+                                    <li>no.sb1.libs</li>
+                                    <li>Hva med Python og Go?</li>
+                                </ul>
+                                </li>
+
+                            </ul>
 							</p>
 						</aside>
 					</section>
@@ -672,14 +661,15 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <h1>Stort repo</h1>
                         <ul>
                             <li>.git/</li>
-                            <li>working directory</li>
+                            <li>work tree</li>
                         </ul>
+
                         <aside class="notes">
-                            Sparse checkouts hjælper med working directory
+                            Sparse checkouts hjælper mot stora working trees.
 
                             Næmn något kring andra stora repos som googles, microsoft windowsrepot (som GVFS)
 
-                            Hantering av stora filer/binær. "Git large file support"
+                            Hantering av stora filer/binærer: "Git large file support"
                         </aside>
                     </section>
 
@@ -690,6 +680,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             <li>Ikke bygg fra cleant alltid (vurdera alternativ till Maven)</li>
                             <li>Bazel har stød før build cache och build workers</li>
                         </ul>
+
                         <aside class="notes">
                             Bazel har stød før 100% pålitligta inkrementella bygg vilket troligen hjælper till med CI rætt bra.
                         </aside>
@@ -697,26 +688,46 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                     <section>
                         <h1>The race to push</h1>
-                        <ul>
-                            <li>.git/</li>
-                            <li>working directory</li>
-                        </ul>
-                        <aside class="notes">
 
+                        <aside class="notes">
                             <a href="https://docs.microsoft.com/en-us/azure/devops/learn/git/race-to-push">The race to push</a>
                         </aside>
                     </section>
 
                     <section>
-                        <h1>Omogna verktyg</h1>
+                        <h1>Øvermogna verktyg</h1>
                         <ul>
-                            <li>Maven ær rætt "clunky" i ett monorepo</li>
-                            <li>Bazel er i beta og har middels verktøystøtte foreløpig</li>
-                            <li>CI</li>
+                            <li>Maven ær javacentrisk och generellt "clunky" i ett monorepo</li>
                         </ul>
                         <aside class="notes">
+                            <p>
                             Førsta release av Maven slæpptes 30 mars 2002. Maven firar snart 20-årsjubileum...
-                            <a href="https://maven.apache.org/docs/history.html">Maven release history</a>
+                            <a href="https://maven.apache.org/docs/history.html">Maven release history</a><br/>
+
+                            Maven clunkyness i monorepo-sammanhang:
+                            </p>
+                            <ul>
+                                <li>Ikke polyglot - javacentrisk</li>
+                                <li>Sparse checkout måste hackas, mavens repomodell byggs upp av pom.xml filer
+                                    - ikke vad som finns på disk</li>
+                                <li>Maven trenger explicit referens till roten av repo't, Bazel finner den fint sjælv</li>
+                                <li>Manglar inkrementella bygg</li> 
+                                <li>Maven brukar groupId och version-begrepp før moduler som i ett monorepo hellre avledsi
+                                    från filkatalogstrukt resp. git</li>
+                            </ul>
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Omogna verktyg</h1>
+                        <ul>
+                            <li>Bazel er i beta og har middels verktøystøtte foreløpig</li>
+                            <li>CI - saknar færdiga løsningar før att bygga delmængder av monorepos</li>
+                            <li>Bitbucket/Github saknar i grunden støra monorepos - CODEOWNERS ær dock en band aid</li>
+                        </ul>
+                        <aside class="notes">
+                            <p>
+                            TODO
+                            </p>
                         </aside>
                     </section>
 				</section>
@@ -774,6 +785,10 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                                sænker trøskeln før att att folk vågar refaktorer/bidra till felleskode.
                             </p>
                         </aside>
+                    </section>
+                    <section>
+                        <h2>Du får det till med Maven, Jenkins och Git!</h2>
+                        <h2>...men på sikt måste Maven gå!</h2>
                     </section>
 				</section>
 
