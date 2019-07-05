@@ -118,7 +118,7 @@
                             En diff som bara innehåller bumpning'ar av versionsnummer før
                             felleskodeavhængigheter som appen din trenger?<br/>
 
-                            Instick: versionsnummer i diffen: varfør står det dev och inte master dær? </br>
+                            Instick: versionsnummer i diffen: varfør står det dev och inte master dær?<br/>
 
                             Hur kændes det? Tog du dig bryet att eftergå exakt vilka kodeændringar
                             dessa, på ytan, så oskyldiga ændringar av versionnummer inførde?<br/>
@@ -152,7 +152,6 @@
                             Ett exempel: app1 ær en applikation som avhænger på felleskode i lib1,
                             app2 ær en applikation som avhænger på både lib1 och lib2
 
-                            <hr/>
                             (5 min)
                             Utfordringer med klassisk modell for å håndtere felleskode:
                             Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
@@ -168,6 +167,7 @@
                         <aside class="notes">
                             <h6>En av oss:</h6>
                             <p>
+                            (5 min)
                             Det vi praktiken gør med maven ær att vi inte depend:ar på koden till våra avhængigheter,
                             direkte istællet avhængiger vi på byggda, versionerte artefakter, av koden. Detta føljer av
                             att varje kodebas tradionellt versionskontrollers i var sitt repo.
@@ -187,10 +187,6 @@
                             </ul>
                             <p>
                             Som en lite kicker: ingen har tænkt på app2 i detta sammahanget. Denna kan nu vara knæckt!
-                            <hr/>
-                            (5 min)
-                            Utfordringer med klassisk modell for å håndtere felleskode:
-                            Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
                             </p>
                         </aside>
                     </section>
@@ -363,7 +359,6 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 						<aside class="notes">
 							<h6>En av oss:</h6>
 							<p>
-                            <hr/>
 								(15 min)
 								Vår reise fra multi til monorepo.
 								Gå kjapt gjennom toolingen og repooppsettet vi hadde.
@@ -398,7 +393,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                     </section>
 
                     <section>
-                        <img src="img/maven-moduler.png" style="background:none; border:none; box-shadow:none; ">
+                        <img src="img/maven-moduler.png" alt="oversikt over maven moduler i prosjektet" style="background:none; border:none; box-shadow:none; ">
                         <aside class="notes">
 
                             <h6>En av oss:</h6>
@@ -409,7 +404,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                     </section>
 
                     <section>
-                        <img src="img/maven-moduler-deps.png" style="background:none; border:none; box-shadow:none; ">
+                        <img src="img/maven-moduler-deps.png" alt="oversikt over maven moduler i prosjektet med noen avhengigheter" style="background:none; border:none; box-shadow:none; ">
                         <aside class="notes">
 
                             <h6>En av oss:</h6>
@@ -575,7 +570,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 /apps/app2/   @agjendem
 						</code></pre>
 
-						<img src="img/codereview-in-github.png" class="fragment fade-in"/>
+						<img src="img/codereview-in-github.png" alt="eksempel på hvordan github viser codereviewers via codeowners-fil" class="fragment fade-in"/>
 
 						<aside class="notes">
 							<p>En av de stor førdelarna med multirepo ær att det ær lætt før team att vara autonoma och sætta
@@ -616,27 +611,24 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         Restpost
 						<aside class="notes">
 							<h6>En av oss:</h6>
-							<p>
                             <ul>
                                 <li>Bazel?
-                                <ul>
-                                    <li>JVM-external</li>
-                                    <li>Maven-dependencies</li>
-                                    <li>IntelliJ-støtte</li>
-                                </ul>
+                                    <ul>
+                                        <li>JVM-external</li>
+                                        <li>Maven-dependencies</li>
+                                        <li>IntelliJ-støtte</li>
+                                    </ul>
                                 </li>
                                 <li>Python i Monorepo?</li>
                                 <li>Rydde i repo</li>
                                 <li>Archeunit.org - medisin mot monolitt i monorepo
-                                <ul>
-                                    <li>no.sb1.apps.app_a</li>
-                                    <li>no.sb1.libs</li>
-                                    <li>Hva med Python og Go?</li>
-                                </ul>
+                                    <ul>
+                                        <li>no.sb1.apps.app_a</li>
+                                        <li>no.sb1.libs</li>
+                                        <li>Hva med Python og Go?</li>
+                                    </ul>
                                 </li>
-
                             </ul>
-							</p>
 						</aside>
 					</section>
 				</section>
@@ -808,7 +800,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
 					<p>
 						<a href="https://github.com/SpareBank1/monorepo-sample">github.com/SpareBank1/monorepo-sample</a><br/>
-						<img width="300" height="300" src="img/repo-url-qr.png" />
+						<img style="width:300px;height:300px" alt="QR-kode til https://github.com/SpareBank1/monorepo-sample" src="img/repo-url-qr.png" />
 					</p>
 
 					<h4>kortreistkode.no</h4>
