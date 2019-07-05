@@ -28,7 +28,7 @@
                 <section data-background="img/old-dog.jpg" data-background-size="contain">
                     <h2 style="text-shadow: 2px 2px 2px #C7C7C7;">Monorepo med Git og Maven</h2>
                     <br/><br/>
-                    <h4 style="font-style: italic;color: white;text-shadow: 2px 2px 2px #282828;">hvordan læra gamle hunder nye triks</h4>
+                    <h4 style="font-style: italic;color: white;text-shadow: 2px 2px 2px #282828;">hvordan lære gamle hunder nye triks</h4>
                     <br/><br/>
                     <br/><br/>
                     <br/><br/>
@@ -64,7 +64,7 @@
                     <ul>
                         <li>Oversikt</li>
                         <li>Vedlikholdbarhet</li>
-                        <li>Versionering</li>
+                        <li>Versjonering</li>
                         <li>Forenkling</li>
                     </ul>
 
@@ -92,7 +92,7 @@
                         <h1>Felleskode: a mixed blessing</h1>
                         <ul>
                             <li>Gevinst</li>
-                            <li>Koppling</li>
+                            <li>Kobling</li>
                         </ul>
                         <aside class="notes">
                             (3 min)
@@ -195,7 +195,7 @@
                 <section>
                     <section>
                         <h1>Monorepo 201</h1>
-                        <h4>Google's definition</h4>
+                        <h4>Google's definisjon</h4>
                                 <ul>
                                     <li class="fragment fade-in">Centralization</li>
                                     <li class="fragment fade-in">Synchronization</li>
@@ -204,7 +204,7 @@
                                     <li class="fragment fade-in">Standardization</li>
                                 </ul>
                                 <br/><br/><br/>
-                                <p><small>Efter: 
+                                <p><small>Kilde:
                         <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
                             Advantages and Disadvantages of a Monolithic Repository - A case study at Google
                         </a>
@@ -223,9 +223,7 @@
                     <section>
                         <h1>Centralization</h1>
 
-                        <blockquote>The codebase is contained in a single
-                            repo encompassing multiple projects
-                        </blockquote>
+                        <blockquote>The codebase is contained in a single repo encompassing multiple projects</blockquote>
                         <pre class="fragment"><code data-trim data-noescape>
 .
 ├── apps
@@ -253,7 +251,6 @@
                             låter man dem hanteras i repo och brukar filtrædet før att hålla dem især.
                             (1) Centralization: The codebase is contained in a single
                             repo encompassing multiple projects.
-
                         </aside>
                     </section>
 
@@ -290,7 +287,6 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         <aside class="notes">
                             TODO: fix lt; etc. i xml ovan
 
-
                             (2) Visibility: Code is viewable and searchable by all
                             engineers in the organization.
                             - Her ligger en av de store gevinstene for oss. 
@@ -302,11 +298,11 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                     <section>
                         <h1>Completenes</h1>
 
-                        <blockquote>Any project in the repo can be built
-                            only from dependencies also checked into the repo.
-                            Dependencies are unversioned; projects must use
-                            whatever version of their dependency is at the repo
-                            head.</blockquote>
+                        <blockquote>
+                            Any project in the repo can be built only from dependencies also checked into the repo.
+                            Dependencies are unversioned; projects must use whatever version of their dependency is at
+                            the repo head.
+                        </blockquote>
 
                         <aside class="notes">
                             (4) Completeness: Any project in the repo can be built
@@ -329,8 +325,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         <h1>Standardization</h1>
 
                         <blockquote>
-                            A shared set of tooling governs how
-                            engineers interact with the code, including building,
+                            A shared set of tooling governs how engineers interact with the code, including building,
                             testing, browsing, and reviewing code.
                         </blockquote>
 
@@ -483,11 +478,11 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 						<h1>partial-build-plugin</h1>
 					</section>
 					<section>
-						<h1>Mavenutfodringar</h1>
+						<h1>Mavenutfordringer</h1>
 						<ul>
-							<li>version - bør hærledas från versionskontroll instællet</li>
-							<li>groupId - bør hærledes från filtrædstruktur istællet</li>
-							<li>Trenger ny version av Maven: minnelæckagefixar och CI-friendly versions</li>
+							<li>version - bør utledes fra versjonskontroll</li>
+							<li>groupId - bør utledes fra katalogstruktur</li>
+							<li>Trenger nyere version av Maven for å unngå minnelekasje og få CI-vennlig "revisions"</li>
 						</ul>
 						<aside class="notes">
 							<ul>
@@ -502,7 +497,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 						</aside>
 					</section>
 					<section>
-                        <h1>Versionering i Maven</h1>
+                        <h1>Versjonering i Maven</h1>
                         <pre><code data-trim data-noescape>
 &lt;project&gt;
   &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
@@ -511,7 +506,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 					</code></pre>
                     </section>
                     <section>
-                        <h1>CI-friendly versioning</h1>
+                        <h1>CI-vennlig versjonering</h1>
                         <pre><code data-trim data-noescape>
 &lt;project&gt;
   &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
@@ -532,7 +527,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						</aside>
                     </section>
 					<section>
-						<h1>Flata pom-filer</h1>
+						<h1>Flate pom-filer</h1>
 						<aside class="notes">
 							<p>Før att undgå att pom-filer med ikke-resolverade $revision inslag blir installerade bør
 							man bruka Maven flatten-plugin'en. Denna resolva'r revsion och installerar en flat pom.xml fil
@@ -601,7 +596,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					<section>
 						<h1>Løsninger</h1>
 						<ul>
-							<li>Git VFS / large file storage</li>
+							<li>GVFS / large file storage</li>
 							<li>Bazel?</li>
 							<li>Archunit?</li>
 						</ul>
@@ -639,9 +634,9 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                         <ul>
                             <li>Stort repo</li>
-                            <li>Långa byggtider</li>
+                            <li>Lange byggtider</li>
                             <li>The race to push</li>
-                            <li>Omogna verktyg</li>
+                            <li>Verktøy</li>
 
                        </ul>
 						<aside class="notes">
@@ -673,11 +668,11 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     </section>
 
                     <section>
-                        <h1>Långa byggtider</h1>
+                        <h1>Lange byggtider</h1>
                         <ul>
-                            <li>Ikke bygg allt alltid/</li>
-                            <li>Ikke bygg fra cleant alltid (vurdera alternativ till Maven)</li>
-                            <li>Bazel har stød før build cache och build workers</li>
+                            <li>Ikke bygg alt alltid</li>
+                            <li>Ikke bygg fra "clean" alltid <span class="fragment fade-in">(vurder alternativ til Maven)</span></li>
+                            <li class="fragment fade-in">Bazel har støtte for <i>build cache</i> og <i>build workers</i></li>
                         </ul>
 
                         <aside class="notes">
@@ -694,9 +689,9 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     </section>
 
                     <section>
-                        <h1>Øvermogna verktyg</h1>
+                        <h1>Overmodne verktøy</h1>
                         <ul>
-                            <li>Maven ær javacentrisk och generellt "clunky" i ett monorepo</li>
+                            <li>Maven er javasentrisk og "clunky" i et monorepo</li>
                         </ul>
                         <aside class="notes">
                             <p>
@@ -720,11 +715,11 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </aside>
                     </section>
                     <section>
-                        <h1>Omogna verktyg</h1>
+                        <h1>Umodne verktøy</h1>
                         <ul>
-                            <li>Bazel er i beta og har middels verktøystøtte foreløpig</li>
-                            <li>CI - saknar færdiga løsningar før att bygga delmængder av monorepos</li>
-                            <li>Bitbucket/Github saknar i grunden støra monorepos - CODEOWNERS ær dock en band aid</li>
+                            <li>Bazel er i beta og har middels verktøystøtte</li>
+                            <li>CI - mangler ferdige løsninger for å bygge deler av monorepo</li>
+                            <li>Bitbucket/Github mangler ordentlig støtte for store monorepo - CODEOWNERS er et plaster</li>
                         </ul>
                         <aside class="notes">
                             <p>
@@ -749,7 +744,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </aside>
                     </section>
 					<section>
-                        <h1>Versionering</h1>
+                        <h1>Versjonering</h1>
 						<aside class="notes">
 							<h6>En av oss:</h6>
 							<p>
@@ -764,8 +759,8 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						</aside>
 					</section>
                     <section>
-                        <h1>Ændring i felleskode</h1>
-                        <h4>Bilde av glada folk med blomster?</h4>
+                        <h1>Endring i felleskode</h1>
+                        <h4>Bilde av overlykkelige folk som kaster blomster rundt om?</h4>
                         <aside class="notes">
                             <h6>En av oss:</h6>
                             <p>
@@ -789,14 +784,14 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </aside>
                     </section>
                     <section>
-                        <h2>Du får det till med Maven, Jenkins och Git!</h2>
-                        <h2>...men på sikt måste Maven gå!</h2>
+                        <h2>Du får det till med Maven, Jenkins og Git!</h2>
+                        <h2 class="fragment fade-in">...men på sikt ryker nok Maven!</h2>
                     </section>
 				</section>
 
 
 				<section>
-					<h1>Takk for oss</h1>
+					<h1>Takk for oss!</h1>
 
 					<p>
 						<a href="https://github.com/SpareBank1/monorepo-sample">github.com/SpareBank1/monorepo-sample</a><br/>
