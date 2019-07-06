@@ -403,9 +403,8 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         <aside class="notes">
 
                             <h6>En av oss:</h6>
-                            <p>Men kan ha avhængigheter på tværs av filtrædstruktur
-
-
+                            <p>
+                            Men kan ha avhængigheter på tværs av filtrædstruktur
                             </p>
                         </aside>
                     </section>
@@ -428,7 +427,8 @@ $ mvn clean install
                         <aside class="notes">
 
                             <h6>En av oss:</h6>
-                            <p>Det ær avhængigheterna mellan modulerna som bestæmmer i vilken ordning
+                            <p>
+                            Det ær avhængigheterna mellan modulerna som bestæmmer i vilken ordning
                                modulerna byggs.
                             </p>
                         </aside>
@@ -490,7 +490,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 								<li>ci-profil som sætter revision-property'n från miljøvariabel: fungerar næstan</li>
 								<li>https://issues.apache.org/jira/browse/MNG-6412</li>
 							</ul>
-							<p>Bazel har inget versionsbegrepp, bygger filstrukturen på disk som versionshanteras av VCS</p>
+							<p>Bazel har inget versionsbegrepp, brukare utcheckade filstrukturen på disk som versionshanteras av VCS</p>
 							<p>Bazel har inget grupperingsbegrepp à la maven groupId,
 								gruppering på disk ær identiskt med katalogstrukturken</p>
 
@@ -521,17 +521,20 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						</code></pre>
 						<aside class="notes">
-							<p>Med <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a>
-								trenger man inte mutera pom-filer med mvn versions:set
+							<p>
+                            Med <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a>
+							trenger man inte mutera pom-filer med mvn versions:set
 							</p>
 						</aside>
                     </section>
 					<section>
 						<h1>Flate pom-filer</h1>
 						<aside class="notes">
-							<p>Før att undgå att pom-filer med ikke-resolverade $revision inslag blir installerade bør
-							man bruka Maven flatten-plugin'en. Denna resolva'r revsion och installerar en flat pom.xml fil
-							som man kan bruka vidare utan problem</p>
+							<p>
+                            Før att undgå att pom-filer med ikke-resolverade $revision inslag blir installerade bør
+							man bruka Maven flatten-plugin'en. Denna resolva'r revision och installerar en flat pom.xml fil
+							som man kan bruka i framtida bygg utan problem.
+                            </p>
 						</aside>
 					</section>
 					<section>
@@ -568,22 +571,28 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						<img src="img/codereview-in-github.png" alt="eksempel på hvordan github viser codereviewers via codeowners-fil" class="fragment fade-in"/>
 
 						<aside class="notes">
-							<p>En av de stor førdelarna med multirepo ær att det ær lætt før team att vara autonoma och sætta
-							upp egna rutiner kring tilgång till kællkod och rutiner kring peer review, Pull Requests på egen hand.
-							I ett monorepo måste detta centraliseras i større utstræckning på tværs av team. Ett vanligt
-							uppsætt ær att øppna før read før alla, men kræva godkænd pull request før att få lov att ta ned kode på trunk.</p>
+							<p>En av de stor førdelarna med multirepo ær att det ær lætt før team att vara autonoma och på egen hand sætta
+							upp och administrera rutiner kring tilgång till kællkod och rutiner kring peer review.
+                            I ett monorepo som delas mellan teams måste detta centraliseras på tværs av team i større utstræckning.
+                            Ett vanligt uppsætt ær att øppna før read før alla, men kræva godkænd pull request før att få lov att ta
+                            ned kode på trunk.
+                            </p>
 
 							<p>
-							En CODEOWNERS-fil i monorepot gør det møjligt att ange vilka team/teammedlemmar som æger koden under olika filstier.
-							Detta kan brukas till f.eks. automatiskt lægga in ægare som reviewers på Pull requester som træffar
-								deras respektive kode.</p>
+							En CODEOWNERS-fil i monorepot definierar vilka team/teammedlemmar som æger koden under olika filstier.
+							Detta kan brukas till f.eks. automatiskt lægga in ægare som reviewers på pull request:er som træffar
+                            deras respektive kode.
+                            </p>
 
-							<p>CODEOWNERS-filformatet ær <a href="https://help.github.com/articles/about-codeowners/">standardiserat</a>
+							<p>
+                            CODEOWNERS-filformatet ær <a href="https://help.github.com/articles/about-codeowners/">standardiserat</a>
 							och støds av Github (før tillfællet bara i betalt/PRO-utførande), Gitlab och Bitbucket Server (med plugin).
 							</p>
 
-							<p>I detta exemplet blir Anders automatiskt lagt till som reviewer (med speciell-nøkkehålikon) på alla PR:s
-							som træffar hans app - app2.</p>
+							<p>
+                            I detta exemplet blir Anders automatiskt lagt till som reviewer (med speciell-nøkkehålikon) på alla PR:s
+							som træffar hans app - app2.
+                            </p>
 						</aside>
 					</section>
                     <section>
@@ -593,20 +602,18 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     <section>
                         <h1>Git sparse checkouts</h1>
                     </section>
-					<section>
-						<h1>Løsninger</h1>
-						<ul>
-							<li>GVFS / large file storage</li>
-							<li>Bazel?</li>
-							<li>Archunit?</li>
-						</ul>
-					</section>
 
 					<section>
                         Restpost
 						<aside class="notes">
 							<h6>En av oss:</h6>
+                            <h1>Løsninger</h1>
                             <ul>
+                                <li>GVFS / large file storage</li>
+                                <li>Bazel?</li>
+                                <li>Archunit?</li>
+                            </ul>
+	                            <ul>
                                 <li>Bazel?
                                     <ul>
                                         <li>JVM-external</li>
@@ -663,6 +670,9 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                             Næmn något kring andra stora repos som googles, microsoft windowsrepot (som GVFS)
 
+                            SpareBank 1:s nettbank har en kodbas på cirka X linjer i vår nettbank. X ær dock ett osækert estimat, det ær
+                            svårt att få øverblik eftersom vi fortfarande har mycket multirepo-kode. I ett monorepo ær det triviellt
+                            att ta fram siffran.
                             Hantering av stora filer/binærer: "Git large file support"
                         </aside>
                     </section>
@@ -695,12 +705,10 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </ul>
                         <aside class="notes">
                             <p>
-                            Førsta release av Maven slæpptes 30 mars 2002. 
-                            Maven ær ældre æn git, FaceBook och java generics.
-                            
-                            Maven firar snart 20-årsjubileum...
-                            <a href="https://maven.apache.org/docs/history.html">Maven release history</a><br/>
-
+                            Førsta release av <a href="https://maven.apache.org/docs/history.html">Maven slæpptes 30 mars 2002</a>.
+                            Maven ær alltså ældre æn git, FaceBook och java generics och firar snart 20-årsjubileum...
+                            </p>
+                            <p>
                             Maven clunkyness i monorepo-sammanhang:
                             </p>
                             <ul>
@@ -709,7 +717,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                                     - ikke vad som finns på disk</li>
                                 <li>Maven trenger explicit referens till roten av repo't, Bazel finner den fint sjælv</li>
                                 <li>Manglar inkrementella bygg</li> 
-                                <li>Maven brukar groupId och version-begrepp før moduler som i ett monorepo hellre avledsi
+                                <li>Maven brukar groupId och version-begrepp før moduler som i ett monorepo hellre avleds
                                     från filkatalogstrukt resp. git</li>
                             </ul>
                         </aside>
@@ -751,10 +759,12 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                                 Tidigare versionerade vi i git _och_ maven. I monorepo versionerar vi bara i git.
 
                                 Konceptuellt lættare att førhålla sig till git (en viss SHA1 tillsvarar att
-                                allt ska vara i sync), æn att førhålla sig till dependency managemnt, semver,
+                                allt ska vara i sync), æn att førhålla sig till &lt;dependencyManagement&gt;,
                                 bom'ar, snapshots, dependency version convergence (risiko før detta utgår helt på
                                 egen felleskode i monorepot, 3e part kan fortfarande vara ett issue om dessa ikke
-                                också ligger i monorepot)
+                                också ligger i monorepot), maven sin release-plugin, NPM:s semver, pinning, lock-filer,
+                                etc. etc. allt annat som folk uppfunnit genom historiens før før att
+                                førsøka gøra versionering av felleskode i artefaktregistries levlig.
 							</p>
 						</aside>
 					</section>
