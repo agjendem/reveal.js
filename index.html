@@ -61,50 +61,85 @@
                 <section>
                     <h1>Monorepo 101</h1>
 
+                    <!--
                     <ul>
                         <li>Oversikt</li>
                         <li>Vedlikholdbarhet</li>
                         <li>Versjonering</li>
                         <li>Forenkling</li>
                     </ul>
+                    -->
 
                     <aside class="notes">
-                        Monorepo ær ett kællkodesrepository dær man versioners ALL kode i en organisation.
+                        Monorepo ær ett kællkodesrepository dær man versionerar <strong>all</strong> kode i en organisation.
 
-                        All kode kan innebæra alla appar, all felleskode, all frontendkode, nativemobilapp kode, alla programmeringsspråk etc
+                        All kode innebær både:
+                        <ul>
+                            <li>appar</li>
+                            <li>fellesfunktionalitet</li>
+                        </ul>
+                        vilket kan røra sig om:
+                        <ul>
+                            <li>backendkode</li>
+                            <li>frontendkode</li>
+                            <li>mobilappkode</li>
+                        <ul>
+                        som ær skriven i:
+                        </ul>
+                            <li>java</li>
+                            <li>javascript</li>
+                            <li>eller andra programmeringsspråk</li>
+                        </ul>
 
-                        Koden ær modularisering/avdelad i ett filtræd.
+                        I ett ortodox monorepo tar man ett steg længre. Det anses det att man ska kunna bygga
+                        från bara de avhængigheter som ær incheckade i repo't. Vilket innebær att:
+                        <ul>
+                            <li>tredjeparts felleskode (maven central, npm-paket, etc.)</li>
+                            <li>utvecklingsverktyg som JDK'er, kompilatorer, etc.</li>
+                        </ul>
+                        tillkommer - riktigt så långt har vi SpareBank1 inte kommit (ænnu).
+
+                        Koden i ett monorepo ær modularisering/avdelad i ett hierarkiskt filtræd.
 
                         Trunkbaserad utveckling...
+
+                        N.B.: Monorepo != Monolit. Alla monoliter ær monorepo'n, men alla monorepo'n ær <strong>inte</strong>
+                        monolitiska. Vi ønskar sjælvstændig deploy av apparna i monorepot vår.
+
                         
                         Detta ær ett radikalt annorlunda sætt att jobba med kode æn multirepo och ger før- och nackdelar 
-                        på olika områden,
-
-                        Maven hanterar moduler med GAV-koordinater (groupId, artifcatId, version) i ett monorepo trengs inte
-                        alla dessa koncepterna utan man kan bruka filsti istf. groupId/artifactId och git istf version.
-                        
-                        Monorepo != Monolit. Vi ønskar sjælvstændig deploy av apparna i monorepot vår.
+                        på en rad olika områden.
                     </aside>
                 </section>
 
                 <section>
                     <section>
                         <h1>Felleskode: a mixed blessing</h1>
+                        <!--
                         <ul>
                             <li>Gevinst</li>
                             <li>Kobling</li>
                         </ul>
-                        <aside class="notes">
-                            (3 min)
-                            Har du inte felleskode så trenger du inte monorepo!
+                        -->
+                        <aside class="note">
+                            Tillæmpar man kodedelning primært med Copy-Paste så har man inte felleskode.
+
                             Om man har supermicroservice-arkitektur så har man kanske inte behov
-                            før felleskode.
+                            før felleskode - men till och med Google har felleskode.
 
-                            Men till och med google har felleskode.
+                            Har du inte felleskode så trenger du knappast monorepo!
 
-                            VI trenger felleskode før vi ær en bank och vi ønskar inte
-                            ha 18 olika implementationer av sessionsetablering (och egentligen ønskar vi inte
-                            sessioner heller).
+                            Har du felleskode så ær det vår tes att du komma vilja du ha monorepo efter att ha varit på denna
+                            talk'en!
+
+                            Vi i SpareBank 1 har (ænnu) inte har microservices før all
+                            fellesfunktionalitet.
+
+                            Vi trenger felleskode før vi ær en bank, vi ønskar inte
+                            att vart och ett av vårt 18 utvecklingsteam ska utveckla var sin implementation av
+                            sessionsetablering i nettbanken (och egentligen ønskar vi inte sessioner heller). Samtidigt
+                            som felleskode ger helt uppenbara vinster så leder den till kopplingar mellan team som ær
+                            førødande før produktiviteten.
                         </aside>
                     </section>
 
@@ -151,7 +186,7 @@
 
                             Ett exempel: app1 ær en applikation som avhænger på felleskode i lib1,
                             app2 ær en applikation som avhænger på både lib1 och lib2
-
+                            <hr/>
                             (5 min)
                             Utfordringer med klassisk modell for å håndtere felleskode:
                             Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
@@ -169,20 +204,23 @@
                             <p>
                             (5 min)
                             Det vi praktiken gør med maven ær att vi inte depend:ar på koden till våra avhængigheter,
-                            direkte istællet avhængiger vi på byggda, versionerte artefakter, av koden. Detta føljer av
+                            direkte istællet avhænger vi på byggda, versionerte artefakter, av koden. Detta føljer av
                             att varje kodebas tradionellt versionskontrollers i var sitt repo.
 
                             Ett exempel: man ønskar laga en feature i app1 som innebær att felleskode i lib1 samtidigt
                             måste ændras. Detta måste rent praktiskt ordnas som två PR-processer:
                             </p>
                             <ul>
-                                <li>først en PR i lib1 dær
-                                man inte ser ut felleskodeændringen træffar en ny app och som dærfør inte heller
-                                ær møjlig att testa i en testmiljø.</li>
+                                <li><i>først</i> en PR i lib1-repo't dær diffen inte visar hur felleskodeændringen
+                                    træffar app1. PR:n ær i princip inte heller
+                                    møjligt att testa på en høgre nivå.
+                                </li>
                                 <li>
-                                Nær denna PR ær mergead, och artefakt ær byggd, kan man få vidare med app1
-                                dær man nu lagar en PR som bumpar versionnumret før artefakten. Denna PR kan
-                                man inte se kodeændringen i libet i. Men man kan deploy'a och testa appen.
+                                    Nær denna førsta PR:n ær mergead, och artefakt ær byggd och deploy'ad, kan man få vidare
+                                    med app1-repo't och laga en <i>andra</i> PR som bumpar versionnumret før lib1-artefakten,
+                                    tillpassar app1:s koden till den nya versionen av lib1 och uppdaterar høgnivåtesterna.
+                                    Denna PR:n ær møjlig att deploy'a till en testmiljø - vad som dæremot inte ær møjligt,
+                                    eller i allafall praktiskt, ær att få en øversikt øver kodeændringarna i felleskoden i lib1.
                                 </li>
                             </ul>
                             <p>
@@ -601,8 +639,55 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                     <section>
                         <h1>Git sparse checkouts</h1>
+                        <pre class="fragment fade-up"><code data-trim data-noescape>
+.git/info/sparse-checkout
+/*
+!/apps/*/*
+/apps/app1/*
+                        
+                       </code></pre>
+                        <aside class="notes">
+                        <p>
+                        Med sparse checkouts kan man kan instruera git att checka ut en delmængd av arbetstrædet. F.eks. kan man vælja att
+                        checka upp den applikation som man jobbar med før tiden. Det kan vara førdelaktig i førhållande till indexeringstid
+                        i IntelliJ. Med sparse checkouts uppnår man i praktiken en utvecklarupplevelse
+                        som ær rætt likt den man har med multirepo.
+                        </p>
+                        <p>
+                        I exemplet:
+                        <ul>
+                            <li>checkat hela repo't ut</li>
+                            <li>utan några appars</li>
+                            <li>men app1 vill vi ha</li>
+                        </ul>
+                        </aside>
                     </section>
+                    <section>
 
+                        <pre><code data-trim data-noescape>
+&lt;profile&gt;
+  &lt;id&gt;app2&lt;/id&gt;
+  &lt;activation&gt;
+    &lt;file&gt;
+      &lt;exists&gt;app2/pom.xml&lt;/exists&gt;
+    &lt;/file&gt;
+  &lt;/activation&gt;
+  &lt;modules&gt;
+    &lt;module&gt;app2&lt;/module&gt;
+  &lt;/modules&gt;
+&lt;/profile&gt;
+                        </code></pre>
+                        <aside class="notes">
+							<p>
+							I utgångspunkt hanterar inte Maven sparse checkouts. Maven ønskar bygga upp en komplett modell av alla moduler
+							baserat på pom.xml:arna. Om en submodul inte ær utcheckad på disk trynar maven.
+							</p>
+							<p>
+							Med hjælp av kreativt bruk av mavenprofiler, som aktiveras bara nær pom.xml-filer ær utcheckat i trædet,
+							ær det møjligt att jobba runt problemet.
+							</p>
+                        </aside>
+                    </section>
 					<section>
                         Restpost
 						<aside class="notes">
@@ -668,7 +753,8 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <aside class="notes">
                             Sparse checkouts hjælper mot stora working trees.
 
-                            Næmn något kring andra stora repos som googles, microsoft windowsrepot (som GVFS)
+                            Næmn något kring andra stora repos som googles, microsoft windowsrepot 3.5 milj. filer/4000 brukare(som GVFS)
+                            Linuxkerneln har bara 65000 filer
 
                             SpareBank 1:s nettbank har en kodbas på cirka X linjer i vår nettbank. X ær dock ett osækert estimat, det ær
                             svårt att få øverblik eftersom vi fortfarande har mycket multirepo-kode. I ett monorepo ær det triviellt
