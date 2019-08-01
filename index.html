@@ -1,5 +1,4 @@
-<!doctype html>
-<html lang="no">
+<!doctype html> <html lang="no">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -449,7 +448,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             enterprise java-monolit som versionskontrolleras først i Perforce, sedan Subversion och till sist i git.
                             Produktionssættningarna vara stora, komplicerade, långsamma och sællsynta. Det var i praktiken
                             omøjligt att skalera upp utvecklingsorganisationen till den nivå banken ønskade sig eftersom
-                            vi aldrig skulle hunnit att
+                            vi aldrig skulle klarat att
                             produktionssætta allt som en større organisation skulle ha kunna producera i vilket fall som helst.
                             Någonting måste gøras.
                             </p>
@@ -611,6 +610,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 							<li>Trenger nyere version av Maven for å unngå minnelekasje og få CI-vennlig "revisions"</li>
 						</ul>
 						<aside class="notes">
+                            <p>Maven har en del utfodring i monoreposammanhang. Vi ska nu se nærmare på två av dem</p>
 							<ul>
 								<li>Bruk av project.version før att referer till monorepointerna dependencies</li>
 								<li>ci-profil som sætter revision-property'n från miljøvariabel: fungerar næstan</li>
@@ -723,6 +723,17 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					</section>
                     <section>
                         <h1>Jenkins(file)</h1>
+                        <aside class="notes">
+                            I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
+                            Det har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
+                            Vi har løst detta med en root Jenkinsfile som hjælp av git ... finner fram till vilka filer som har ændrats,
+                            finner træffade Jenkinsfile och delegerar till den mest specifikat.
+
+                            På så sætt kan vi olika pipelines før olika appar.
+
+                            Gør man ændring på felleskode har vi p.t. inget smart system - utan en default pipeline som bygger hela
+                            monorepo't kørs.
+                        </aside>
                     </section>
 
                     <section>
@@ -740,7 +751,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         checka ut bara den applikation som man jobbar med før tiden. Det kan vara førdelaktig i førhållande till indexeringstid
                         i IntelliJ.
 
-                        Med sparse checkouts uppnår man i praktiken en utvecklarupplevelse som ær rætt lik den man har med multirepo.
+                        Med sparse checkouts får man i praktiken en utvecklarupplevelse som ær rætt lik den man har med multirepo.
                         </p>
                         <p>
                         I exemplet:
@@ -817,6 +828,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             <li>Stort repo</li>
                             <li>Lange byggtider</li>
                             <li>The race to push</li>
+                            <li>Monolit 2.0</li>
                             <li>Verktøy</li>
 
                        </ul>
@@ -845,7 +857,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             Næmn något kring andra stora repos som googles, microsoft windowsrepot 3.5 milj. filer/4000 brukare(som GVFS)
                             Linuxkerneln har bara 65000 filer
 
-                            SpareBank 1:s nettbank har en kodbas på cirka X linjer i vår nettbank. X ær dock ett osækert estimat, det ær
+                            SpareBank 1:s nettbank har en kodbas på cirka X filer. X ær dock ett osækert estimat, det ær
                             svårt att få øverblik eftersom vi fortfarande har mycket multirepo-kode. I ett monorepo ær det triviellt
                             att ta fram siffran.
                             Hantering av stora filer/binærer: "Git large file support"
@@ -874,9 +886,20 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     </section>
 
                     <section>
+                        <h1>Monolit 2.0</h1>
+
+                        <aside class="notes">
+                            Ett monorepo ger goda førutsættningar før att producera en ny tætt kopplat monolit/big-ball-of-mud.
+
+                            Detta må vi undgå. Kanske kan archunit hjælpa?
+                        </aside>
+                    </section>
+
+                    <section>
                         <h1>Overmodne verktøy</h1>
                         <ul>
                             <li>Maven er javasentrisk og "clunky" i et monorepo</li>
+                            <li>Jenkins sakar monorepo-stød</li>
                         </ul>
                         <aside class="notes">
                             <p>
@@ -895,6 +918,9 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                                 <li>Maven brukar groupId och version-begrepp før moduler som i ett monorepo hellre avleds
                                     från filkatalogstrukt resp. git</li>
                             </ul>
+                            <p>Jenkins ær en annan gammal travare som først såg dagens ljus under namnet Hudson tillbaka i 2008. Många år och
+                            många plugins senare så saknar Jenkins fortsatt monorepostød.
+                            </p>
                         </aside>
                     </section>
                     <section>
@@ -906,7 +932,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </ul>
                         <aside class="notes">
                             <p>
-                            TODO
+                            CodeFresh har <a href="https://codefresh.io/continuous-integration/using-codefresh-with-mono-repos/">stød før monorepo</a>!
                             </p>
                         </aside>
                     </section>
