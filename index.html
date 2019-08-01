@@ -447,28 +447,28 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 							<p>
                             SpareBank 1:s nett- och mobilbank var en illasinnad
                             enterprise java-monolit som versionskontrolleras først i Perforce, sedan Subversion och till sist i git.
-                            Produktionssættningar vara stora, komplicerade, långsamma och sællsynta. Det var i praktiken
+                            Produktionssættningarna vara stora, komplicerade, långsamma och sællsynta. Det var i praktiken
                             omøjligt att skalera upp utvecklingsorganisationen till den nivå banken ønskade sig eftersom
                             vi aldrig skulle hunnit att
                             produktionssætta allt som en større organisation skulle ha kunna producera i vilket fall som helst.
+                            Någonting måste gøras.
                             </p>
 
                             <p>
                             Før cirka fem år sedan børjade vi bryta upp monoliten i mindre  applikationer som kunde
                             deploy'as fristånde från varandra. Utvecklingen av apparna sker idag
                             av dedikerade team som jobbar i egna repos. Mycket av koden i den gamla monoliten vidareførdes som felleskode
-                            som apparna avhænger av.
-                            Før att hantera ett stigande antal team (p.t ~20) som ansvarar før ett stort antal appar har vi
+                            som apparna avhænger av. Felleskoden ligger i egna repos och byggs till binærer som uppbevaras i Nexus
+                            på kænt java-manèr. Før att hantera ett stigande antal team (p.t ~20) som ansvarar før ett stændigt økande antal appar har vi
                             utvecklat omfattande intern tooling før att hålla apparna uppdaterade med senaste versioner felleskode.
                             </p>
 
                             <p>
-                            Vi  utvecklar nu en ny generation av applikationer som helt kuttar banden till den gamla monoliten,
-                            ær tillståndsløsa och skyklara
+                            Vi  utvecklar nu en ny generation av applikationer som ær tillståndsløsa, skyklara och som helt kuttar banden till den gamla monoliten,
                             Vi har fortfarande felleskode.
                             Vi har dock valt att utveckla våra nya appar och deras felleskode i ett monorepo.
                             Vi har utgått från de verktyg
-                            som vi kænner gott sedan tidigare: git, Maven och Jenkins.
+                            som vi brukar och kænner gott sedan tidigare: git, Maven och Jenkins.
                             </p>
 
                             <h/>
@@ -737,9 +737,10 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <aside class="notes">
                         <p>
                         Med sparse checkouts kan man kan instruera git att checka ut en delmængd av arbetstrædet. F.eks. kan man vælja att
-                        checka upp den applikation som man jobbar med før tiden. Det kan vara førdelaktig i førhållande till indexeringstid
-                        i IntelliJ. Med sparse checkouts uppnår man i praktiken en utvecklarupplevelse
-                        som ær rætt likt den man har med multirepo.
+                        checka ut bara den applikation som man jobbar med før tiden. Det kan vara førdelaktig i førhållande till indexeringstid
+                        i IntelliJ.
+
+                        Med sparse checkouts uppnår man i praktiken en utvecklarupplevelse som ær rætt lik den man har med multirepo.
                         </p>
                         <p>
                         I exemplet:
@@ -995,7 +996,10 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                 <!--
 
-                  FEEDBACK
+                  INTRESSANT:
+                  https://medium.com/p/e9a279be011b/responses/show
+
+                  DELIVERY
 
                   JONAS:
                    * Sluta "smacka"!
