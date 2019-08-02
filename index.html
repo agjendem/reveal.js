@@ -111,7 +111,7 @@
                 <section>
                     <h1>Monorepo 101</h1>
 
-                    <h2>Trunkbaserad utveckling</h2>
+                    <h2>Trunk-basert utvikling</h2>
 
                     <aside class="notes">
                         I ett monorepo sker all versionering med versionshanteringssystemet, i vårt, och flesta andra
@@ -899,7 +899,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <h1>Overmodne verktøy</h1>
                         <ul>
                             <li>Maven er javasentrisk og "clunky" i et monorepo</li>
-                            <li>Jenkins sakar monorepo-stød</li>
+                            <li>Jenkins mangler monorepo-støtte</li>
                         </ul>
                         <aside class="notes">
                             <p>
@@ -923,6 +923,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             </p>
                         </aside>
                     </section>
+
                     <section>
                         <h1>Umodne verktøy</h1>
                         <ul>
@@ -933,6 +934,48 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <aside class="notes">
                             <p>
                             CodeFresh har <a href="https://codefresh.io/continuous-integration/using-codefresh-with-mono-repos/">stød før monorepo</a>!
+                            </p>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h1>... men dere gjør det jo feil!</h1>
+                        <ul>
+                            <li>Dette er jo ikke et ekte monorepo!</li>
+                            <li><a href="https://medium.com/@mattklein123/monorepos-please-dont-e9a279be011b">Monorepo er latterlig, ikke gjør det!</a></li>
+                            <li>Dere støtter jo bare ett språk!</li>
+                            <li>Dere har jo bare noen få applikasjoner i repoet!</li>
+                            <li>Definisjonen er jo at _alt_ av kode skal bo i ett repo!</li>
+                            <li>Monorepo skalerer ikke</li>
+                            <li>Monorepo er en flopp|hype</li>
+                            <li>.. andre innspill?</li>
+                        </ul>
+                        <aside class="notes">
+                            <p>
+                                Det er fordeler og ulemper med alt. Vi har nå prøvd multirepo i ganske mange år, og
+                                håndterer forsåvidt det "greit nok" - men det er ikke gøy med 100+ repository heller.
+
+                                Nå hadde vi muligheten til å se på om monorepo kunne løse noen av våre utfordringer,
+                                og vi har tid og lyst til å se om dette kan være noe for oss i større eller mindre skala.
+
+                                Mange av ankepunktene mot monorepo gjelder store organisasjoner med enorme mengder kode.
+                                Vi har mange utviklere, vi har mye kode, på mange språk, men vi er på ingen måte enorme.
+                                Det finnes kanskje en middelvei her?
+
+                                Vi tror at ved å begynne i det små og ta stegene gradvis så bør vi greie å komme opp med en god løsning på utfordringene,
+                                og kunne løse de større over tid når de nærmer seg et problem. Foreløpig er vel kanskje
+                                hybrid-repo et bedre navn på det vi gjør, og vi tenker at det er helt greit å ta skrittene
+                                gradvis. Det er ikke gitt at det er fornuftig for oss å blande alt i en stor haug, men
+                                å samle det som hører sammen virker forlokkende, ihvertfall.
+
+                                Hvis dette ikke er en flopp, så har det en tendens til å dukke opp løsninger på utfordringene
+                                i form av nye verktøy og bedre tredjepartsstøtte, se bare på Bazel.
+
+                                Vi ser ingen grunn til å ikke utforske mulighetene, og i verste fall så er det ingen big deal å splitte
+                                opp til flere repository igjen, den biten kan vi. Også er det jo også slik at vi har
+                                brukt, og bruker den dag i dag mye tid på tooling for multirepo også.
+
+                                Igjen; alt gjør vondt, spørsmålet er bare hvor du foretrekker å ha smerten.
                             </p>
                         </aside>
                     </section>
@@ -1022,12 +1065,6 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                 <!--
                   TODO:s
-                  Ta upp hybrid-repo, mediumstor organisation
-                  Kritiska spm. Q&A session: vi har ikke ekta monorepo
-
-                  INTRESSANT:
-                  https://medium.com/p/e9a279be011b/responses/show
-                   
 
                   DELIVERY
 
