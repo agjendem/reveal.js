@@ -37,10 +37,44 @@
                     <hr/>
                     <small style="font-style: italic;color: white;">Anders Gjendem, Jonas Nordstrand</small>
                     <aside class="notes">
+                        <h6>A</h6>
 						Speaker notes til intro?
                         Bildkælla: https://pixabay.com/photos/dog-great-dane-old-animal-pet-2514968/ 
                     </aside>
 				</section>
+
+                <section data-timing="300">
+                    <img src="img/felleskode-pr.png" alt="Bumping av versjonsnummer på mange interne bibliotek"/>
+
+                    <aside class="notes">
+                        <h6>A & J</h6>
+
+                        Har du någon gång får en PR att review'a med en sådan hær diff?
+                        En diff som bara innehåller bumpning'ar av versionsnummer før
+                        felleskodeavhængigheter som appen din trenger?<br/>
+
+                        Instick: versionsnummer i diffen: varfør står det dev och inte master dær?<br/>
+
+                        Hur kændes det? Tog du dig bryet att eftergå exakt vilka kodeændringar
+                        dessa, på ytan, så oskyldiga ændringar av versionnummer inførde?<br/>
+
+                        Inte det..? Det ær svårt att klandra någon før det egentligen. Vi har
+                        alltid mycket att gøra och finna fram till kodediffar i olika repo's baserat
+                        på en diff som denna ær border-line infeasible i arbetsvardagen.
+                        Att man kapitulerar och trots den lilla (eller stora) knuten i magen
+                        væljer att Approve'a ær bara naturligt.<br/>
+
+                        Måste det vara så hær? Kan man jobba felleskode på ett annat, smartare
+                        sætt som leder till PR:s dær man faktiskt kan se vad det ær før något som ændras?
+
+                        <hr/>
+                        (5 min)
+                        Utfordringer med klassisk modell for å håndtere felleskode:
+                        Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
+
+                    </aside>
+                </section>
+
 
 				<section>
 					<h1>Agenda</h1>
@@ -53,7 +87,7 @@
 						<li>Effekter</li>
 					</ul>
 					<aside class="notes">
-						<h6>En av oss:</h6>
+						<h6>A</h6>
 						<p>
 							Jeg heter ... og dette er ... og i dag skal vi snakke om våre erfaringer med monorepo.
 						</p>
@@ -75,6 +109,7 @@
                     -->
 
                     <aside class="notes">
+                        <h6>J</h6>
                         Monorepo ær ett kællkodesrepository dær man versionerar <strong>all</strong> kode i en organisation.
 
                         All kode innebær både:
@@ -101,7 +136,8 @@
                             <li>tredjeparts felleskode (maven central, npm-paket, etc.)</li>
                             <li>utvecklingsverktyg som JDK'er, kompilatorer, etc.</li>
                         </ul>
-                        tillkommer - riktigt så långt har vi SpareBank1 inte kommit (ænnu).
+                        tillkommer - riktigt så långt har vi SpareBank1 inte kommit (ænnu). Och kanske
+                        vi aldrig heller kommer dit heller.
 
                         Koden i ett monorepo ær modularisering/avdelad i ett hierarkiskt filtræd som checkas ut på
                         utvecklarnas arbetsstationer.
@@ -117,6 +153,7 @@
                     <h2>Trunk-basert utvikling</h2>
 
                     <aside class="notes">
+                        <h6>A</h6>
                         I ett monorepo sker all versionering med versionshanteringssystemet, i vårt, och flesta andra
                         tillfællen, git.
 
@@ -151,6 +188,7 @@
 
 
                         <aside class="notes">
+                            <h6>J</h6>
                             Tillæmpar man kodedelning primært med Copy-Paste så har man inte felleskode.<br/>
 
                             Om man har fancy en service-mesh / microservice-arkitektur, dær varje fellesfunktion ær sin egen tjeneste,
@@ -174,40 +212,9 @@
                     </section>
 
 
-                    <section data-timing="300">
-                        <img src="img/felleskode-pr.png" alt="Bumping av versjonsnummer på mange interne bibliotek"/>
-
-                        <aside class="notes">
-                            <h6>En av oss:</h6>
-
-                            Har du någon gång får en PR att review'a med en sådan hær diff?
-                            En diff som bara innehåller bumpning'ar av versionsnummer før
-                            felleskodeavhængigheter som appen din trenger?<br/>
-
-                            Instick: versionsnummer i diffen: varfør står det dev och inte master dær?<br/>
-
-                            Hur kændes det? Tog du dig bryet att eftergå exakt vilka kodeændringar
-                            dessa, på ytan, så oskyldiga ændringar av versionnummer inførde?<br/>
-
-                            Inte det..? Det ær svårt att klandra någon før det egentligen. Vi har
-                            alltid mycket att gøra och finna fram till kodediffar i olika repo's baserat
-                            på en diff som denna ær border-line infeasible i arbetsvardagen.
-                            Att man kapitulerar och trots den lilla (eller stora) knuten i magen
-                            væljer att Approve'a ær bara naturligt.<br/>
-
-                            Måste det vara så hær? Kan man jobba felleskode på ett annat, smartare
-                            sætt som leder till PR:s dær man faktiskt kan se vad det ær før något som ændras?
-
-                            <hr/>
-                            (5 min)
-                            Utfordringer med klassisk modell for å håndtere felleskode:
-                            Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
-
-                        </aside>
-                    </section>
-
                     <section data-background="img/app-deps-utan-jar.png" data-background-size="contain">
                         <aside class="notes">
+                            <h6>J</h6>
                             Før att visa hur hur man gærna jobbar idag  med felleskode i ett multirepo-sammanhang
                             har vi hær ett exempel.
                             Två applikation och två felleskodemoduler. App1 avhænger av lib1 och lib2, medan app2
@@ -231,6 +238,7 @@
 
                     <section data-background="img/app-deps-utan-jar-ci.png" data-background-size="contain">
                         <aside class="notes">
+                            <h6>A</h6>
                             Det vi praktiken gør nær vi jobbar med felleskode i multireposammanhang ær att vi inte
                             depend:ar på koden till våra avhængigheter direkte &ndash;
                             istællet avhænger vi på byggda, versionerte artefakter, av koden. Dessa artefakterna uppbevaras
@@ -241,7 +249,7 @@
                     <section data-background="img/app-deps-med-jar.png" data-background-size="contain">
 
                         <aside class="notes">
-                            <h6>En av oss:</h6>
+                            <h6>J</h6>
                             <p>
                                 Ett exempel: man ønskar laga en feature i app1 som innebær att felleskode i lib2
                                 samtidigt måste ændras. Detta måste rent praktiskt ordnas som två PR-processer:
@@ -287,7 +295,7 @@
                             </small>
                         </p>
                         <aside class="notes">
-                            <h6>En av oss:</h6>
+                            <h6>J</h6>
                             <p>
                                 <br/>
                                 (7 min)
@@ -325,6 +333,7 @@
 ├── README.md
                         </code></pre>
                         <aside class="notes">
+                            <h6>A</h6>
                             Uppenbart det som diffentierar en monorepo-orgranisation från en som ær baserad på
                             multirepo.
                             Istællet før att modularisera olika appar och fellesbibliotek baser på många olika repos
@@ -345,6 +354,7 @@ $ find . -name '*.md' | \
                         </code></pre>
 
                         <aside class="notes">
+                            <h6>J</h6>
                             (3) Synchronization: The development process is trunkbased; engineers commit to the head of
                             the repo.
                             - Når vi gjør endringer i felleskode i dag, så kan det ta månedsvis før alle har tatt inn
@@ -370,6 +380,7 @@ libs/lib1/pom.xml:    &lt;artifactId&gt;lib1&lt;/artifactId&gt;
 libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         </code></pre>
                         <aside class="notes">
+                            <h6>A</h6>
                             (2) Visibility: Code is viewable and searchable by all
                             engineers in the organization.
                             - Her ligger en av de store gevinstene for oss.
@@ -389,6 +400,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         </blockquote>
 
                         <aside class="notes">
+                            <h6>J</h6>
                             - Denne er krevende å få til for en halvstor organisasjon.
                             Vi drar skillelinjen mellom tredjepartskode og vår felleskode.
                             De store kan ta kostnaden med å dra denne strikken enda lengre, og
@@ -417,6 +429,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 
 
                         <aside class="notes">
+                            <h6>A</h6>
                             - Monorepo har i praksis vært forbeholdt de store aktørene fordi tooling
                             koster. De nødvendige verktøyene for å bruke monorepo på store prosjekter
                             begynner nå å bli tilgjengelig. Google har open sourcet deler av sitt byggeverktøy
@@ -447,8 +460,10 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 
 						<aside class="notes">
 							<p>
+                            <h3>Monolit</h3>
+                            <h6>A</h6>
                             SpareBank 1:s nett- och mobilbank var en illasinnad
-                            enterprise java-monolit som versionskontrolleras først i Perforce, sedan Subversion och till sist i git.
+                            enterprise java-monolit som versionskontrolleras først i ClearCase, sedan Subversion (CHECKA!) och till sist i git.
                             Produktionssættningarna vara stora, komplicerade, långsamma och sællsynta. Det var i praktiken
                             omøjligt att skalera upp utvecklingsorganisationen till den nivå banken ønskade sig eftersom
                             vi aldrig skulle klarat att
@@ -457,6 +472,8 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             </p>
 
                             <p>
+                            <h3>Multirepo</h3>
+                            <h6>J</h6>
                             Før cirka fem år sedan børjade vi bryta upp monoliten i mindre  applikationer som kunde
                             deploy'as fristånde från varandra. Utvecklingen av apparna sker idag
                             av dedikerade team som jobbar i egna repos. Mycket av koden i den gamla monoliten vidareførdes som felleskode
@@ -466,6 +483,8 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             </p>
 
                             <p>
+                            <h3>Monorepo</h3>
+                            <h6>A</h6>
                             Vi  utvecklar nu en ny generation av applikationer som ær tillståndsløsa, skyklara och som helt kuttar banden till den gamla monoliten,
                             Vi har fortfarande felleskode.
                             Vi har dock valt att utveckla våra nya appar och deras felleskode i ett monorepo.
@@ -506,6 +525,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 
                         </code></pre>
                         <aside class="notes">
+                            <h6>A</h6>
                             Vårt monorepo ær ett maven reactor multimodul-bygg med i huvudsak två toppnivå moduler:
                             <ul>
                                 <li>apps - våra applikationer</li>
@@ -518,8 +538,8 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                     <section>
                         <img src="img/maven-moduler.png" alt="oversikt over maven moduler i prosjektet" style="background:none; border:none; box-shadow:none; ">
                         <aside class="notes">
+                            <h6>J</h6>
 
-                            <h6>En av oss:</h6>
                             <p>Maven ær i grunden ett rekursivt byggsystem, ikke ett DAG-baserat 
                                som bazel.
                             </p>
@@ -529,8 +549,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                     <section>
                         <img src="img/maven-moduler-deps.png" alt="oversikt over maven moduler i prosjektet med noen avhengigheter" style="background:none; border:none; box-shadow:none; ">
                         <aside class="notes">
-
-                            <h6>En av oss:</h6>
+                            <h6>J</h6>
                             <p>
                             Men kan ha avhængigheter på tværs av filtrædstruktur
                             </p>
@@ -553,8 +572,7 @@ $ mvn clean install
 [INFO]
                         </code></pre>
                         <aside class="notes">
-
-                            <h6>En av oss:</h6>
+                            <h6>J</h6>
                             <p>
                             Det ær avhængigheterna mellan modulerna som bestæmmer i vilken ordning
                                modulerna byggs.
@@ -574,6 +592,7 @@ $ apps/app1 $ mvn clean install
                         </code></pre>
 
                         <aside class="notes">
+                            <h6>A</h6>
                             Hær bygget maven rekursivt från apps/app1 och bygger inga avhængigheter
                             till app1 som ligger utanfør aktuell arbetskatalog i filsystemet.
                         </aside>
@@ -594,6 +613,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 [INFO]
                         </code></pre>
 						<aside class="notes">
+                            <h6>A</h6>
 							<ul>
 								<li>-f: --file (ange filsti till rot-pom, krævs før att Maven ska upptæcka alla moduler)</li>
 								<li>-pl: --projects (projektlistan, vilka moduler Maven ska bygga) </li>
@@ -604,6 +624,9 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
                     </section>
 					<section>
 						<h1>partial-build-plugin</h1>
+                        <aside class="notes">
+                            <h6>J</h6>
+                        </aside>
 					</section>
 					<section>
 						<h1>Mavenutfordringer</h1>
@@ -613,6 +636,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 							<li>Trenger nyere version av Maven for å unngå minnelekasje og få CI-vennlig "revisions"</li>
 						</ul>
 						<aside class="notes">
+                            <h6>A</h6>
                             <p>Maven har en del utfodring i monoreposammanhang. Vi ska nu se nærmare på två av dem</p>
 							<ul>
 								<li>Bruk av project.version før att referer till monorepointerna dependencies</li>
@@ -650,6 +674,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						</code></pre>
 						<aside class="notes">
+                            <h6>J</h6>
 							<p>
                             Med <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a>
 							trenger man inte mutera pom-filer med mvn versions:set
@@ -659,6 +684,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					<section>
 						<h1>Flate pom-filer</h1>
 						<aside class="notes">
+                            <h6>A</h6>
 							<p>
                             Før att undgå att pom-filer med ikke-resolverade $revision inslag blir installerade bør
 							man bruka Maven flatten-plugin'en. Denna resolva'r revision och installerar en flat pom.xml fil
@@ -681,6 +707,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						<p><span><code>libs/lib1</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.libs.lib1</code></p>
 						<p><span class="fragment fade-in"><code>apps/app2</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.apps.app2</code></p>
 						<aside class="notes">
+                            <h6>J</h6>
 							<p>Maven's namespace før moduler ær baserat på groupId-begreppet. I ett monorepo ær name space
 							ivaratatt av filkatalog-hiearkin. Nær man brukar Maven før monorepo bør man vurdera att sætta
 							groupId identisk med filsti.</p>
@@ -700,6 +727,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						<img src="img/codereview-in-github.png" alt="eksempel på hvordan github viser codereviewers via codeowners-fil" class="fragment fade-in"/>
 
 						<aside class="notes">
+                            <h6>A</h6>
 							<p>En av de stor førdelarna med multirepo ær att det ær lætt før team att vara autonoma och på egen hand sætta
 							upp och administrera rutiner kring tilgång till kællkod och rutiner kring peer review.
                             I ett monorepo som delas mellan teams måste detta centraliseras på tværs av team i større utstræckning.
@@ -727,6 +755,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     <section>
                         <h1>Jenkins(file)</h1>
                         <aside class="notes">
+                            <h6>J</h6>
                             I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
                             Det har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
                             Vi har løst detta med en root Jenkinsfile som hjælp av git ... finner fram till vilka filer som har ændrats,
@@ -749,20 +778,21 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         
                        </code></pre>
                         <aside class="notes">
-                        <p>
-                        Med sparse checkouts kan man kan instruera git att checka ut en delmængd av arbetstrædet. F.eks. kan man vælja att
-                        checka ut bara den applikation som man jobbar med før tiden. Det kan vara førdelaktig i førhållande till indexeringstid
-                        i IntelliJ.
+                            <h6>A</h6>
+                            <p>
+                            Med sparse checkouts kan man kan instruera git att checka ut en delmængd av arbetstrædet. F.eks. kan man vælja att
+                            checka ut bara den applikation som man jobbar med før tiden. Det kan vara førdelaktig i førhållande till indexeringstid
+                            i IntelliJ.
 
-                        Med sparse checkouts får man i praktiken en utvecklarupplevelse som ær rætt lik den man har med multirepo.
-                        </p>
-                        <p>
-                        I exemplet:
-                        <ul>
-                            <li>checkat hela repo't ut</li>
-                            <li>utan några appars</li>
-                            <li>men app1 vill vi ha</li>
-                        </ul>
+                            Med sparse checkouts får man i praktiken en utvecklarupplevelse som ær rætt lik den man har med multirepo.
+                            </p>
+                            <p>
+                            I exemplet:
+                            <ul>
+                                <li>checkat hela repo't ut</li>
+                                <li>utan några appars</li>
+                                <li>men app1 vill vi ha</li>
+                            </ul>
                         </aside>
                     </section>
                     <section>
@@ -781,6 +811,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 &lt;/profile&gt;
                         </code></pre>
                         <aside class="notes">
+                            <h6>A</h6>
 							<p>
 							I utgångspunkt hanterar inte Maven sparse checkouts. Maven ønskar bygga upp en komplett modell av alla moduler
 							baserat på pom.xml:arna. Om en submodul inte ær utcheckad på disk trynar maven.
@@ -836,7 +867,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                        </ul>
 						<aside class="notes">
-							<h6>En av oss:</h6>
+                            <h6>J</h6>
 							<p>
 								(7 min)
 								Hvilke nye utfordringer får vi nå?
@@ -855,6 +886,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </ul>
 
                         <aside class="notes">
+                            <h6>A</h6>
                             Sparse checkouts hjælper mot stora working trees.
 
                             Næmn något kring andra stora repos som googles, microsoft windowsrepot 3.5 milj. filer/4000 brukare(som GVFS)
@@ -876,6 +908,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </ul>
 
                         <aside class="notes">
+                            <h6>J</h6>
                             Bazel har stød før 100% pålitligta inkrementella bygg vilket troligen hjælper till med CI rætt bra.
                         </aside>
                     </section>
@@ -884,6 +917,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <h1>The race to push</h1>
 
                         <aside class="notes">
+                            <h6>A</h6>
                             <a href="https://docs.microsoft.com/en-us/azure/devops/learn/git/race-to-push">The race to push</a>
                         </aside>
                     </section>
@@ -892,6 +926,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <h1>Monolit 2.0</h1>
 
                         <aside class="notes">
+                            <h6>J</h6>
                             Ett monorepo ger goda førutsættningar før att producera en ny tætt kopplat monolit/big-ball-of-mud.
 
                             Detta må vi undgå. Kanske kan archunit hjælpa?
@@ -906,6 +941,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <img class="fragment" src="img/jenkins.png" />
                         </div>
                         <aside class="notes">
+                            <h6>A</h6>
                             <p>
                             Førsta release av <a href="https://maven.apache.org/docs/history.html">Maven slæpptes 30 mars 2002</a>.
                             I 2005 kom Maven 2.0 och efter det ær inte hela værlden som har skett.
@@ -938,6 +974,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             <li>Bitbucket/Github mangler ordentlig støtte for store monorepo - CODEOWNERS er et plaster</li>
                         </ul>
                         <aside class="notes">
+                            <h6>J</h6>
                             <p>
                             </p>
                         </aside>
@@ -956,6 +993,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             <li>.. andre innspill?</li>
                         </ul>
                         <aside class="notes">
+                            <h6>A</h6>
                             <p>
                                 Det er fordeler og ulemper med alt. Vi har nå prøvd multirepo i ganske mange år, og
                                 håndterer forsåvidt det "greit nok" - men det er ikke gøy med 100+ repository heller.
@@ -991,7 +1029,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <h1>Effekter</h1>
 
                         <aside class="notes">
-                            <h6>En av oss:</h6>
+                            <h6>J</h6>
                             <p>
                             (7 min)
                             Med monorepo; hva blir mer viktig, og hva blir mindre viktig?
@@ -1003,7 +1041,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					<section>
                         <h1>Versjonering</h1>
 						<aside class="notes">
-							<h6>En av oss:</h6>
+							<h6>A</h6>
 							<p>
                                 Tidigare versionerade vi i git _och_ maven. I monorepo versionerar vi bara i git.
 
@@ -1021,7 +1059,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <h1>Endring i felleskode</h1>
                         <h4>Bilde av overlykkelige folk som kaster blomster rundt om?</h4>
                         <aside class="notes">
-                            <h6>En av oss:</h6>
+                            <h6>J</h6>
                             <p>
                                 Tidigare kunde man ændra felleskode utan att att ta ansvara før att integrera
                                 ændringen i konsumenterna. Med monorepo blir man mer ansvarligt før konsumenterna,
@@ -1046,6 +1084,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <h1>Second order effects</h1>
                         <h3>i SpareBank 1 utveckling</h3>
                         <aside class="notes">
+                            <h6>A</h6>
                             <p>I vår nettbank har historiskt varit uppdelat i två olika "marknader": privat och bedrift.
                             Dessa har betjænats av olika team och det har uppstått många tillfæller dær samma typ av
                             app lagats två gånger, en gång i en privat/pm-smak och gång i en bedrift/bm-smak.</p>
@@ -1057,11 +1096,15 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     <section>
                         <h1>Nåt om googles erfaringar?</h1>
                         <aside class="notes">
+                            <h6>J</h6>
                         </aside>
                     </section>
                     <section>
                         <h2>Du får det till med Maven, Jenkins og Git!</h2>
                         <h2 class="fragment fade-in">...men på sikt ryker nok Maven!</h2>
+                        <aside class="notes">
+                            <h6>A</h6>
+                        </aside>
                     </section>
 				</section>
 
