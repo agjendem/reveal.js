@@ -105,14 +105,6 @@
 
                     <h2>Mono</h2>
 
-                    <!--
-                    <ul>
-                        <li>Oversikt</li>
-                        <li>Vedlikholdbarhet</li>
-                        <li>Versjonering</li>
-                        <li>Forenkling</li>
-                    </ul>
-                    -->
 
                     <aside class="notes">
                         <h6>J</h6>
@@ -468,13 +460,13 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             <p>
                             <h3>Multirepo</h3>
                             <h6>J</h6>
-                            <p>
-                                Før cirka fem år sedan børjade vi bryta upp monoliten i mindre  applikationer som kunde
-                                deploy'as fristånde från varandra. Utvecklingen av apparna sker idag
-                                av dedikerade team som jobbar i egna repos. Mycket av koden i den gamla monoliten vidareførdes som felleskode
-                                som apparna avhænger av. Felleskoden ligger i egna repos och byggs till binærer som uppbevaras i Nexus
-                                på kænt java-manèr. Før att hantera ett stigande antal team (p.t ~20) som ansvarar før ett stændigt økande antal appar har vi
-                                utvecklat omfattande intern tooling før att hålla apparna uppdaterade med senaste versioner felleskode.
+                            Før cirka fem år sedan børjade vi bryta upp monoliten i mindre  applikationer som kunde
+                            deploy'as fristånde från varandra. Utvecklingen av apparna sker idag
+                            av dedikerade team som jobbar i egna repos. Mycket av koden i den gamla monoliten vidareførdes som felleskode
+                            som apparna avhænger av. Felleskoden ligger i egna repos och byggs till binærer som uppbevaras i Nexus
+                            på kænt java-manèr. Før att hantera ett stigande antal team (p.t ~20) som ansvarar før ett stændigt økande antal appar har vi
+                            utvecklat omfattande intern tooling før att hålla apparna uppdaterade med senaste versioner felleskode. Denna resan har Anders&amp;co
+                            redogjort om från denna scen vid två tillfællen (2015 och 2018).
                             </p>
 
                             <p>
@@ -620,6 +612,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
                     </section>
 					<section>
 						<h1>partial-build-plugin</h1>
+                        <h2>Flytta till efter Jenkinsfile slide då detta anknyter till hur vi bygger hela værlden!</h2>
                         <aside class="notes">
                             <h6>J</h6>
                         </aside>
@@ -750,17 +743,34 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					</section>
                     <section>
                         <h1>Jenkins(file)</h1>
+                        <pre class="fragment fade-up"><code data-trim data-noescape>
+                        $ git diff --name-only origin/master...HEAD
+                        apps/app2/src/main/java/no/monorepo/app2/App2.java
+                        apps/app2/README.md
+                        </code></pre>
                         <aside class="notes">
                             <h6>J</h6>
-                            I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
-                            Det har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
-                            Vi har løst detta med en root Jenkinsfile som hjælp av git ... finner fram till vilka filer som har ændrats,
-                            finner træffade Jenkinsfile och delegerar till den mest specifikat.
+                            <p>I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
+                            Vi har f.eks. valt att lægga upp egna Jenkinsfile's før varje app i monorepot så att teamen har møjlighet
+                            att f.eks. sætta upp sina testmiljøer som man ønskar.
+                            </p>
+                            <p>
+                            Detta har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
+                            Vi har løst detta med en root Jenkinsfile som hjælp av git diff finner fram till exakt vilka filer som har ændrats
+                            i en PR jæmført mot master.
+                            </p>
+                        </aside>
+                    </section>
 
-                            På så sætt kan vi olika pipelines før olika appar.
+                    <section>
+                        <h1>Jenkins(file)</h1>
+                        <img src="img/Jenkinsfile.png" />
+                        <aside class="notes">
+                            <h6>J</h6>
+                            Vår root-jenkinsfile finner vilka Jenkinsfile(s) som ær berørda av diffen och delegerar till den mest specifika.
 
-                            Gør man ændring på felleskode har vi p.t. inget smart system - utan en default pipeline som bygger hela
-                            monorepo't kørs.
+                            Gør man ændring på felleskode så berørs i regel flera Jenkinsfile och lastar då en default pipeline som bygger hela
+                            monorepo't.
                         </aside>
                     </section>
 
@@ -1087,6 +1097,8 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                             <p>Monorepo læægger upp till bættra genomsiktligt och samarbetsmøjligheter på tværs av
                             team och vi ser nu tillfællen av av appar som kan upptræda som bm- och pm från samma kodebas</p>
+                            <hr />
+                            Biljardbild: https://pixabay.com/photos/billiards-pool-play-game-sport-1967938/
                         </aside>
                     </section>
                     <section>
