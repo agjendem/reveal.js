@@ -610,13 +610,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 							</ul>
 						</aside>
                     </section>
-					<section>
-						<h1>partial-build-plugin</h1>
-                        <h2>Flytta till efter Jenkinsfile slide då detta anknyter till hur vi bygger hela værlden!</h2>
-                        <aside class="notes">
-                            <h6>J</h6>
-                        </aside>
-					</section>
+					
 					<section>
 						<h1>Mavenutfordringer</h1>
 						<ul>
@@ -775,6 +769,13 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     </section>
 
                     <section>
+                        <h1>partial-build-plugin</h1>
+                        <aside class="notes">
+                            <h6>J</h6>
+                        </aside>
+                    </section>
+
+                    <section>
                         <h1>Git sparse checkouts</h1>
                         <pre class="fragment fade-up"><code data-trim data-noescape>
 .git/info/sparse-checkout
@@ -898,7 +899,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                             Andra stora repos (egen slide? graf?):
                             <ul>
-                                <li>googles monorepo (1 miljard filer, 2016)</li>
+                                <li>Google's monorepo (2 miljard filer, 2018)</li>
                                 <li>Microsoft Windowsrepot 3.5 milj. filer/4000 brukare(som GVFS)</li>
                                 <li>Linuxkerneln bara 65.000 filer<li>
                                 <li>Summan av SpareBank 1's nettbankmultirepo'n: 40.000 filer</li>
@@ -1109,10 +1110,43 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             Biljardbild: https://pixabay.com/photos/billiards-pool-play-game-sport-1967938/
                         </aside>
                     </section>
-                    <section>
-                        <h1>Nåt om googles erfaringar?</h1>
+                    <section data-background="img/survey.jpg" data-background-size="contain">
+                        <h1>Googles erfaringar</h1>
+                        <br/><br/><br/><br/><br/><br/><br/><br/>
+                        <p class="ffe-small-text" style="color:black">Advantages and Disadvantages of a Monolithic Repository:
+                        A case study at Google<br/>
+                        Ciera Jaspan, Matthew Jorde, Andrea Knight, Caitlin Sadowski, Edward K. Smith, Collin Winter Google<br/>
+                        Emerson Murphy-Hill NC State University
+                        </p>
                         <aside class="notes">
                             <h6>J</h6>
+                            <p>
+                            Google ær kanske den mest kænda monorepobrukaren, och har idag ett gigantisk repo
+                            som innehåller decennier med historik och som brukas av øver 20.000 utvecklare.
+                            De var intresserade av vad dem tyckte om repo't och genomførde i 2018 en enkætundersøkelse bland
+                            sina monorepobrukare samtidigt som det samlades in loggdata om hur repo't anvændes.
+                            </p>
+
+                            <p>
+                            Undersøkelse blev till ett <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
+                                paper</a> som varmt rekommenderas.
+                            </p>
+
+                            <p>
+                            Det visade sig att utvecklarna starkt preferade ett jobba i monorepo't nær detta sattes
+                            upp mot tidigare erfarenhet av att jobba i multirepo-miljø. Det kan naturligtvis
+                            ifrågasættas i vilken grad det resultatet berodde på den inneboende styrkan i monorepotankegång och
+                            vilken grad det kan vara påverkat av kvalitèn på Googles utvecklingsverktyg (versionshantering,
+                            code review, code browsing, etc.) vs mot dær man hade jobbat med multirepo tidigare.
+                            </p>
+
+                            <p>
+                            En kanske lite ovæntad finding var att den aspekt av monorepo som utvecklarna satte mest pris inte
+                            var enkel versionering eller atomiska refaktoreringar utan møjligheten
+                            att lætt kunna søka i och læsa all kællkod før att f.eks. finna relevanta kodeexempler.
+                            </p>
+                            <hr/>
+                           Bilde: https://pixabay.com/photos/survey-opinion-research-voting-fill-1594962/
                         </aside>
                     </section>
                     <section>
