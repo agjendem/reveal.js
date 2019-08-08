@@ -20,6 +20,9 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+        <style>
+            .reveal section img { background:none; border:none; box-shadow:none; }
+        </style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -896,14 +899,16 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     </section>
 
                     <section>
-                        <h1>Overmodne verktøy</h1>
-                        <ul>
-                            <li>Maven er javasentrisk og "clunky" i et monorepo</li>
-                            <li>Jenkins mangler monorepo-støtte</li>
-                        </ul>
+                        <h2>Overmodne verktøy</h2>
+
+                        <div style="display: flex">
+                        <img class="fragment" src="img/maven.png" />
+                        <img class="fragment" src="img/jenkins.png" />
+                        </div>
                         <aside class="notes">
                             <p>
                             Førsta release av <a href="https://maven.apache.org/docs/history.html">Maven slæpptes 30 mars 2002</a>.
+                            I 2005 kom Maven 2.0 och efter det ær inte hela værlden som har skett.
                             Maven ær alltså ældre æn git, FaceBook och java generics och firar snart 20-årsjubileum...
                             </p>
                             <p>
@@ -912,14 +917,15 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             <ul>
                                 <li>Ikke polyglot - javacentrisk</li>
                                 <li>Sparse checkout måste hackas, mavens repomodell byggs upp av pom.xml filer
-                                    - ikke vad som finns på disk</li>
+                                - ikke vad som finns på disk</li>
                                 <li>Maven trenger explicit referens till roten av repo't, Bazel finner den fint sjælv</li>
-                                <li>Manglar inkrementella bygg</li> 
+                                <li>Manglar inkrementella bygg - man bygger i regel alltid clean't</li> 
                                 <li>Maven brukar groupId och version-begrepp før moduler som i ett monorepo hellre avleds
-                                    från filkatalogstrukt resp. git</li>
+                                från filkatalogstrukt resp. git</li>
                             </ul>
                             <p>Jenkins ær en annan gammal travare som først såg dagens ljus under namnet Hudson tillbaka i 2008. Många år och
-                            många plugins senare så saknar Jenkins fortsatt monorepostød.
+                            många plugins senare så saknar Jenkins fortsatt monorepostød (selektiv byggnad baserat på diff).
+                            CodeFresh har <a href="https://codefresh.io/continuous-integration/using-codefresh-with-mono-repos/">stød før monorepo</a>!
                             </p>
                         </aside>
                     </section>
@@ -933,7 +939,6 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </ul>
                         <aside class="notes">
                             <p>
-                            CodeFresh har <a href="https://codefresh.io/continuous-integration/using-codefresh-with-mono-repos/">stød før monorepo</a>!
                             </p>
                         </aside>
                     </section>
@@ -1035,6 +1040,23 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                                Praktiskt møjligt att få rask feedback på konsekveserna av ændring av felleskode,
                                sænker trøskeln før att att folk vågar refaktorer/bidra till felleskode.
                             </p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Second order effects</h1>
+                        <h3>i SpareBank 1 utveckling</h3>
+                        <aside class="notes">
+                            <p>I vår nettbank har historiskt varit uppdelat i två olika "marknader": privat och bedrift.
+                            Dessa har betjænats av olika team och det har uppstått många tillfæller dær samma typ av
+                            app lagats två gånger, en gång i en privat/pm-smak och gång i en bedrift/bm-smak.</p>
+
+                            <p>Monorepo læægger upp till bættra genomsiktligt och samarbetsmøjligheter på tværs av
+                            team och vi ser nu tillfællen av av appar som kan upptræda som bm- och pm från samma kodebas</p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Nåt om googles erfaringar?</h1>
+                        <aside class="notes">
                         </aside>
                     </section>
                     <section>
