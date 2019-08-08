@@ -894,14 +894,20 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <aside class="notes">
                             <h6>A</h6>
                             Sparse checkouts hjælper mot stora working trees.
+                            Hantering av stora filer/binærer: "Git large file support"
 
-                            Næmn något kring andra stora repos som googles, microsoft windowsrepot 3.5 milj. filer/4000 brukare(som GVFS)
-                            Linuxkerneln har bara 65000 filer
+                            Andra stora repos (egen slide? graf?):
+                            <ul>
+                                <li>googles monorepo (1 miljard filer, 2016)</li>
+                                <li>Microsoft Windowsrepot 3.5 milj. filer/4000 brukare(som GVFS)</li>
+                                <li>Linuxkerneln bara 65.000 filer<li>
+                                <li>Summan av SpareBank 1's nettbankmultirepo'n: 40.000 filer</li>
+                                <li>SpareBank 1's nettbankmonorepo: 1.500 filer</li>
+                            </ul>
 
-                            SpareBank 1:s nettbank har en kodbas på cirka X filer. X ær dock ett osækert estimat, det ær
+                            SpareBank 1:s nettbank har en kodbas på cirka 40.000 filer. 40.000 ær dock ett osækert estimat, det ær
                             svårt att få øverblik eftersom vi fortfarande har mycket multirepo-kode. I ett monorepo ær det triviellt
                             att ta fram siffran.
-                            Hantering av stora filer/binærer: "Git large file support"
                         </aside>
                     </section>
 
