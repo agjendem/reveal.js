@@ -39,7 +39,7 @@
                     <aside class="notes">
                         <h6>A</h6>
                         <p>
-                            Jeg heter Anders og dette er Jonas, og vi vil snakke litt om våre <strong>erfaringer</strong> med å migrere til <strong>monorepo</strong> i SpareBank 1.
+                            Jeg heter Anders og dette er Jonas, og vi vil snakke litt om våre første <strong>erfaringer</strong> med å migrere til <strong>monorepo</strong> i SpareBank 1.
                         </p>
                         Bildekilde: https://pixabay.com/photos/dog-great-dane-old-animal-pet-2514968/
                     </aside>
@@ -153,13 +153,15 @@
                     <aside class="notes">
                         <h6>A</h6>
                         I et monorepo gjøres <strong>all versjonering med versjonshåndteringssystemet</strong>. I vårt tilfelle er det Git.<br/>
-                        Hvilken <strong>versjon</strong> av felleskoden som en applikasjon bruker <strong>avgjøres</strong> ene og alene av <strong>Git-revisjonen</strong> - ikke versjonsnummer i pom.xml-filer.<br/>
+                        Hvis man skal dra det helt ut, innebærer det at også <strong>tredjepartskode</strong> behandles på samme måte og <strong>sjekkes inn</strong>.<br/>
+                        Vi har foreløpig valgt å ikke dra det så langt.<br/>
+                        Hvilken <strong>versjon</strong> av vår egen felleskode som en applikasjon bruker <strong>avgjøres</strong> ene og alene av <strong>Git-revisjonen</strong> - ikke versjonsnummer i pom.xml-filer.<br/>
                         Hver git-revisjon angir et <strong>øyeblikksbilde</strong> av alle avhengigheter mellom appene og felleskode.<br/>
                         Det er <strong>ikke mulig å utsette</strong> å ta inn felleskoden gjennom å avhenge på en eldre versjon slik som man kan gjøre med Maven.<br/>
                         I prinsippet så avhenger du alltid på <strong>siste versjon av alt</strong>.<br/>
                         Man prøver å <strong>unngå langtlevende brancher</strong>. Featurebrancher merges ned til trunk eller master så raskt som mulig.<br/>
                         Det som ligger på trunk skal i størst mulig grad <strong>gjenspeile</strong> det som er i <strong>produksjon</strong>.<br/>
-                        Monorepo innebærer en radikalt <strong>annerledes</strong> måte å jobbe med felleskode på enn multirepo, og det gir både fordeler og ulemper.<br/>
+                        Monorepo innebærer en radikalt <strong>annerledes</strong> måte å jobbe med felleskode på enn multirepo, og det gir både <strong>fordeler og ulemper</strong>.<br/>
                     </aside>
                 </section>
 
@@ -322,9 +324,10 @@
                         </code></pre>
                         <aside class="notes">
                             <h6>A</h6>
+                            <strong>"Kodebasen er samlet i ett repository som inneholder flere prosjekter"</strong><br/>
                             Dette er jo det punktet som åpenbart <strong>skiller en mono- og en multirepoorganisasjon</strong>.<br/>
                             I stedet for å modularisere ulike applikasjoner og deres fellesbibliotek i mange forskjellige repository<br/>
-                            så <strong>samler man alt og bruker filstrukturen</strong> for å holde de adskilt.
+                            så <strong>samler man alt og bruker filstrukturen</strong> for å holde de adskilt og organisert.<br/>
                         </aside>
                     </section>
 
@@ -335,7 +338,7 @@
                         </blockquote>
                         <pre class="fragment"><code data-trim data-noescape>
 $ find . -name '*.md' | \
-  xargs sed -i 's/sparebank1/SpareBank 1/gi'
+  xargs sed -i 's/ sparebank1 / SpareBank 1 /gi'
                         </code></pre>
 
                         <aside class="notes">
@@ -355,7 +358,7 @@ $ find . -name '*.md' | \
 
                     <section>
                         <h1>Visibility</h1>
-                        <blockquote>Code is viewable and searchable by all</blockquote>
+                        <blockquote>Code is viewable and searchable by all engineers in the organization</blockquote>
                         <pre class="fragment"><code data-trim data-noescape>
 $ git grep lib1 -- '**/pom.xml'
 apps/app1/pom.xml:            &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
@@ -366,12 +369,10 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         </code></pre>
                         <aside class="notes">
                             <h6>A</h6>
-                            (2) Visibility: Code is viewable and searchable by all
-                            engineers in the organization.
-                            - Her ligger en av de store gevinstene for oss.
-                            Våre verktøy i dag er helt ubrukelig til å søke etter kode i.
-                            Om du er så heldig å finne noe, så aner du ikke om den versjonen du ser er den som er i
-                            bruk.
+                            <strong>"Koden er synlig og søkbar for alle utviklerne i organisasjonen"</strong><br/>
+                            Her ligger en av de store <strong>gevinstene</strong> for oss.<br/>
+                            Med mindre du sjekker ut alle 1-200 repoene så er verktøyene vi har i dag helt <strong>ubrukelig til å søke</strong> etter kode.<br/>
+                            Om du er så heldig å finne noe, så aner du ikke om den versjonen du ser er den som <strong>faktisk er i bruk</strong>, da må du grave i versjonsnummer og matche det med revisjonsnummer.<br/>
                         </aside>
                     </section>
 
@@ -415,19 +416,14 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 
                         <aside class="notes">
                             <h6>A</h6>
-                            - Monorepo har i praksis vært forbeholdt de store aktørene fordi tooling
-                            koster. De nødvendige verktøyene for å bruke monorepo på store prosjekter
-                            begynner nå å bli tilgjengelig. Google har open sourcet deler av sitt byggeverktøy
-                            Bazel som i disse dager blir sluppet i versjon 1.0. Bazel er et graf-basert
-                            byggverktøy. Google har også gjort tilgjengelig en plugin for IntelliJ slik at
-                            det er relativt lett å ta i bruk. Microsoft har gjort
-                            tilgjengelig sitt GVFS som gjør det mulig å versjonskontrollere
-                            _store_ mengder kode i ett vanlig gitrepo. I tillegg har vi fått standarder som
-                            CODEOWNERS for å håndtere eierskap til kode og reviewers på pull requests.
-                            <hr/>
-                            (5) Standardization: A shared set of tooling governs how
-                            engineers interact with the code, including building,
-                            testing, browsing, and reviewing code.
+                            <strong>"Felles verktøy bestemmer hvordan utviklerne interakterer med koden, inkludert bygging, testing, lesing og vurdering av koden"</strong><br/>
+                            Monorepo har i praksis vært <strong>forbeholdt de store aktørene</strong> fordi tooling koster.<br/>
+                            De nødvendige <strong>verktøyene</strong> for å bruke monorepo på store prosjekter begynner nå å bli tilgjengelig.<br/>
+                            Google har open sourcet deler av sitt byggeverktøy <strong>Bazel</strong> som i disse dager blir sluppet i versjon 1.0.<br/>
+                            Bazel er et <strong>graf-basert</strong> byggverktøy.<br/>
+                            Google har også gjort tilgjengelig en plugin for <strong>IntelliJ</strong> slik at det er relativt lett å ta i bruk.<br/>
+                            Microsoft har gjort tilgjengelig sitt <strong>VFS for Git</strong> som gjør det mulig å versjonskontrollere <strong>_store_ mengder kode</strong> i ett vanlig gitrepo.<br/>
+                            I tillegg har vi fått standarder som <strong>CODEOWNERS</strong> for å håndtere <strong>eierskap til kode og reviewers</strong> på pull requests.<br/>
                         </aside>
                     </section>
                 </section>
