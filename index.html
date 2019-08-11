@@ -433,7 +433,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             <h6>A</h6>
                             <p>
                                 SpareBank 1:s nett- och mobilbank var en illasinnad
-                                enterprise java-monolit som versionskontrolleras først i ClearCase, sedan Subversion (CHECKA!) och till sist i git.
+                                enterprise java-monolit som versionskontrollerdes først i ClearCase, sedan Subversion (CHECKA!) och till sist i git.
                                 Produktionssættningarna vara stora, komplicerade, långsamma och sællsynta. Det var i praktiken
                                 omøjligt att skalera upp utvecklingsorganisationen till den nivå banken ønskade sig eftersom
                                 vi aldrig skulle klarat att
@@ -457,7 +457,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             <h3>Monorepo</h3>
                             <h6>A</h6>
                             <p>
-                                Vi  utvecklar nu en ny generation av applikationer som ær tillståndsløsa, skyklara och som helt kuttar banden till den gamla monoliten,
+                                Vi utvecklar nu en ny generation av applikationer som ær tillståndsløsa, skyklara och som helt kuttar banden till den gamla monoliten,
                                 Vi har fortfarande felleskode.
                                 Vi har dock valt att utveckla våra nya appar och deras felleskode i ett monorepo.
                                 Vi har utgått från de verktyg
@@ -498,12 +498,11 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         </code></pre>
                         <aside class="notes">
                             <h6>A</h6>
-                            Vårt monorepo ær ett maven reactor multimodul-bygg med i huvudsak två toppnivå moduler:
+                            Vårt monorepo ær idag ett maven reactor multimodul-bygg med i huvudsak två toppnivå moduler:
                             <ul>
                                 <li>apps - våra applikationer</li>
                                 <li>libs - felleskoden</li>
                             </ul>
-
                         </aside>
                     </section>
 
@@ -512,8 +511,15 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         <aside class="notes">
                             <h6>J</h6>
 
-                            <p>Maven ær i grunden ett rekursivt byggsystem, ikke ett DAG-baserat 
-                               som bazel.
+                            <p>
+                            Maven ær i grunden ett rekursivt byggsystem, ikke ett graf-baserat som e.g. bazel. Bazel ær en open sourcing'n av byggsystemet som brukas
+                            før att bygga Google's monorrepo och, føga førvånande, ær det också ur många perspektivt mer læmpat før Monorepo æn vad Maven ær.
+                            </p>
+                            <p>
+                            Vi har ænnu inte tagit steget att uppgradera till Bazel, det ær också en fråga om vilka verktyg som programmerarna kænner och har kompetens på.
+                            Bazel ær mer æn materia før en egen talk och vi kommer inte gå in i detalj på Bazel i vår talk idag. Alla exempel vi visar idag utspelar
+                            sig i ett <a href="https://github.com/SpareBank1/monorepo-sample">exempel-monorepo på github</a>. Monorepot ær uppsatt att bygga med både
+                            Maven och Bazel men idag kommer vi bara berøra Maven.
                             </p>
                         </aside>
                     </section>
@@ -523,7 +529,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                            Men kan ha avhængigheter på tværs av filtrædstruktur
+                            Med maven kan man ha avhængigheter på tværs av filtrædstruktur
                             </p>
                         </aside>
                     </section>
@@ -546,8 +552,7 @@ $ mvn clean install
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                            Det ær avhængigheterna mellan modulerna som bestæmmer i vilken ordning
-                               modulerna byggs.
+                            Det ær avhængigheterna mellan modulerna som bestæmmer i vilken ordning modulerna byggs.
                             </p>
                         </aside>
                     </section>
@@ -565,7 +570,7 @@ $ apps/app1 $ mvn clean install
 
                         <aside class="notes">
                             <h6>A</h6>
-                            Hær bygget maven rekursivt från apps/app1 och bygger inga avhængigheter
+                            Hær bygger maven rekursivt från apps/app1 och bygger inga avhængigheter
                             till app1 som ligger utanfør aktuell arbetskatalog i filsystemet.
                         </aside>
                     </section>
@@ -596,26 +601,42 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
                     </section>
 					
 					<section>
-						<h1>Mavenutfordringer</h1>
+						<h1>Mavenutfordringer med GAV</h1>
 						<ul>
+                            <li>groupId - bør utledes fra katalogstruktur</li>
 							<li>version - bør utledes fra versjonskontroll</li>
-							<li>groupId - bør utledes fra katalogstruktur</li>
-							<li>Trenger nyere version av Maven for å unngå minnelekasje og få CI-vennlig "revisions"</li>
+                            <!-- ær detta nåt vi bør ta upp?		<li>Trenger nyere version av Maven for å unngå minnelekasje og få CI-vennlig "revisions"</li> -->
 						</ul>
 						<aside class="notes">
                             <h6>A</h6>
-                            <p>Maven har en del utfodring i monoreposammanhang. Vi ska nu se nærmare på två av dem</p>
+                            <p>Maven har en del utfodring i monoreposammanhang som ær relaterade till att Maven referar artefakter med GAV-kordinter.
+                            Vi ska nu se nærmare på två av dem:</p>
 							<ul>
+                                <li>groupId</li>
 								<li>Bruk av project.version før att referer till monorepointerna dependencies</li>
-								<li>ci-profil som sætter revision-property'n från miljøvariabel: fungerar næstan</li>
-								<li>https://issues.apache.org/jira/browse/MNG-6412</li>
 							</ul>
-							<p>Bazel har inget versionsbegrepp, brukare utcheckade filstrukturen på disk som versionshanteras av VCS</p>
-							<p>Bazel har inget grupperingsbegrepp à la maven groupId,
-								gruppering på disk ær identiskt med katalogstrukturken</p>
-
+                            <p>Jæmført med Bazel:</p>
+                            <ul>
+                                <li>inget grupperingsbegrepp à la maven groupId, gruppering på disk ær identiskt med katalogstrukturken</li>
+                                <li>inget versionsbegrepp, brukar den utcheckade filstrukturen på disk som versionshanteras av VCS</li>
+                            </ul>
 						</aside>
 					</section>
+
+                    <section>
+                        <h1>filsti == groupId</h1>
+                        <p><span><code>libs/lib1</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.libs.lib1</code></p>
+                        <p><span class="fragment fade-in"><code>apps/app2</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.apps.app2</code></p>
+                        <aside class="notes">
+                            <h6>J</h6>
+                            <p>
+                            Maven's namespace før moduler ær baserat på groupId-begreppet. I ett monorepo ær name space
+                            ivaratatt av filtrædet, och groupId-begreppet i Maven ær i princip smør på flæsk.
+                            Nær man brukar Maven før monorepo kan man vurdera att sætta groupId identisk till filsti.
+                            </p>
+                        </aside>
+                    </section>
+
 					<section>
                         <h1>Versjonering i Maven</h1>
                         <pre><code data-trim data-noescape>
@@ -624,7 +645,20 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
   &lt;artifactId&gt;lib1&lt;/artifactId&gt;
   &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
 					</code></pre>
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
+                            Maven brukar SNAPSHOT-versioner som tolkas som det "senaste" deploy'ade binærartefakten.
+                            Detta passar dåligt med monorepo-tankengången att versionskontrollsystemet ska stå før versionering och
+                            inga avhængigheter tll binæra artefakter førekommer.
+                            </p>
+                            <p>
+                            Det har varit mer naturligt om Maven brukt aktuell git revision som version, men det fungerar inte bra
+                            nær versionnumret ær fixar i pom.xml-filen.
+                            </p>
+                        </aside>
                     </section>
+
                     <section>
                         <h1>CI-vennlig versjonering</h1>
                         <pre><code data-trim data-noescape>
@@ -643,8 +677,9 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						<aside class="notes">
                             <h6>J</h6>
 							<p>
-                            Med <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a>
-							trenger man inte mutera pom-filer med mvn versions:set
+                            Maven har på senare tid fått stød før så kallade  <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a> versioner.
+							Det innebær att man kan parametriera version med en property som man kan sætta från kommandolinjen. Vi sætter det till git commit.
+                            Tidigare har vi i många sammanhang mutera pom-filer med mvn versions:set, det slipper vi nu!
 							</p>
 						</aside>
                     </section>
@@ -654,8 +689,9 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             <h6>A</h6>
 							<p>
                             Før att undgå att pom-filer med ikke-resolverade $revision inslag blir installerade bør
-							man bruka Maven flatten-plugin'en. Denna resolva'r revision och installerar en flat pom.xml fil
-							som man kan bruka i framtida bygg utan problem.
+                            man bruka Maven <a href="https://www.mojohaus.org/flatten-maven-plugin/">flatten-plugin'en</a>. 
+                            Denna resolva'r revision och installerar en flat pom.xml fil
+							som man kan bruka i framtida bygg utan problem. Exempel-repo't visar hur detta fungerar i praktiken.
                             </p>
 						</aside>
 					</section>
@@ -668,17 +704,13 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
     &lt;version&gt;${project.version}&lt;/version&gt;
   &lt;/dependency&gt;
 						</code></pre>
-					</section>
-					<section>
-						<h1>filsti == groupId</h1>
-						<p><span><code>libs/lib1</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.libs.lib1</code></p>
-						<p><span class="fragment fade-in"><code>apps/app2</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.apps.app2</code></p>
-						<aside class="notes">
-                            <h6>J</h6>
-							<p>Maven's namespace før moduler ær baserat på groupId-begreppet. I ett monorepo ær name space
-							ivaratatt av filkatalog-hiearkin. Nær man brukar Maven før monorepo bør man vurdera att sætta
-							groupId identisk med filsti.</p>
-						</aside>
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
+                            I monorepo't ær alla maven artefakter på samma version, i.e. git HEAD. Då ær det naturligt att bruka project.version-property'n før
+                            att refera till avhængigheter inom monorepo't.
+                            </p>
+                        </aside>
 					</section>
 					<section>
 						<h1>CODEOWNERS</h1>
@@ -729,7 +761,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <aside class="notes">
                             <h6>J</h6>
                             <p>I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
-                            Vi har f.eks. valt att lægga upp egna Jenkinsfile's før varje app i monorepot så att teamen har møjlighet
+                            Vi har valt att lægga upp egna Jenkinsfile's før varje app i monorepot så att teamen har møjlighet
                             att f.eks. sætta upp sina testmiljøer som man ønskar.
                             </p>
                             <p>
@@ -756,6 +788,12 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         <h1>partial-build-plugin</h1>
                         <aside class="notes">
                             <h6>J</h6>
+                            <p>Att bygg <strong>hela</strong> monorepo't från maven clean blir en længre och længre process ju større repo't blir. 
+                            Andra byggsystem (Bazel) har
+                            stød før inkrementell bygging, dær bara den kod som har ændrats och dess avhængigheter blir byggt. Vi tar tagit i bruk
+                            <a href="https://github.com/lesfurets/partial-build-plugin">partial-build-plugin</a> en plugin som hackar sig in i maven
+                            byggning och prøvar att bara bygga moduler som har en diff mot trunk, lite likt upplægget kring val av Jenkinsfile. 
+                            Dessværre ær pluginen insomnad på Github, men den har fungerat fint før oss så långt.
                         </aside>
                     </section>
 
@@ -805,7 +843,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             <h6>A</h6>
 							<p>
 							I utgångspunkt hanterar inte Maven sparse checkouts. Maven ønskar bygga upp en komplett modell av alla moduler
-							baserat på pom.xml:arna. Om en submodul inte ær utcheckad på disk trynar maven.
+							baserat på pom.xml:arna innan Maven gør något som helst. Om en submodul inte ær utcheckad på disk trynar maven.
 							</p>
 							<p>
 							Med hjælp av kreativt bruk av mavenprofiler, som aktiveras bara nær pom.xml-filer ær utcheckat i trædet,
@@ -824,22 +862,8 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                                 <li>Archunit?</li>
                             </ul>
 	                            <ul>
-                                <li>Bazel?
-                                    <ul>
-                                        <li>JVM-external</li>
-                                        <li>Maven-dependencies</li>
-                                        <li>IntelliJ-støtte</li>
-                                    </ul>
-                                </li>
                                 <li>Python i Monorepo?</li>
                                 <li>Rydde i repo</li>
-                                <li>Archeunit.org - medisin mot monolitt i monorepo
-                                    <ul>
-                                        <li>no.sb1.apps.app_a</li>
-                                        <li>no.sb1.libs</li>
-                                        <li>Hva med Python og Go?</li>
-                                    </ul>
-                                </li>
                             </ul>
 						</aside>
 					</section>
@@ -915,6 +939,19 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                         <aside class="notes">
                             <h6>A</h6>
+                            <p>I ett monorepo ønskar man, naturligt nog, att master <strong>alltid</strong> ska bygga grønt. Før
+                            att sækerstælla det kan man inte tillåta merge av PR:s som inte integrerat de senaste commitsen på master.
+                            Alltså måste man rebase:a in master i ens PR innan den kan merge'as.
+                            </p>
+                            <p>
+                            Det stora problemet med dæt ær att efter att man reintegrerat sin PR (enkelt att gøra direkt från webbrowser i
+                            Bitbucket) och væntat på grønt bygg så kan någon annat ha hunnit få sin PR merge'ade føre dig.. Rinse and repeat!
+                            </p>
+                            <p>Vi har ænnu inte "løst" problemet. Men det håller på att bli mer och mer allvarligt i takt med att fler
+                            utvecklare tillkommer. Trolig løsning ær nån form av automatisering som i loop automatiskt rebase'ar,
+                            væntar på bygg och (om bygget ær grønt) merge'ar.
+                            </p>
+                            <hr />
                             <a href="https://docs.microsoft.com/en-us/azure/devops/learn/git/race-to-push">The race to push</a>
                         </aside>
                     </section>
@@ -924,9 +961,16 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                         <aside class="notes">
                             <h6>J</h6>
-                            Ett monorepo ger goda førutsættningar før att producera en ny tætt kopplat monolit/big-ball-of-mud.
-
-                            Detta må vi undgå. Kanske kan archunit hjælpa?
+                            <p>
+                            I ett monorepo ær det lættare æn någonsin att dela kode och inføra nya avhængigheter - nu slipper man faktiskt krullet med att finna 
+                            fram till vilken version man ønskar. Baksidan av myntet ær det ær rætt lætt att vara odisciplinerad och lægga inte avhængigheter på lite væl 
+                            mycket felleskode, och, om man inte pasar sig, så har vi kanske snart en ny tætt kopplad monolit.
+                            </p>
+                            <p>
+                            Detta må vi undgå. Vi har ænnu inte kommit till den punkten dær detta kan bli ett problem, men med større skala så ær vi nyfikna
+                            på att titta på kodekvalitetsverktyg som <a href="https://www.archunit.org/">Archunit</a>. Archunit låter dig skriva junit-enhetstester
+                            som på klassnivå verfieriar att man f.eks. inte har avhængigheter mellan appar i ett monorepo.
+                            </p>
                         </aside>
                     </section>
 
@@ -945,7 +989,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             Maven ær alltså ældre æn git, FaceBook och java generics och firar snart 20-årsjubileum...
                             </p>
                             <p>
-                            Maven clunkyness i monorepo-sammanhang:
+                            Maven clunkyness i monorepo-sammanhang (vi har varit igenom många av dem tidigare i talken):
                             </p>
                             <ul>
                                 <li>Ikke polyglot - javacentrisk</li>
@@ -1106,31 +1150,31 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             <h6>J</h6>
                             <p>
                             Google ær kanske den mest kænda monorepobrukaren, och har idag ett gigantisk repo
-                            som innehåller decennier med historik och som brukas av øver 20.000 utvecklare.
-                            De var intresserade av vad dem tyckte om repo't och genomførde i 2018 en enkætundersøkelse bland
+                            med decennier med historik som brukas av øver 20.000 utvecklare.
+                            Google var intresserade av vad folk tyckte om repo't och genomførde i 2018 en enkætundersøkelse bland
                             sina monorepobrukare samtidigt som det samlades in loggdata om hur repo't anvændes.
                             </p>
 
                             <p>
-                            Undersøkelse blev till ett <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
-                                paper</a> som varmt rekommenderas.
+                            Undersøkelse blev før øvrigt till ett <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
+                            paper</a> som varmt rekommenderas.
                             </p>
 
                             <p>
                             Det visade sig att utvecklarna starkt preferade ett jobba i monorepo't nær detta sattes
                             upp mot tidigare erfarenhet av att jobba i multirepo-miljø. Det kan naturligtvis
-                            ifrågasættas i vilken grad det resultatet berodde på den inneboende styrkan i monorepotankegång och
-                            vilken grad det kan vara påverkat av kvalitèn på Googles utvecklingsverktyg (versionshantering,
+                            ifrågasættas i vilken grad det resultatet berodde på den inneboende styrkan i monorepotankegången och
+                            i vilken grad resultatet kan vara påverkat av kvalitèn på Googles utvecklingsverktyg (versionshantering,
                             code review, code browsing, etc.) vs mot dær man hade jobbat med multirepo tidigare.
                             </p>
 
                             <p>
-                            En kanske lite ovæntad finding var att den aspekt av monorepo som utvecklarna satte mest pris inte
+                            En kanske lite ovæntad finding var att den aspekt av monorepo't som utvecklarna satte mest pris på <strong>inte</strong>
                             var enkel versionering eller atomiska refaktoreringar utan møjligheten
                             att lætt kunna søka i och læsa all kællkod før att f.eks. finna relevanta kodeexempler.
                             </p>
                             <hr/>
-                           Bilde: https://pixabay.com/photos/survey-opinion-research-voting-fill-1594962/
+                            Bilde: https://pixabay.com/photos/survey-opinion-research-voting-fill-1594962/
                         </aside>
                     </section>
                     <section>
