@@ -1071,7 +1071,16 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                         <aside class="notes">
                             <h6>J</h6>
-                            <p>
+                            <p>	
+							Jobbing i ett monorepo ær på många sætt rætt radikalt annorlunda æn hur vi jobbar med multirepo idag.
+							</p>
+							<p>
+							Att vi børjade med monorepo var inte bara før att monorepo ær <i>the next shiny thing</i> vi trodde också att
+							det faktiskt skulle ha en del utslagsgivande positiva effekter. Vi har nu tillræckligt med praktiska erfarenhet før att kunna dela lite kring
+							vilka effekter vi har upplevt.
+                            </p>
+							<hr />
+							<p>
                             (7 min)
                             Med monorepo; hva blir mer viktig, og hva blir mindre viktig?
                             Hvordan påvirker monorepo samarbeidet i organisasjonen?
@@ -1080,7 +1089,31 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </aside>
                     </section>
 					<section>
+<style>
+.versionconcept {
+    border-radius: 25px;
+    background: rgba(0,0,0,0.2);
+    border: dotted;
+    border-width: 2px;
+    font-family: monospace;
+    text-transform: none;
+    text-decoration: line-through;
+    text-decoration-color: #E60000;
+    display: inline;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 5px 5px 5px 5px;
+    white-space: nowrap;
+}
+</style>
                         <h1>Versjonering</h1>
+                        <p>
+                        <div class="fragment versionconcept">$ mvn version set</div>
+                        <div class="fragment versionconcept">$ mvn release:begin</div>
+                        <div class="fragment versionconcept">&lt;version&gt;</div>
+                        <div class="fragment versionconcept">-SNAPSHOT</div>
+                        <div class="fragment versionconcept">&lt;dependencyManagement&gt;</div>
+                        </p>
 						<aside class="notes">
 							<h6>A</h6>
 							<p>
@@ -1094,94 +1127,101 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                                 etc. etc. allt annat som folk uppfunnit genom historiens før før att
                                 førsøka gøra versionering av felleskode i artefaktregistries levlig.
 							</p>
+							<p>
+							Mindre behov før komplex tooling før att hålla appar uppdaterade med nya versioner
+							av felleskode.
+							</p>
 						</aside>
 					</section>
                     <section>
-                        <h1>Endring i felleskode</h1>
-                        <h4>Bilde av overlykkelige folk som kaster blomster rundt om?</h4>
+                        <h2>Jobbing med felleskode</h2>
+						<p class="ffe-lead-paragraph">Hvis du ikke har et monorepo, integrerer du ikke kontinuerlig - i beste fall hyppig!</p>
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                                Tidigare kunde man ændra felleskode utan att att ta ansvara før att integrera
-                                ændringen i konsumenterna. Med monorepo blir man mer ansvarligt før konsumenterna,
+								Att jobba med felleskode i ett monorepo ær helt annorlunda, och bættre, æn i multirepo. Ønskar du
+								se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.
+								Nyfiken på om en felleskodeændring knæcker en konsument? Det ær enkelt (i alla fall i Bazel)
+								att køra alla konsumenteras tester. Ær det något som knæcker så ær det møjligt att fixa
+								det i samma PR som felleskodeændringen! Man kan laga <i>atomiska refaktoreringar</i> som
+								ær lætta rulla bak, som resulterar i holistiska PR:s dær man ser hela bilden/diffen!
+								Sammantaget sænker monorepo trøskeln, som annars kan vara rætt høg, før att folk vågar refaktorer/bidra till felleskode.
+							</p>
+							<p>
+								Det ær inte længre møjligt att vælja att inte ta in en ny version av felleskode. Felleskodeændringar
+								integreras kontinuerligt i apparna: betydligt mer kontinuerligt æn vad som brukar vara fallet i
+								multirepo. Sækerhetsuppdateringar och kritiska bugfixar får en rask T2M.
+							</p>
+							<p>
+                               Tidigare kunde man ændra felleskode utan att att ta ansvara før att integrera
+                               ændringen i konsumenterna. Med monorepo blir man mer ansvarligt før konsumenterna,
                                det blir också praktiskt møjligt att gøra det.
-
-                               Holistiska PR dær man ser alla ændringar och det blir praktiskt møjligt med en
-                               helhetlig code review.
-
-                               Atomiska refaktoreringar.
-
-                               T2M før felleskodeændring/sikkerhetspatching går radikalt ned. True _continous_ integration!
-
-                               Mindre behov før komplex tooling før att hålla appar uppdaterade med nya versioner
-                               av felleskode.
-
-                               Praktiskt møjligt att få rask feedback på konsekveserna av ændring av felleskode,
-                               sænker trøskeln før att att folk vågar refaktorer/bidra till felleskode.
                             </p>
                         </aside>
                     </section>
-                    <section data-background="img/2nd-order-effects.jpg" data-background-size="contain">
 
+                    <section data-background="img/2nd-order-effects.jpg" data-background-size="contain">
                         <h1 style="color:white">Second order effects</h1>
                         <br/><br/><br /><br/>
-                        <h3 style="color:white">i SpareBank 1 utveckling</h3>
+                        <h3 style="color:white">i SpareBank 1 Utveckling</h3>
                         <aside class="notes">
                             <h6>A</h6>
                             <p>Vår nettbank har historiskt varit uppdelat i två olika "marknader": privat och bedrift.
                             Dessa har betjænats av olika team och det har uppstått många tillfæller dær samma typ av
-                            app lagats två gånger, en gång i en privat/pm-smak och gång i en bedrift/bm-smak.</p>
+                            app lagats två gånger, en gång i en privat-smak och gång i en bedrift-smak.</p>
 
                             <p>Monorepo't læægger upp till bættre genomsiktligt och samarbetsmøjligheter på tværs av
-                            team och vi ser nu tillfællen av appar som kan upptræda som bm- och pm från samma kodebas</p>
+                            team och vi ser nu tillfællen av appar som kan upptræda som i både privat och bedriftsammanhang
+                            från samma kodebas</p>
                             <hr />
                             Biljardbild: https://pixabay.com/photos/billiards-pool-play-game-sport-1967938/
                         </aside>
                     </section>
                     <section data-background="img/survey.jpg" data-background-size="contain">
                         <h1>Googles erfaringar</h1>
-                        <br/><br/><br/><br/><br/><br/><br/><br/>
-                        <p class="ffe-small-text" style="color:black">Advantages and Disadvantages of a Monolithic Repository:
+                        <br/><br/><br/><br/><br/><br/><br/>
+                        <p class="ffe-small-text" style="color:black; background-color: rgba(255, 255, 255, 0.2);">Advantages and Disadvantages of a Monolithic Repository:
                         A case study at Google<br/>
-                        Ciera Jaspan, Matthew Jorde, Andrea Knight, Caitlin Sadowski, Edward K. Smith, Collin Winter Google<br/>
+                        Ciera Jaspan, Matthew Jorde, Andrea Knight, Caitlin Sadowski, Edward K. Smith, Collin Winter-Google; 
                         Emerson Murphy-Hill NC State University
                         </p>
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                            Google ær kanske den mest kænda monorepobrukaren, och har idag ett gigantisk repo
-                            med decennier med historik som brukas av øver 20.000 utvecklare.
-                            Google var intresserade av vad folk tyckte om repo't och genomførde i 2018 en enkætundersøkelse bland
-                            sina monorepobrukare samtidigt som det samlades in loggdata om hur repo't anvændes.
-                            </p>
-
-                            <p>
-                            Undersøkelse blev før øvrigt till ett <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
-                            paper</a> som varmt rekommenderas.
+                            Någon som har <strong>en del</strong> monorepoerfarenhet ær Google.
+							Google har ett gigantisk monorepo med faktiskt <strong>decennier</strong> med historik. Repo't anvænds av øver 20.000 utvecklare.
+                            Google ær intresserade av vad deras erfarenheter och gick i 2018 vetenskapligt till verks. Det genomførde
+							en større enkætundersøkelse samtidigt som det samlades in loggdata om hur repo't anvændes.
                             </p>
 
                             <p>
                             Det visade sig att utvecklarna starkt preferade ett jobba i monorepo't nær detta sattes
-                            upp mot tidigare erfarenhet av att jobba i multirepo-miljø. Det kan naturligtvis
-                            ifrågasættas i vilken grad det resultatet berodde på den inneboende styrkan i monorepotankegången och
+                            upp mot tidigare erfarenhet av jobb i en multirepo-miljø. (så det var kanske inte helt bortkastat att gå på den hær talken)
+							Det kan naturligtvis ifrågasættas i vilken grad det resultatet berodde på den inneboende styrkan i monorepotankegången och
                             i vilken grad resultatet kan vara påverkat av kvalitèn på Googles utvecklingsverktyg (versionshantering,
-                            code review, code browsing, etc.) vs mot dær man hade jobbat med multirepo tidigare.
+                            code review, code browsing, etc.) versus mot dær man hade jobbat med multirepo tidigare.
                             </p>
 
                             <p>
                             En kanske lite ovæntad finding var att den aspekt av monorepo't som utvecklarna satte mest pris på <strong>inte</strong>
-                            var enkel versionering eller atomiska refaktoreringar utan møjligheten
-                            att lætt kunna søka i och læsa all kællkod før att f.eks. finna relevanta kodeexempler.
+                            var enkel versionering, atomiska refaktoreringar eller något annat av det vi næmnt tidigare.<br/>
+                            Nej, det var møjligheten att lætt kunna søka i och læsa all kællkod før att f.eks. finna relevanta kodeexempler som kom ut på topp.
+                            </p>
+
+                            <p>
+                            Undersøkelse blev till ett <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">intressant paper</a> som varmt rekommenderas.
                             </p>
                             <hr/>
                             Bilde: https://pixabay.com/photos/survey-opinion-research-voting-fill-1594962/
                         </aside>
                     </section>
-                    <section>
-                        <h2>Du får det till med Maven, Jenkins og Git!</h2>
-                        <h2 class="fragment fade-in">...men på sikt ryker nok Maven!</h2>
+                    <section data-background="img/success.jpg" data-background-size="contain">
+                        <h2 style="text-shadow: 0px 0px 4px #FFFFFF;">Du får det till med Maven, Jenkins og Git!</h2>
+                        <h2 class="fragment fade-in" style="text-shadow: 0px 0px 4px #FFFFFF;">...men på sikt ryker nok Maven!</h2>
                         <aside class="notes">
                             <h6>A</h6>
+                            <hr />
+                            Bild av <a href="https://pixabay.com/sv/users/StartupStockPhotos-690514/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">StartupStockPhotos</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">Pixabay</a>
                         </aside>
                     </section>
 				</section>
