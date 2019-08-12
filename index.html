@@ -506,16 +506,16 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             <code data-trim data-noescape>
 $ mvn clean install
 [INFO] Scanning for projects...
-[INFO] ------------------------------------------------------------------------
+[INFO] ----------------------------------------------------
 [INFO] Reactor Build Order:
 [INFO]
-[INFO] root                                                               [pom]
-[INFO] libs                                                               [pom]
-[INFO] lib2                                                               [jar]
-[INFO] lib1                                                               [jar]
-[INFO] apps                                                               [pom]
-[INFO] app1                                                               [jar]
-[INFO] app2                                                               [jar]
+[INFO] root                                           [pom]
+[INFO] libs                                           [pom]
+[INFO] lib2                                           [jar]
+[INFO] lib1                                           [jar]
+[INFO] apps                                           [pom]
+[INFO] app1                                           [jar]
+[INFO] app2                                           [jar]
 [INFO]
                             </code>
                         </pre>
@@ -534,9 +534,9 @@ $ mvn clean install
 $ apps/app1 $ mvn clean install
 [INFO] Scanning for projects...
 [INFO]
-[INFO] --------------------------< no.monorepo:app1 >--------------------------
+[INFO] --------------------------< no.monorepo:app1 >------
 [INFO] Building app1 1.0.0-SNAPSHOT
-[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] --------------------------------[ jar ]-------------
 
                             </code>
                         </pre>
@@ -555,15 +555,15 @@ $ apps/app1 $ mvn clean install
                             <code data-trim data-noescape>
 apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 [INFO] Scanning for projects...
-[INFO] ------------------------------------------------------------------------
+[INFO] ----------------------------------------------------
 [INFO] Reactor Build Order:
 [INFO]
-[INFO] root                                                               [pom]
-[INFO] libs                                                               [pom]
-[INFO] lib2                                                               [jar]
-[INFO] lib1                                                               [jar]
-[INFO] apps                                                               [pom]
-[INFO] app1                                                               [jar]
+[INFO] root                                           [pom]
+[INFO] libs                                           [pom]
+[INFO] lib2                                           [jar]
+[INFO] lib1                                           [jar]
+[INFO] apps                                           [pom]
+[INFO] app1                                           [jar]
 [INFO]
                             </code>
                         </pre>
