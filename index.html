@@ -573,12 +573,12 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
                             <p>
                                 Hvis vi holder oss i samme arbeidskatalog og ønsker å få bygd også felleskoden som app1 bruker,
                                 så må vi til med noen ekstra opsjoner:
-                                <ul>
-                                    <li>-f: --file (angi filsti til rot-pom, kreves for at Maven skal ta utgangspunktet i rotkatalogen og finne alle moduler i prosjektet)</li>
-                                    <li>-pl: --projects (prosjektlisten, hvilke moduler eller applikasjoner skal Maven bygge)</li>
-                                    <li>-am: --also-make (instruerer Maven til å også bygge alle avhengighetene til modulene angitt i prosjektlisten)</li>
-                                </ul>
                             </p>
+                            <ul>
+                                <li>-f: --file (angi filsti til rot-pom, kreves for at Maven skal ta utgangspunktet i rotkatalogen og finne alle moduler i prosjektet)</li>
+                                <li>-pl: --projects (prosjektlisten, hvilke moduler eller applikasjoner skal Maven bygge)</li>
+                                <li>-am: --also-make (instruerer Maven til å også bygge alle avhengighetene til modulene angitt i prosjektlisten)</li>
+                            </ul>
 						</aside>
                     </section>
 
@@ -617,9 +617,9 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                            Maven's namespace før moduler ær baserat på groupId-begreppet. I ett monorepo ær name space
-                            ivaratatt av filtrædet, och groupId-begreppet i Maven ær i princip smør på flæsk.
-                            Nær man brukar Maven før monorepo kan man vurdera att sætta groupId identisk till filsti.
+                                Maven's namespace før moduler ær baserat på groupId-begreppet. I ett monorepo ær name space
+                                ivaratatt av filtrædet, och groupId-begreppet i Maven ær i princip smør på flæsk.
+                                Nær man brukar Maven før monorepo kan man vurdera att sætta groupId identisk till filsti.
                             </p>
                         </aside>
                     </section>
@@ -638,13 +638,9 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                            Maven brukar SNAPSHOT-versioner som tolkas som det "senaste" deploy'ade binærartefakten.
-                            Detta passar dåligt med monorepo-tankengången att versionskontrollsystemet ska stå før versionering och
-                            inga avhængigheter tll binæra artefakter førekommer.
-                            </p>
-                            <p>
-                            Det har varit mer naturligt om Maven brukt aktuell git revision som version, men det fungerar inte bra
-                            nær versionnumret ær fixar i pom.xml-filen.
+                                Maven brukar <strong>SNAPSHOT</strong>-versjoner som tolkes som det "siste" deploy'ede binærartifakten.<br/>
+                                Dette passer dårlig med monorepo-tankegangen om at <strong>versjonskontrollsystemet skal stå for versjonering</strong>, og at det er <strong>ingen avhengigheter til binære artifakter</strong>.<br/>
+                                Det hadde vært mer naturlig <strong>om Maven brukte aktuell Git-revisjon</strong> som versjon, men det fungerer ikke så bra når versjonsnummeret er <strong>lagret i pom.xml</strong>-filene.<br/>
                             </p>
                         </aside>
                     </section>
@@ -663,17 +659,19 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
   &lt;/properties&gt;
                             </code>
                         </pre>
+
 						<pre class="fragment fade-up">
                             <code data-trim data-noescape>
 $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						    </code>
                         </pre>
+
 						<aside class="notes">
                             <h6>J</h6>
 							<p>
-                            Maven har på senare tid fått stød før så kallade  <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a> versioner.
-							Det innebær att man kan parametriera version med en property som man kan sætta från kommandolinjen. Vi sætter det till git commit.
-                            Tidigare har vi i många sammanhang mutera pom-filer med mvn versions:set, det slipper vi nu!
+                                Maven har på senare tid fått stød før så kallade  <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a> versioner.
+                                Det innebær att man kan parametriera version med en property som man kan sætta från kommandolinjen. Vi sætter det till git commit.
+                                Tidigare har vi i många sammanhang mutera pom-filer med mvn versions:set, det slipper vi nu!
 							</p>
 						</aside>
                     </section>
@@ -683,13 +681,14 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						<aside class="notes">
                             <h6>A</h6>
 							<p>
-                            Før att undgå att pom-filer med ikke-resolverade $revision inslag blir installerade bør
-                            man bruka Maven <a href="https://www.mojohaus.org/flatten-maven-plugin/">flatten-plugin'en</a>.
-                            Denna resolva'r revision och installerar en flat pom.xml fil
-							som man kan bruka i framtida bygg utan problem. Exempel-repo't visar hur detta fungerar i praktiken.
+                                For å unngå at pom-filer med <strong>$revision</strong>-innslag som ikke er "konkretisert" blir installert på f.eks. Nexus,
+                                kan man bruke Maven <a href="https://www.mojohaus.org/flatten-maven-plugin/"><strong>flatten-pluginen</strong></a>.<br/>
+                                Denna <strong>resolver revisjonsnummer, fjerner bygg- og utviklingsspesifikke detaljer som test-avhengigheter</strong> og produserer en pom-fil som er tilrettelagt for publisering til tredjepart, og som kan brukes i fremtidige bygg uten problemer.
+                                I eksemplet vi har lagt ut på Github kan dere se hvordan det fungerer i praksis.
                             </p>
 						</aside>
 					</section>
+
 					<section>
                         <pre>
                             <code data-trim data-noescape>
@@ -701,14 +700,16 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
   &lt;/dependency&gt;
 						    </code>
                         </pre>
+
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                            I monorepo't ær alla maven artefakter på samma version, i.e. git HEAD. Då ær det naturligt att bruka project.version-property'n før
-                            att refera till avhængigheter inom monorepo't.
+                                I monorepoet er <strong>alle Maven-artifakter på samme versjon, dvs. Git HEAD</strong>.
+                                Da er det naturlig å brukte project.version-propertyen for å referere til avhengigheter inne i monorepoet.
                             </p>
                         </aside>
 					</section>
+
 					<section>
 						<h1>CODEOWNERS</h1>
 						<pre class="fragment fade-up">
@@ -726,27 +727,24 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
 						<aside class="notes">
                             <h6>A</h6>
-							<p>En av de stor førdelarna med multirepo ær att det ær lætt før team att vara autonoma och på egen hand sætta
-							upp och administrera rutiner kring tilgång till kællkod och rutiner kring peer review.
-                            I ett monorepo som delas mellan teams måste detta centraliseras på tværs av team i større utstræckning.
-                            Ett vanligt uppsætt ær att øppna før read før alla, men kræva godkænd pull request før att få lov att ta
-                            ned kode på trunk.
+							<p>
+                                En av de store fordelene med <strong>multirepo</strong> er at det er <strong>lett for teamene å være autonome</strong> og på egenhånd sette opp og administrere rutiner rundt tilgang til kildekode og "peer reviews".<br/>
+                                I et <strong>monorepo</strong> som deles på tvers av mange team må dette <strong>sentraliseres</strong> på tvers av teamene i større utstrekning.<br/>
+                                Et vanlig oppsett er å åpne for <strong>lesetilgang</strong> til alle, men kreve <strong>godkjent "pull request"</strong> for å få lov til å merge ned på trunk.<br/>
                             </p>
 
 							<p>
-							En CODEOWNERS-fil i monorepot definierar vilka team/teammedlemmar som æger koden under olika filstier.
-							Detta kan brukas till f.eks. automatiskt lægga in ægare som reviewers på pull request:er som træffar
-                            deras respektive kode.
+                                En <strong>CODEOWNERS-fil</strong> i monorepoet definerer hvilke team/teammedlemmer som eier koden under ulike filstier.<br/>
+                                Dette kan brukes til å f.eks. automatisk legga inn eiere som reviewers på pull requester som treffer deres respektive kode.<br/>
                             </p>
 
 							<p>
-                            CODEOWNERS-filformatet ær <a href="https://help.github.com/articles/about-codeowners/">standardiserat</a>
-							och støds av Github (før tillfællet bara i betalt/PRO-utførande), Gitlab och Bitbucket Server (med plugin).
+                                CODEOWNERS-filformatet er <a href="https://help.github.com/articles/about-codeowners/"><strong>standardisert</strong></a>
+                                og støttes av Github hvis man er betalende bruker, samt Gitlab og Bitbucket Server med plugin.
 							</p>
 
 							<p>
-                            I detta exemplet blir Anders automatiskt lagt till som reviewer (med speciell-nøkkehålikon) på alla PR:s
-							som træffar hans app - app2.
+                                I dette eksempelet blir Jonas automatisk lagt til som reviewer med et spesielt nøkkelhullikon på alle pull requests som treffer hans app - app1.
                             </p>
 						</aside>
 					</section>
@@ -760,16 +758,18 @@ apps/app2/src/main/java/no/monorepo/app2/App2.java
 apps/app2/README.md
                             </code>
                         </pre>
+
                         <aside class="notes">
                             <h6>J</h6>
-                            <p>I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
-                            Vi har valt att lægga upp egna Jenkinsfile's før varje app i monorepot så att teamen har møjlighet
-                            att f.eks. sætta upp sina testmiljøer som man ønskar.
+                            <p>
+                                I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
+                                Vi har valt att lægga upp egna Jenkinsfile's før varje app i monorepot så att teamen har møjlighet
+                                att f.eks. sætta upp sina testmiljøer som man ønskar.
                             </p>
                             <p>
-                            Detta har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
-                            Vi har løst detta med en root Jenkinsfile som hjælp av git diff finner fram till exakt vilka filer som har ændrats
-                            i en PR jæmført mot master.
+                                Detta har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
+                                Vi har løst detta med en root Jenkinsfile som hjælp av git diff finner fram till exakt vilka filer som har ændrats
+                                i en PR jæmført mot master.
                             </p>
                         </aside>
                     </section>
@@ -777,6 +777,7 @@ apps/app2/README.md
                     <section>
                         <h1>Jenkins(file)</h1>
                         <img alt="Logo for Jenkins" src="img/Jenkinsfile.png" />
+
                         <aside class="notes">
                             <h6>J</h6>
                             Vår root-jenkinsfile finner vilka Jenkinsfile(s) som ær berørda av diffen och delegerar till den mest specifika.
@@ -790,12 +791,13 @@ apps/app2/README.md
                         <h1>partial-build-plugin</h1>
                         <aside class="notes">
                             <h6>J</h6>
-                            <p>Att bygg <strong>hela</strong> monorepo't från maven clean blir en længre och længre process ju større repo't blir.
-                            Andra byggsystem (Bazel) har
-                            stød før inkrementell bygging, dær bara den kod som har ændrats och dess avhængigheter blir byggt. Vi tar tagit i bruk
-                            <a href="https://github.com/lesfurets/partial-build-plugin">partial-build-plugin</a> en plugin som hackar sig in i maven
-                            byggning och prøvar att bara bygga moduler som har en diff mot trunk, lite likt upplægget kring val av Jenkinsfile.
-                            Dessværre ær pluginen insomnad på Github, men den har fungerat fint før oss så långt.
+                            <p>
+                                Att bygg <strong>hela</strong> monorepo't från maven clean blir en længre och længre process ju større repo't blir.
+                                Andra byggsystem (Bazel) har stød før inkrementell bygging, dær bara den kod som har ændrats och dess avhængigheter blir byggt. Vi tar tagit i bruk
+                                <a href="https://github.com/lesfurets/partial-build-plugin">partial-build-plugin</a> en plugin som hackar sig in i maven
+                                byggning och prøvar att bara bygga moduler som har en diff mot trunk, lite likt upplægget kring val av Jenkinsfile.
+                                Dessværre ær pluginen insomnad på Github, men den har fungerat fint før oss så långt.
+                            </p>
                         </aside>
                     </section>
 
@@ -809,17 +811,20 @@ apps/app2/README.md
 /apps/app1/*
                             </code>
                         </pre>
+
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                            Med sparse checkouts kan man kan instruera git att checka ut en delmængd av arbetstrædet. F.eks. kan man vælja att
-                            checka ut bara den applikation som man jobbar med før tiden. Det kan vara førdelaktig i førhållande till indexeringstid
-                            i IntelliJ.
-
-                            Med sparse checkouts får man i praktiken en utvecklarupplevelse som ær rætt lik den man har med multirepo.
+                                Med <strong>"sparse checkouts"</strong> kan man instruere Git til å sjekk eut en delmengde av arbeidstreet.<br/>
+                                For eksempel kan man velge å sjekke ut bare den applikasjonen som man jobber med for tiden.<br/>
+                                Det kan være gunstig med tanke på indekseringstid i f.eks. IntelliJ.<br/>
                             </p>
                             <p>
-                            I exemplet:
+                                <!-- TODO: Fortsett her Anders.. -->
+                                Med sparse checkouts får man i praktiken en utvecklarupplevelse som ær rætt lik den man har med multirepo.
+
+                                I exemplet:
+                            </p>
                             <ul>
                                 <li>checkat hela repo't ut</li>
                                 <li>utan några appars</li>
@@ -844,6 +849,7 @@ apps/app2/README.md
 &lt;/profile&gt;
                             </code>
                         </pre>
+
                         <aside class="notes">
                             <h6>A</h6>
 							<p>
@@ -858,6 +864,7 @@ apps/app2/README.md
                     </section>
 
 					<section>
+                        <!-- TODO: ... -->
                         Restpost
 						<aside class="notes">
 							<h6>En av oss:</h6>
