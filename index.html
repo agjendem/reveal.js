@@ -584,7 +584,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 							</ul>
 						</aside>
                     </section>
-					
+
 					<section>
 						<h1>Mavenutfordringer med GAV</h1>
 						<ul>
@@ -787,11 +787,11 @@ apps/app2/README.md
                         <h1>partial-build-plugin</h1>
                         <aside class="notes">
                             <h6>J</h6>
-                            <p>Att bygg <strong>hela</strong> monorepo't från maven clean blir en længre och længre process ju større repo't blir. 
+                            <p>Att bygg <strong>hela</strong> monorepo't från maven clean blir en længre och længre process ju større repo't blir.
                             Andra byggsystem (Bazel) har
                             stød før inkrementell bygging, dær bara den kod som har ændrats och dess avhængigheter blir byggt. Vi tar tagit i bruk
                             <a href="https://github.com/lesfurets/partial-build-plugin">partial-build-plugin</a> en plugin som hackar sig in i maven
-                            byggning och prøvar att bara bygga moduler som har en diff mot trunk, lite likt upplægget kring val av Jenkinsfile. 
+                            byggning och prøvar att bara bygga moduler som har en diff mot trunk, lite likt upplægget kring val av Jenkinsfile.
                             Dessværre ær pluginen insomnad på Github, men den har fungerat fint før oss så långt.
                         </aside>
                     </section>
@@ -965,8 +965,8 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                            I ett monorepo ær det lættare æn någonsin att dela kode och inføra nya avhængigheter - nu slipper man faktiskt krullet med att finna 
-                            fram till vilken version man ønskar. Baksidan av myntet ær det ær rætt lætt att vara odisciplinerad och lægga inte avhængigheter på lite væl 
+                            I ett monorepo ær det lættare æn någonsin att dela kode och inføra nya avhængigheter - nu slipper man faktiskt krullet med att finna
+                            fram till vilken version man ønskar. Baksidan av myntet ær det ær rætt lætt att vara odisciplinerad och lægga inte avhængigheter på lite væl
                             mycket felleskode, och, om man inte pasar sig, så har vi kanske snart en ny tætt kopplad monolit.
                             </p>
                             <p>
@@ -1003,7 +1003,7 @@ apps/app2/README.md
                                 <li>Sparse checkout måste hackas, mavens repomodell byggs upp av pom.xml filer
                                 - ikke vad som finns på disk</li>
                                 <li>Maven trenger explicit referens till roten av repo't, Bazel finner den fint sjælv</li>
-                                <li>Manglar inkrementella bygg - man bygger i regel alltid clean't</li> 
+                                <li>Manglar inkrementella bygg - man bygger i regel alltid clean't</li>
                                 <li>Maven brukar groupId och version-begrepp før moduler som i ett monorepo hellre avleds
                                 från filkatalogstrukt resp. git</li>
                             </ul>
@@ -1078,7 +1078,7 @@ apps/app2/README.md
 
                         <aside class="notes">
                             <h6>J</h6>
-                            <p>	
+                            <p>
 							Jobbing i ett monorepo ær på många sætt rætt radikalt annorlunda æn hur vi jobbar med multirepo idag.
 							</p>
 							<p>
@@ -1175,7 +1175,7 @@ apps/app2/README.md
                         <br/><br/><br/><br/><br/><br/><br/>
                         <p class="ffe-small-text" style="color:black; background-color: rgba(255, 255, 255, 0.2);">Advantages and Disadvantages of a Monolithic Repository:
                         A case study at Google<br/>
-                        Ciera Jaspan, Matthew Jorde, Andrea Knight, Caitlin Sadowski, Edward K. Smith, Collin Winter-Google; 
+                        Ciera Jaspan, Matthew Jorde, Andrea Knight, Caitlin Sadowski, Edward K. Smith, Collin Winter-Google;
                         Emerson Murphy-Hill NC State University
                         </p>
                         <aside class="notes">
