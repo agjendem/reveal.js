@@ -205,6 +205,7 @@
                                     felleskoden som tas i bruk vid versionsbump'en.
                                 </li>
                             </ul>
+                            <h6>J</h6>
                             <p>
                                 Som en lite kicker: ingen har tænkt på app2 (som också avhænger på lib2) i detta sammahanget.
                                 Denna appen kan nu vara knæckt (nær man bumpar lib2-versionen)!
@@ -226,20 +227,20 @@
                         </ul>
                         <br/><br/><br/>
                         <p>
-                        <small>Kilde:
-                            <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
-                                Advantages and Disadvantages of a Monolithic Repository - A case study at Google
-                            </a>
-                        </small>
+                            <small>Kilde:
+                                <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
+                                    Advantages and Disadvantages of a Monolithic Repository - A case study at Google
+                                </a>
+                            </small>
                         </p>
+
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                            <br/>
-                            (7 min)
-                            Vi ønsker oss enkelheten til ett repo, men fordelene fra å ha mange:
-                            Møt monorepo: Egenskaper (Cross cutting refactoring, søkbarhet, versjonering), og hvem
-                            passer det for?
+                                (7 min)
+                                Vi ønsker oss enkelheten til ett repo, men fordelene fra å ha mange:
+                                Møt monorepo: Egenskaper (Cross cutting refactoring, søkbarhet, versjonering), og hvem
+                                passer det for?
                             </p>
                         </aside>
                     </section>
@@ -271,16 +272,17 @@
 ├── README.md
                             </code>
                         </pre>
+
                         <aside class="notes">
                             <h6>A</h6>
-                            <strong>"Kodebasen er samlet i ett repository som inneholder flere prosjekter"</strong><br/>
+                            <strong>"Sentralisering: Kodebasen er samlet i ett repository som inneholder flere prosjekter"</strong><br/>
                             Dette er jo det punktet som åpenbart <strong>skiller en mono- og en multirepoorganisasjon</strong>.<br/>
                             I stedet for å modularisere ulike applikasjoner og deres fellesbibliotek i mange forskjellige repository<br/>
                             så <strong>samler man alt og bruker filstrukturen</strong> for å holde de adskilt og organisert.<br/>
                             Om det er <strong>felleskode, backendkode, frontendkode, mobilappkode, Java, Python, JavaScript - alt samles.</strong><br/>
                             Per definisjon skal man vel egentlig dra det så langt at også <strong>tredjepartskode og utviklingsverktøy</strong> som JDKer, kompilatorer osv også samles, og det finnes absolutt de som gjør det.<br/>
                             Så langt har definitivt ikke vi kommet, og jeg er vel skeptisk til om det vil være hensiktsmessig å dra det så langt for noen på vår størrelse med det første.<br/>
-                            Heldigvis går det ann å ta ting trinn for trinn og gjøre vurderinger underveis på en slik reise.<br/>
+                            Heldigvis går det ann å ta ting <strong>trinnvis</strong> og gjøre vurderinger underveis på en slik reise.<br/>
 
                             Nå begynner jo det vi beskriver her å ligne mistenkelig på den gode gamle monolitten vår, som til og med hadde en håndfull avhengigheter bundlet.<br/>
                             Den store forskjellen er at vi leverer selvstendige applikasjoner.<br/>
@@ -301,14 +303,12 @@ $ find . -name '*.md' | \
 
                         <aside class="notes">
                             <h6>J</h6>
-                            (3) Synchronization: The development process is trunkbased; engineers commit to the head of
-                            the repo.
+                            <strong>"Synkronisering: Utviklingsprosessen er trunkbasert. Utviklerne committer til HEAD i repositoriet"</strong><br/>
+
                             - Når vi gjør endringer i felleskode i dag, så kan det ta månedsvis før alle har tatt inn
-                            endringene, og
-                            det er vanskelig for den som endrer å gå rundt i alle prosjektene som bruker koden og rette
+                            endringene, og det er vanskelig for den som endrer å gå rundt i alle prosjektene som bruker koden og rette
                             det selv.
-                            Det gjør at når noen etterslepere endelig skal oppgradere, og har spørsmål, har man for
-                            lengst glemt hva det handlet om.
+                            Det gjør at når noen etterslepere endelig skal oppgradere, og har spørsmål, har man for lengst glemt hva det handlet om.
                             Med monorepo må man også endre alle konsumentene, hvis ikke bryter bygget.
                             <hr/>
 
@@ -338,9 +338,10 @@ libs/lib1/pom.xml:    &lt;artifactId&gt;lib1&lt;/artifactId&gt;
 libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             </code>
                         </pre>
+
                         <aside class="notes">
                             <h6>A</h6>
-                            <strong>"Koden er synlig og søkbar for alle utviklerne i organisasjonen"</strong><br/>
+                            <strong>"Synlighet: Koden er synlig og søkbar for alle utviklerne i organisasjonen"</strong><br/>
                             Her ligger en av de store <strong>gevinstene</strong> for oss.<br/>
                             Med mindre du sjekker ut alle 1-200 repoene så er verktøyene vi har i dag helt <strong>ubrukelig til å søke</strong> etter kode.<br/>
                             Om du er så heldig å finne noe, så aner du ikke om den versjonen du ser er den som <strong>faktisk er i bruk</strong>, da må du grave i versjonsnummer og matche det med revisjonsnummer.<br/>
@@ -358,6 +359,8 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 
                         <aside class="notes">
                             <h6>J</h6>
+                            <strong>"Kompletthet: Ethvert prosjekt i repoet kan bli bygd bare fra avhengighetene som er sjekket inn i repoet. Avhengigheter er uversjonerte, prosjektene må bruke den versjonen som ligger på HEAD"</strong><br/>
+
                             - Denne er krevende å få til for en halvstor organisasjon.
                             Vi drar skillelinjen mellom tredjepartskode og vår felleskode.
                             De store kan ta kostnaden med å dra denne strikken enda lengre, og
@@ -365,13 +368,6 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             all tredjepartskode i detalj.
                             Vi har valgt å sjekke inn vår BOM som holder oversikt over- og
                             definerer hvilke tredjepartsbibliotek vi bruker.
-                            <hr/>
-
-                            (4) Completeness: Any project in the repo can be built
-                            only from dependencies also checked into the repo.
-                            Dependencies are unversioned; projects must use
-                            whatever version of their dependency is at the repo
-                            head.
                         </aside>
                     </section>
 
@@ -385,7 +381,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 
                         <aside class="notes">
                             <h6>A</h6>
-                            <strong>"Felles verktøy bestemmer hvordan utviklerne interakterer med koden, inkludert bygging, testing, lesing og vurdering av koden"</strong><br/>
+                            <strong>"Standardisering: Felles verktøy bestemmer hvordan utviklerne interakterer med koden, inkludert bygging, testing, lesing og vurdering av koden"</strong><br/>
                             Monorepo har i praksis vært <strong>forbeholdt de store aktørene</strong> fordi tooling koster.<br/>
                             De nødvendige <strong>verktøyene</strong> for å bruke monorepo på store prosjekter begynner nå å bli tilgjengelig.<br/>
                             Google har open sourcet deler av sitt byggeverktøy <strong>Bazel</strong> som i disse dager blir sluppet i versjon 1.0.<br/>
@@ -411,19 +407,17 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             <h3>Monolit</h3>
                             <h6>A</h6>
                             <p>
-                                SpareBank 1:s nett- och mobilbank var en illasinnad
-                                enterprise java-monolit som versionskontrollerdes først i ClearCase, sedan Subversion (CHECKA!) och till sist i git.
-                                Produktionssættningarna vara stora, komplicerade, långsamma och sællsynta. Det var i praktiken
-                                omøjligt att skalera upp utvecklingsorganisationen till den nivå banken ønskade sig eftersom
-                                vi aldrig skulle klarat att
-                                produktionssætta allt som en større organisation skulle ha kunna producera i vilket fall som helst.
-                                Någonting måste gøras.
+                                SpareBank 1s nett- og mobilbank var en stor <strong>enterprise Java-monolitt</strong> som ble versjonskontrollert i ClearCase.
+                                <strong>Produksjonssettingen</strong> var en voldsom greie med mange involverte, lange testperioder og frysperioder.
+                                Nattreleaser, høy risiko, lang ledetid og ikke minst nedetid var ikke til å komme utenom.
+                                I praksis var det <strong>ikke mulig å skalere opp</strong> utviklerorganisasjonen til det nivået vi ønsket oss, siden vi uansett
+                                ikke hadde greid å fått det ut døra. Noe måtte gjøres.
                             </p>
 
                             <h3>Multirepo</h3>
                             <h6>J</h6>
                             <p>
-                                Før cirka fem år sedan børjade vi bryta upp monoliten i mindre  applikationer som kunde
+                                Før cirka seks år sedan børjade vi bryta upp monoliten i mindre  applikationer som kunde
                                 deploy'as fristånde från varandra. Utvecklingen av apparna sker idag
                                 av dedikerade team som jobbar i egna repos. Mycket av koden i den gamla monoliten vidareførdes som felleskode
                                 som apparna avhænger av. Felleskoden ligger i egna repos och byggs till binærer som uppbevaras i Nexus
@@ -435,19 +429,11 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             <h3>Monorepo</h3>
                             <h6>A</h6>
                             <p>
-                                Vi utvecklar nu en ny generation av applikationer som ær tillståndsløsa, skyklara och som helt kuttar banden till den gamla monoliten,
-                                Vi har fortfarande felleskode.
-                                Vi har dock valt att utveckla våra nya appar och deras felleskode i ett monorepo.
-                                Vi har utgått från de verktyg
-                                som vi brukar och kænner gott sedan tidigare: git, Maven och Jenkins.
+                                Vi driver nå å går i <strong>retning av tilstandsløse, skyklare applikasjoner</strong> som helt kutter båndet til den gamle monolitten.<br/>
+                                Vi har <strong>fremdeles felleskode</strong>.<br/>
+                                MEN, vi har valgt å <strong>prøve ut monorepo</strong> på den nye generasjonen applikasjoner.
+                                OG vi prøver å første omgang å <strong>benytte de verktøyene vi allerede kan</strong> godt, som Git, Maven og Jenkins.
                             </p>
-
-                            <p>
-                                (15 min)
-                                Vår reise fra multi til monorepo.
-                                Gå kjapt gjennom toolingen og repooppsettet vi hadde.
-                                Hvordan kan vi få de gode egenskapene til monorepo uten å snu hele verden opp ned?
-							</p>
 						</aside>
 					</section>
 
@@ -475,11 +461,12 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 ├── README.md
                             </code>
                         </pre>
+
                         <aside class="notes">
                             <h6>A</h6>
-                            Vårt monorepo ær idag ett maven reactor multimodul-bygg med i huvudsak två toppnivå moduler:
+                            <strong>Monorepoet vårt i dag er et Maven multimodul-bygg med hovedsaklig to toppnivåmoduler, og ser ut noenlunde som dette:</strong>
                             <ul>
-                                <li>apps - våra applikationer</li>
+                                <li>apps - våre applikasjoner</li>
                                 <li>libs - felleskoden</li>
                             </ul>
                         </aside>
@@ -491,14 +478,15 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             <h6>J</h6>
 
                             <p>
-                            Maven ær i grunden ett rekursivt byggsystem, ikke ett graf-baserat som e.g. bazel. Bazel ær en open sourcing'n av byggsystemet som brukas
-                            før att bygga Google's monorrepo och, føga førvånande, ær det också ur många perspektivt mer læmpat før Monorepo æn vad Maven ær.
+                                Maven ær i grunden ett rekursivt byggsystem, ikke ett graf-baserat som e.g. bazel. Bazel ær en open sourcing'n av byggsystemet som brukas
+                                før att bygga Google's monorepo och, føga førvånande, ær det också ur många perspektivt mer læmpat før Monorepo æn vad Maven ær.
                             </p>
+
                             <p>
-                            Vi har ænnu inte tagit steget att uppgradera till Bazel, det ær också en fråga om vilka verktyg som programmerarna kænner och har kompetens på.
-                            Bazel ær mer æn materia før en egen talk och vi kommer inte gå in i detalj på Bazel i vår talk idag. Alla exempel vi visar idag utspelar
-                            sig i ett <a href="https://github.com/SpareBank1/monorepo-sample">exempel-monorepo på github</a>. Monorepot ær uppsatt att bygga med både
-                            Maven och Bazel men idag kommer vi bara berøra Maven.
+                                Vi har ænnu inte tagit steget att uppgradera till Bazel, det ær också en fråga om vilka verktyg som programmerarna kænner och har kompetens på.
+                                Bazel ær mer æn materia før en egen talk och vi kommer inte gå in i detalj på Bazel i vår talk idag. Alla exempel vi visar idag utspelar
+                                sig i ett <a href="https://github.com/SpareBank1/monorepo-sample">exempel-monorepo på github</a>.
+                                Monorepot ær uppsatt att bygga med både Maven och Bazel men idag kommer vi bara berøra Maven.
                             </p>
                         </aside>
                     </section>
@@ -508,10 +496,11 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                            Med maven kan man ha avhængigheter på tværs av filtrædstruktur
+                                Med maven kan man ha avhængigheter på tværs av filtrædstruktur
                             </p>
                         </aside>
                     </section>
+
                     <section>
                         <pre>
                             <code data-trim data-noescape>
@@ -530,10 +519,11 @@ $ mvn clean install
 [INFO]
                             </code>
                         </pre>
+
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                            Det ær avhængigheterna mellan modulerna som bestæmmer i vilken ordning modulerna byggs.
+                                Det ær avhængigheterna mellan modulerna som bestæmmer i vilken ordning modulerna byggs.
                             </p>
                         </aside>
                     </section>
@@ -553,10 +543,13 @@ $ apps/app1 $ mvn clean install
 
                         <aside class="notes">
                             <h6>A</h6>
-                            Hær bygger maven rekursivt från apps/app1 och bygger inga avhængigheter
-                            till app1 som ligger utanfør aktuell arbetskatalog i filsystemet.
+                            <p>
+                                Her bygger Maven rekursivt fra apps/app1, og bygger ingen avhengigheter som appen
+                                måtte ha som ligger utenfor den arbeidskatalogen vi står i i filsystemet.
+                            </p>
                         </aside>
                     </section>
+
                     <section>
                         <pre>
                             <code data-trim data-noescape>
@@ -574,36 +567,44 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 [INFO]
                             </code>
                         </pre>
+
 						<aside class="notes">
                             <h6>A</h6>
-							<ul>
-								<li>-f: --file (ange filsti till rot-pom, krævs før att Maven ska upptæcka alla moduler)</li>
-								<li>-pl: --projects (projektlistan, vilka moduler Maven ska bygga) </li>
-								<li>-am: --also-make (instruerar Maven att bygga alla avhængigheter till modulerna
-									som angetts i projektlistan) </li>
-							</ul>
+                            <p>
+                                Hvis vi holder oss i samme arbeidskatalog og ønsker å få bygd også felleskoden som app1 bruker,
+                                så må vi til med noen ekstra opsjoner:
+                                <ul>
+                                    <li>-f: --file (angi filsti til rot-pom, kreves for at Maven skal ta utgangspunktet i rotkatalogen og finne alle moduler i prosjektet)</li>
+                                    <li>-pl: --projects (prosjektlisten, hvilke moduler eller applikasjoner skal Maven bygge)</li>
+                                    <li>-am: --also-make (instruerer Maven til å også bygge alle avhengighetene til modulene angitt i prosjektlisten)</li>
+                                </ul>
+                            </p>
 						</aside>
                     </section>
 
 					<section>
-						<h1>Mavenutfordringer med GAV</h1>
+						<h1>Mavenutfordringer med GAV-koordinater</h1>
 						<ul>
-                            <li>groupId - bør utledes fra katalogstruktur</li>
-							<li>version - bør utledes fra versjonskontroll</li>
-                            <!-- ær detta nåt vi bør ta upp?		<li>Trenger nyere version av Maven for å unngå minnelekasje og få CI-vennlig "revisions"</li> -->
+                            <li>groupId<span class="fragment fade-in"> - bør utledes fra katalogstruktur</span></li>
+                            <li>version<span class="fragment fade-in"> - bør utledes fra versjonskontroll</span></li>
+                            <!-- TODO: ær detta nåt vi bør ta upp?		<li>Trenger nyere version av Maven for å unngå minnelekasje og få CI-vennlig "revisions"</li> -->
 						</ul>
+
 						<aside class="notes">
                             <h6>A</h6>
-                            <p>Maven har en del utfodring i monoreposammanhang som ær relaterade till att Maven referar artefakter med GAV-kordinter.
-                            Vi ska nu se nærmare på två av dem:</p>
-							<ul>
-                                <li>groupId</li>
-								<li>Bruk av project.version før att referer till monorepointerna dependencies</li>
-							</ul>
-                            <p>Jæmført med Bazel:</p>
+                            <p>
+                                Maven bruker jo GroupId, ArtifactId og Version som sine koordinater for å separere moduler.
+                                I en monoreposetting er det ikke alt som er like interessant, og vi skal se nærmere på to av de:
+                            </p>
                             <ul>
-                                <li>inget grupperingsbegrepp à la maven groupId, gruppering på disk ær identiskt med katalogstrukturken</li>
-                                <li>inget versionsbegrepp, brukar den utcheckade filstrukturen på disk som versionshanteras av VCS</li>
+                                <li>groupId</li>
+								<li>bruk av project.version for å referere til monorepo-interna avhengigheter</li>
+							</ul>
+
+                            <p>Sammenlignet med Bazel:</p>
+                            <ul>
+                                <li>Mangler grupperingsbegrep à la maven groupId. Gruppering på disk er identisk med katalogstrukturen</li>
+                                <li>Mangler versionsbegrep. Brukar filstrukturen på disk som versjonshandteres av VCS</li>
                             </ul>
 						</aside>
 					</section>
@@ -612,6 +613,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
                         <h1>filsti == groupId</h1>
                         <p><span><code>libs/lib1</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.libs.lib1</code></p>
                         <p><span class="fragment fade-in"><code>apps/app2</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.apps.app2</code></p>
+
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
@@ -632,6 +634,7 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
   &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
         					</code>
                         </pre>
+
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
