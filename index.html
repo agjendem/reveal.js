@@ -22,21 +22,39 @@
 		</script>
         <style>
             .reveal section img { background:none; border:none; box-shadow:none; }
+
+            .versionconcept {
+                border-radius: 25px;
+                background: rgba(0,0,0,0.2);
+                border: 2px dotted;
+                font-family: monospace;
+                text-transform: none;
+                text-decoration: line-through;
+                text-decoration-color: #E60000;
+                display: inline;
+                padding-left: 15px;
+                padding-right: 15px;
+                margin: 5px 5px 5px 5px;
+                white-space: nowrap;
+            }
         </style>
 	</head>
+
 	<body>
 		<div class="reveal">
 			<div class="slides">
                 <section data-background="img/old-dog.jpg" data-background-size="contain">
-                    <h1 align="left" style="text-shadow: 2px 2px 2px #C7C7C7">Monorepo<br/> med Git<br /> og Maven</h1>
+                    <h1 style="text-align: left; text-shadow: 2px 2px 2px #C7C7C7">Monorepo<br/> med Git<br /> og Maven</h1>
                     <div style="height: 80px"> </div>
                     <h4 style="font-style: italic;color: white;text-shadow: 2px 2px 2px #181818;">- hvordan lære gamle hunder nye triks</h4>
                     <div style="height: 30px"> </div>
-                    <hr style="margin: 8px 0px"/>
+                    <hr style="margin: 8px 0"/>
                     <div style="width: 100%; height: 50px; display: inline-flex; justify-content: space-between; align-items: center">
-                        <span style="width: 141px; display: inline-flex; align-items: center"><img width=50 height=50 style="margin: 0px 0px;" src="img/repo-url-qr.png" /></span>
+                        <span style="width: 141px; display: inline-flex; align-items: center">
+                            <img alt="QR-kode med lenke til repository" width=50 height=50 style="margin: 0 0;" src="img/repo-url-qr.png" />
+                        </span>
                         <small style="color: white;text-shadow: 2px 2px 2px #181818;">Anders Gjendem, Jonas Nordstrand</small>
-                        <img alt="SpareBank 1 logo" width="141" height="39" style="margin: 0px 0px; background-color: rgba(255, 255, 255, 0.3);" src="img/logo.svg" />
+                        <img alt="SpareBank 1 logo" width="141" height="39" style="margin: 0 0; background-color: rgba(255, 255, 255, 0.3);" src="img/logo.svg" />
                     </div>
                     <aside class="notes">
                         <h6>A</h6>
@@ -229,9 +247,9 @@
                     <section>
                         <h1>Centralization</h1>
 
-                        <blockquote>The codebase is contained in a single repo encompassing multiple projects
-                        </blockquote>
-                        <pre class="fragment"><code data-trim data-noescape>
+                        <blockquote>The codebase is contained in a single repo encompassing multiple projects</blockquote>
+                        <pre class="fragment">
+                            <code data-trim data-noescape>
 .
 ├── apps
 │   ├── app1
@@ -251,62 +269,35 @@
 │   └── pom.xml
 ├── pom.xml
 ├── README.md
-                        </code></pre>
+                            </code>
+                        </pre>
                         <aside class="notes">
                             <h6>A</h6>
                             <strong>"Kodebasen er samlet i ett repository som inneholder flere prosjekter"</strong><br/>
                             Dette er jo det punktet som åpenbart <strong>skiller en mono- og en multirepoorganisasjon</strong>.<br/>
                             I stedet for å modularisere ulike applikasjoner og deres fellesbibliotek i mange forskjellige repository<br/>
                             så <strong>samler man alt og bruker filstrukturen</strong> for å holde de adskilt og organisert.<br/>
-                            <hr/>
-                            <h6>J</h6>
-                            Monorepo ær ett kællkodesrepository dær man versionerar <strong>all</strong> kode i en organisation.
+                            Om det er <strong>felleskode, backendkode, frontendkode, mobilappkode, Java, Python, JavaScript - alt samles.</strong><br/>
+                            Per definisjon skal man vel egentlig dra det så langt at også <strong>tredjepartskode og utviklingsverktøy</strong> som JDKer, kompilatorer osv også samles, og det finnes absolutt de som gjør det.<br/>
+                            Så langt har definitivt ikke vi kommet, og jeg er vel skeptisk til om det vil være hensiktsmessig å dra det så langt for noen på vår størrelse med det første.<br/>
+                            Heldigvis går det ann å ta ting trinn for trinn og gjøre vurderinger underveis på en slik reise.<br/>
 
-                            All kode innebær både:
-                            <ul>
-                                <li>appar</li>
-                                <li>fellesfunktionalitet</li>
-                            </ul>
-                            vilket kan røra sig om:
-                            <ul>
-                                <li>backendkode</li>
-                                <li>frontendkode</li>
-                                <li>mobilappkode</li>
-                            </ul>
-                            som ær skriven i:
-                            <ul>
-                                <li>java</li>
-                                <li>javascript</li>
-                                <li>eller andra programmeringsspråk</li>
-                            </ul>
-
-                            I ett ortodox monorepo går man gærna ett steg længre. Det anses det att man ska kunna bygga
-                            från bara de avhængigheter som ær incheckade i repo't. Vilket innebær att:
-                            <ul>
-                                <li>tredjeparts felleskode (maven central, npm-paket, etc.)</li>
-                                <li>utvecklingsverktyg som JDK'er, kompilatorer, etc.</li>
-                            </ul>
-                            tillkommer - riktigt så långt har vi SpareBank1 inte kommit (ænnu). Och kanske
-                            vi aldrig heller kommer dit heller.
-
-                            Koden i ett monorepo ær modularisering/avdelad i ett hierarkiskt filtræd som checkas ut på
-                            utvecklarnas arbetsstationer.
-
-                            N.B.: Monorepo != Monolit. Alla monoliter ær monorepo'n, men alla monorepo'n ær <strong>inte</strong>
-                            monolitiska. Vi ønskar sjælvstændig deploy av apparna i monorepot vår.
-
+                            Nå begynner jo det vi beskriver her å ligne mistenkelig på den gode gamle monolitten vår, som til og med hadde en håndfull avhengigheter bundlet.<br/>
+                            Den store forskjellen er at vi leverer selvstendige applikasjoner.<br/>
+                            <strong>Alle monolitter er monorepo, men alle monorepo er ikke monolitiske.</strong><br/>
                         </aside>
                     </section>
 
                     <section>
                         <h1>Synchronization</h1>
 
-                        <blockquote>The development process is trunkbased; engineers commit to the head of the repo
-                        </blockquote>
-                        <pre class="fragment"><code data-trim data-noescape>
+                        <blockquote>The development process is trunkbased; engineers commit to the head of the repo</blockquote>
+                        <pre class="fragment">
+                            <code data-trim data-noescape>
 $ find . -name '*.md' | \
   xargs sed -i 's/ sparebank1 / SpareBank 1 /gi'
-                        </code></pre>
+                            </code>
+                        </pre>
 
                         <aside class="notes">
                             <h6>J</h6>
@@ -337,14 +328,16 @@ $ find . -name '*.md' | \
                     <section>
                         <h1>Visibility</h1>
                         <blockquote>Code is viewable and searchable by all engineers in the organization</blockquote>
-                        <pre class="fragment"><code data-trim data-noescape>
+                        <pre class="fragment">
+                            <code data-trim data-noescape>
 $ git grep lib1 -- '**/pom.xml'
 apps/app1/pom.xml:            &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
 apps/app1/pom.xml:            &lt;artifactId&gt;lib1&lt;/artifactId&gt;
 libs/lib1/pom.xml:    &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
 libs/lib1/pom.xml:    &lt;artifactId&gt;lib1&lt;/artifactId&gt;
 libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
-                        </code></pre>
+                            </code>
+                        </pre>
                         <aside class="notes">
                             <h6>A</h6>
                             <strong>"Koden er synlig og søkbar for alle utviklerne i organisasjonen"</strong><br/>
@@ -414,9 +407,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             <li class="fragment">Monorepo</li>
                         </ol>
 
-
 						<aside class="notes">
-							<p>
                             <h3>Monolit</h3>
                             <h6>A</h6>
                             <p>
@@ -429,19 +420,18 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                                 Någonting måste gøras.
                             </p>
 
-                            <p>
                             <h3>Multirepo</h3>
                             <h6>J</h6>
-                            Før cirka fem år sedan børjade vi bryta upp monoliten i mindre  applikationer som kunde
-                            deploy'as fristånde från varandra. Utvecklingen av apparna sker idag
-                            av dedikerade team som jobbar i egna repos. Mycket av koden i den gamla monoliten vidareførdes som felleskode
-                            som apparna avhænger av. Felleskoden ligger i egna repos och byggs till binærer som uppbevaras i Nexus
-                            på kænt java-manèr. Før att hantera ett stigande antal team (p.t ~20) som ansvarar før ett stændigt økande antal appar har vi
-                            utvecklat omfattande intern tooling før att hålla apparna uppdaterade med senaste versioner felleskode. Denna resan har Anders&amp;co
-                            redogjort om från denna scen vid två tillfællen (2015 och 2018).
+                            <p>
+                                Før cirka fem år sedan børjade vi bryta upp monoliten i mindre  applikationer som kunde
+                                deploy'as fristånde från varandra. Utvecklingen av apparna sker idag
+                                av dedikerade team som jobbar i egna repos. Mycket av koden i den gamla monoliten vidareførdes som felleskode
+                                som apparna avhænger av. Felleskoden ligger i egna repos och byggs till binærer som uppbevaras i Nexus
+                                på kænt java-manèr. Før att hantera ett stigande antal team (p.t ~20) som ansvarar før ett stændigt økande antal appar har vi
+                                utvecklat omfattande intern tooling før att hålla apparna uppdaterade med senaste versioner felleskode. Denna resan har Anders&amp;co
+                                redogjort om från denna scen vid två tillfællen (2015 och 2018).
                             </p>
 
-                            <p>
                             <h3>Monorepo</h3>
                             <h6>A</h6>
                             <p>
@@ -462,7 +452,8 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 					</section>
 
                     <section>
-                        <pre><code data-trim data-noescape>
+                        <pre>
+                            <code data-trim data-noescape>
 .
 ├── apps
 │   ├── app1
@@ -482,8 +473,8 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 │   └── pom.xml
 ├── pom.xml
 ├── README.md
-
-                        </code></pre>
+                            </code>
+                        </pre>
                         <aside class="notes">
                             <h6>A</h6>
                             Vårt monorepo ær idag ett maven reactor multimodul-bygg med i huvudsak två toppnivå moduler:
@@ -522,7 +513,8 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                         </aside>
                     </section>
                     <section>
-                        <pre><code data-trim data-noescape>
+                        <pre>
+                            <code data-trim data-noescape>
 $ mvn clean install
 [INFO] Scanning for projects...
 [INFO] ------------------------------------------------------------------------
@@ -536,7 +528,8 @@ $ mvn clean install
 [INFO] app1                                                               [jar]
 [INFO] app2                                                               [jar]
 [INFO]
-                        </code></pre>
+                            </code>
+                        </pre>
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
@@ -546,7 +539,8 @@ $ mvn clean install
                     </section>
 
                     <section>
-                        <pre><code data-trim data-noescape>
+                        <pre>
+                            <code data-trim data-noescape>
 $ apps/app1 $ mvn clean install
 [INFO] Scanning for projects...
 [INFO]
@@ -554,7 +548,8 @@ $ apps/app1 $ mvn clean install
 [INFO] Building app1 1.0.0-SNAPSHOT
 [INFO] --------------------------------[ jar ]---------------------------------
 
-                        </code></pre>
+                            </code>
+                        </pre>
 
                         <aside class="notes">
                             <h6>A</h6>
@@ -563,7 +558,8 @@ $ apps/app1 $ mvn clean install
                         </aside>
                     </section>
                     <section>
-                        <pre><code data-trim data-noescape>
+                        <pre>
+                            <code data-trim data-noescape>
 apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 [INFO] Scanning for projects...
 [INFO] ------------------------------------------------------------------------
@@ -576,7 +572,8 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 [INFO] apps                                                               [pom]
 [INFO] app1                                                               [jar]
 [INFO]
-                        </code></pre>
+                            </code>
+                        </pre>
 						<aside class="notes">
                             <h6>A</h6>
 							<ul>
@@ -627,12 +624,14 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 
 					<section>
                         <h1>Versjonering i Maven</h1>
-                        <pre><code data-trim data-noescape>
+                        <pre>
+                            <code data-trim data-noescape>
 &lt;project&gt;
   &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
   &lt;artifactId&gt;lib1&lt;/artifactId&gt;
   &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
-					</code></pre>
+        					</code>
+                        </pre>
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
@@ -649,7 +648,8 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
 
                     <section>
                         <h1>CI-vennlig versjonering</h1>
-                        <pre><code data-trim data-noescape>
+                        <pre>
+                            <code data-trim data-noescape>
 &lt;project&gt;
   &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
   &lt;artifactId&gt;lib1&lt;/artifactId&gt;
@@ -658,10 +658,13 @@ apps/app1 $ mvn <mark>-f ../.. -pl :app1 -am</mark> clean install
   &lt;properties&gt;
     &lt;revision&gt;1.0-SNAPSHOT&lt;/revision&gt;
   &lt;/properties&gt;
-                        </code></pre>
-						<pre class="fragment fade-up"><code data-trim data-noescape>
+                            </code>
+                        </pre>
+						<pre class="fragment fade-up">
+                            <code data-trim data-noescape>
 $ mvn -Drevision=$(git rev-parse HEAD) clean install
-						</code></pre>
+						    </code>
+                        </pre>
 						<aside class="notes">
                             <h6>J</h6>
 							<p>
@@ -671,27 +674,30 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 							</p>
 						</aside>
                     </section>
+
 					<section>
 						<h1>Flate pom-filer</h1>
 						<aside class="notes">
                             <h6>A</h6>
 							<p>
                             Før att undgå att pom-filer med ikke-resolverade $revision inslag blir installerade bør
-                            man bruka Maven <a href="https://www.mojohaus.org/flatten-maven-plugin/">flatten-plugin'en</a>. 
+                            man bruka Maven <a href="https://www.mojohaus.org/flatten-maven-plugin/">flatten-plugin'en</a>.
                             Denna resolva'r revision och installerar en flat pom.xml fil
 							som man kan bruka i framtida bygg utan problem. Exempel-repo't visar hur detta fungerar i praktiken.
                             </p>
 						</aside>
 					</section>
 					<section>
-                        <pre><code data-trim data-noescape>
+                        <pre>
+                            <code data-trim data-noescape>
 &lt;dependencies&gt;
   &lt;dependency&gt;
     &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
     &lt;artifactId&gt;lib1&lt;/artifactId&gt;
     &lt;version&gt;${project.version}&lt;/version&gt;
   &lt;/dependency&gt;
-						</code></pre>
+						    </code>
+                        </pre>
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
@@ -702,14 +708,16 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					</section>
 					<section>
 						<h1>CODEOWNERS</h1>
-						<pre class="fragment fade-up"><code data-trim data-noescape>
+						<pre class="fragment fade-up">
+                            <code data-trim data-noescape>
 # Default owner
 / @nordstrand
 
 # Code owner for the applications
 /apps/app1/   @nordstrand
 /apps/app2/   @agjendem
-						</code></pre>
+						    </code>
+                        </pre>
 
 						<img src="img/codereview-in-github.png" alt="eksempel på hvordan github viser codereviewers via codeowners-fil" class="fragment fade-in"/>
 
@@ -742,11 +750,13 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                     <section>
                         <h1>Jenkins(file)</h1>
-                        <pre class="fragment fade-up"><code data-trim data-noescape>
-                        $ git diff --name-only origin/master...HEAD
-                        apps/app2/src/main/java/no/monorepo/app2/App2.java
-                        apps/app2/README.md
-                        </code></pre>
+                        <pre class="fragment fade-up">
+                            <code data-trim data-noescape>
+$ git diff --name-only origin/master...HEAD
+apps/app2/src/main/java/no/monorepo/app2/App2.java
+apps/app2/README.md
+                            </code>
+                        </pre>
                         <aside class="notes">
                             <h6>J</h6>
                             <p>I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
@@ -763,7 +773,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                     <section>
                         <h1>Jenkins(file)</h1>
-                        <img src="img/Jenkinsfile.png" />
+                        <img alt="Logo for Jenkins" src="img/Jenkinsfile.png" />
                         <aside class="notes">
                             <h6>J</h6>
                             Vår root-jenkinsfile finner vilka Jenkinsfile(s) som ær berørda av diffen och delegerar till den mest specifika.
@@ -788,13 +798,14 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                     <section>
                         <h1>Git sparse checkouts</h1>
-                        <pre class="fragment fade-up"><code data-trim data-noescape>
+                        <pre class="fragment fade-up">
+                            <code data-trim data-noescape>
 .git/info/sparse-checkout
 /*
 !/apps/*/*
 /apps/app1/*
-                        
-                       </code></pre>
+                            </code>
+                        </pre>
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
@@ -815,7 +826,8 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     </section>
 
                     <section>
-                        <pre><code data-trim data-noescape>
+                        <pre>
+                            <code data-trim data-noescape>
 &lt;profile&gt;
   &lt;id&gt;app2&lt;/id&gt;
   &lt;activation&gt;
@@ -827,7 +839,8 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
     &lt;module&gt;app2&lt;/module&gt;
   &lt;/modules&gt;
 &lt;/profile&gt;
-                        </code></pre>
+                            </code>
+                        </pre>
                         <aside class="notes">
                             <h6>A</h6>
 							<p>
@@ -923,7 +936,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     </section>
 
 					<section data-background="img/race.jpg" data-background-size="contain">
-						<h1 style="margin-top: -200px; text-shadow: 0px 0px 4px #FFFFFF; background: rgba(255,255,255,0.6)">The race to push</h1>
+						<h1 style="margin-top: -200px; text-shadow: 0 0 4px #FFFFFF; background: rgba(255,255,255,0.6)">The race to push</h1>
 
                         <aside class="notes">
                             <h6>A</h6>
@@ -1084,31 +1097,14 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     </section>
 
 					<section>
-                        <style>
-                        .versionconcept {
-                            border-radius: 25px;
-                            background: rgba(0,0,0,0.2);
-                            border: dotted;
-                            border-width: 2px;
-                            font-family: monospace;
-                            text-transform: none;
-                            text-decoration: line-through;
-                            text-decoration-color: #E60000;
-                            display: inline;
-                            padding-left: 15px;
-                            padding-right: 15px;
-                            margin: 5px 5px 5px 5px;
-                            white-space: nowrap;
-                        }
-                        </style>
                         <h1>Versjonering</h1>
-                        <p>
-                        <div class="fragment versionconcept">$ mvn version set</div>
-                        <div class="fragment versionconcept">$ mvn release:begin</div>
-                        <div class="fragment versionconcept">&lt;version&gt;</div>
-                        <div class="fragment versionconcept">-SNAPSHOT</div>
-                        <div class="fragment versionconcept">&lt;dependencyManagement&gt;</div>
-                        </p>
+                        <span>
+                            <span class="fragment versionconcept">$ mvn version set</span>
+                            <span class="fragment versionconcept">$ mvn release:begin</span>
+                            <span class="fragment versionconcept">&lt;version&gt;</span>
+                            <span class="fragment versionconcept">-SNAPSHOT</span>
+                            <span class="fragment versionconcept">&lt;dependencyManagement&gt;</span>
+                        </span>
 						<aside class="notes">
 							<h6>A</h6>
 							<p>
@@ -1214,8 +1210,8 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     </section>
 
                     <section data-background="img/success.jpg" data-background-size="contain">
-                        <h2 style="text-shadow: 0px 0px 4px #FFFFFF;">Du får det till med Maven, Jenkins og Git!</h2>
-                        <h2 class="fragment fade-in" style="text-shadow: 0px 0px 4px #FFFFFF;">...men på sikt ryker nok Maven!</h2>
+                        <h2 style="text-shadow: 0 0 4px #FFFFFF;">Du får det till med Maven, Jenkins og Git!</h2>
+                        <h2 class="fragment fade-in" style="text-shadow: 0 0 4px #FFFFFF;">...men på sikt ryker nok Maven!</h2>
                         <aside class="notes">
                             <h6>A</h6>
                             <hr />
