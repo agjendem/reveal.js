@@ -1,4 +1,5 @@
-<!doctype html> <html lang="no">
+<!doctype html>
+<html lang="no" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -815,21 +816,20 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                                Med <strong>"sparse checkouts"</strong> kan man instruere Git til å sjekk eut en delmengde av arbeidstreet.<br/>
-                                For eksempel kan man velge å sjekke ut bare den applikasjonen som man jobber med for tiden.<br/>
+                                Hvis <strong>kodebasen</strong> blir så stor at det er <strong>upraktisk å laste ned</strong> alt, eller man faktisk bare <strong>jobber med en konkret applikasjon</strong> uten behov for å endre felleskode så finnes det utveier.<br/>
+                                Med <strong>"sparse checkouts"</strong> kan man instruere Git til å sjekke ut en delmengde av arbeidstreet.<br/>
+                                I eksemelet her så sier vi at vi i utgangspunktet vil ha alle filer, men ikke alle applikasjonene, før vi igjen sier at vi vil ha app1 som er den vi jobber på.<br/>
+                                Resultatet blir da at vi får det vi trenger av felleskode samt app1.<br/>
                                 Det kan være gunstig med tanke på indekseringstid i f.eks. IntelliJ.<br/>
+                                Ved å bruke sparse checkouts på denne måten får man i praksis en <strong>utvikleropplevelse som er temmelig lik den man har med multirepo</strong>, foruten at felleskoden er tilgjengelig.<br/>
+                                Hvis man endrer på felleskoden bør man jo helst ha all koden tilgjengelig.<br/>
+                                Eventuelt så vil forhåpentligvis byggserveren og tester plukke opp eventuelle feil og mangler.<br/>
                             </p>
                             <p>
-                                <!-- TODO: Fortsett her Anders.. -->
-                                Med sparse checkouts får man i praktiken en utvecklarupplevelse som ær rætt lik den man har med multirepo.
-
-                                I exemplet:
+                                Nå skurrer kanskje dette litt for mange av dere, <strong>Maven vil jo ikke like at halve kodebasen er borte</strong>?<br/>
+                                I utgangspunktet <strong>støtter ikke Maven sparse checkouts</strong>, siden modul-lista i apps f.eks. vil referere til applikasjoner vi ikke har koden til.<br/>
+                                Maven ønsker jo å bygge en komplett modell av alle modulene, basert på pom.xml før den gjør noe som helst, og vil selvfølgelig protestere.<br/>
                             </p>
-                            <ul>
-                                <li>checkat hela repo't ut</li>
-                                <li>utan några appars</li>
-                                <li>men app1 vill vi ha</li>
-                            </ul>
                         </aside>
                     </section>
 
@@ -853,33 +853,30 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>A</h6>
 							<p>
-							I utgångspunkt hanterar inte Maven sparse checkouts. Maven ønskar bygga upp en komplett modell av alla moduler
-							baserat på pom.xml:arna innan Maven gør något som helst. Om en submodul inte ær utcheckad på disk trynar maven.
-							</p>
-							<p>
-							Med hjælp av kreativt bruk av mavenprofiler, som aktiveras bara nær pom.xml-filer ær utcheckat i trædet,
-							ær det møjligt att jobba runt problemet.
+                                Ved å bruke <strong>Maven-profiler</strong> litt kreativt kan vi komme oss rundt dette, og bygge opp modules-lista basert på profiler.<br/>
+                                Disse profilene igjen <strong>trigges av om pom.xml-fila til appen faktisk finnes</strong>.<br/>
+                                På den måten får vi en <strong>dynamisk liste av applikasjonsmoduler</strong> slik Maven ser det, og det fungerer "greit nok".<br/>
 							</p>
                         </aside>
                     </section>
 
-					<section>
-                        <!-- TODO: ... -->
-                        Restpost
-						<aside class="notes">
-							<h6>En av oss:</h6>
-                            <h1>Løsninger</h1>
-                            <ul>
-                                <li>GVFS / large file storage</li>
-                                <li>Bazel?</li>
-                                <li>Archunit?</li>
-                            </ul>
-	                            <ul>
-                                <li>Python i Monorepo?</li>
-                                <li>Rydde i repo</li>
-                            </ul>
-						</aside>
-					</section>
+                    <!-- TODO: ... -->
+<!--                    <section>-->
+<!--                        Restpost-->
+<!--						<aside class="notes">-->
+<!--							<h6>En av oss:</h6>-->
+<!--                            <h1>Løsninger</h1>-->
+<!--                            <ul>-->
+<!--                                <li>GVFS / large file storage</li>-->
+<!--                                <li>Bazel?</li>-->
+<!--                                <li>Archunit?</li>-->
+<!--                            </ul>-->
+<!--	                            <ul>-->
+<!--                                <li>Python i Monorepo?</li>-->
+<!--                                <li>Rydde i repo</li>-->
+<!--                            </ul>-->
+<!--						</aside>-->
+<!--					</section>-->
 				</section>
 
 				<section>
