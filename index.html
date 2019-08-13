@@ -38,6 +38,21 @@
                 margin: 5px 5px 5px 5px;
                 white-space: nowrap;
             }
+
+			.reveal .slides section .fragment.underline {
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.reveal .slides section .fragment.visible.underline {
+				text-decoration: underline;
+				text-decoration-color: red;
+			}
+
+			.reveal .slides section .fragment.current-underline {
+				opacity: 1;
+				visibility: visible;
+			}
         </style>
 	</head>
 
@@ -216,40 +231,65 @@
                 </section>
 
                 <section>
-                    <section>
-                        <h1>Monorepo 201</h1>
-                        <h4>Google's definisjon</h4>
-                        <ul>
-                            <li class="fragment fade-in">Centralization</li>
-                            <li class="fragment fade-in">Synchronization</li>
-                            <li class="fragment fade-in">Visibility</li>
-                            <li class="fragment fade-in">Completeness</li>
-                            <li class="fragment fade-in">Standardization</li>
-                        </ul>
-                        <br/><br/><br/>
-                        <p>
-                            <small>Kilde:
-                                <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
-                                    Advantages and Disadvantages of a Monolithic Repository - A case study at Google
-                                </a>
-                            </small>
-                        </p>
+<style>
+@font-face {
+    font-family: "gotiskt";
+    src: url("img/deutschgothic.woff") format('woff');
+    font-weight: bold;
+}
+.gotiskt {
+	font-family: gotiskt !important;
+	text-shadow: 2px 2px 2px #000000 !important;
+}
 
+.monorepocitat {
+	color: #002776;
+	font-family: serif;
+    font-weight: 600;
+    width: 90% !important;
+	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3) !important;
+}
+.monorepocitat:first-letter {
+  font-size: 1.5em;
+  font-family: gotiskt
+}
+</style>
+					<section data-background="img/bud.png" data-background-size="contain">
+                        <h1 class="gotiskt" style="font-size: 2.0em;">Dem Femth Monorepo Bud</h1>
+						<h4 class="gotiskt fragment">etter Google sitt evangelium</h1>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
                         <aside class="notes">
                             <h6>J</h6>
+							<p>
+							Om det var någon som var i tvil om vad som ær løsningen på alla multirepopronlem så ær det så klart ett skickeligt monorepo.
+							</p>
+							<p>
+							Vi har nu tænkt att gå mer i djupet  kring vad som utmærker ett monolitisk kællkodsrepository. Vi kommer følja en tæmligen
+							rigid samling med fem principer før vad som kan ræknas som ett ordentligt monorepo. Principerna ær givna till oss från høgre ort - i.e. Google.
+							</p>
+							<hr />
                             <p>
                                 (7 min)
                                 Vi ønsker oss enkelheten til ett repo, men fordelene fra å ha mange:
                                 Møt monorepo: Egenskaper (Cross cutting refactoring, søkbarhet, versjonering), og hvem
                                 passer det for?
                             </p>
+							<small>Kilde:
+								<a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">
+									Advantages and Disadvantages of a Monolithic Repository - A case study at Google
+								</a>
+							</small>
                         </aside>
                     </section>
 
                     <section>
-                        <h1>Centralization</h1>
-
-                        <blockquote>The codebase is contained in a single repo encompassing multiple projects</blockquote>
+						<h1 class="gotiskt" style="font-size: 4.0em;">1.<!-- Centralization--></h1>
+                        <blockquote class="monorepocitat">The codebase is contained in a single repo encompassing multiple projects</blockquote>
                         <pre class="fragment">
                             <code data-trim data-noescape>
 .
@@ -292,9 +332,9 @@
                     </section>
 
                     <section>
-                        <h1>Synchronization</h1>
+						<h1 class="gotiskt" style="font-size: 4.0em;">2.<!-- Synchronization --></h1>
 
-                        <blockquote>The development process is trunkbased; engineers commit to the head of the repo</blockquote>
+                        <blockquote class="monorepocitat">The development process is trunkbased; engineers commit to the head of the repo</blockquote>
                         <pre class="fragment">
                             <code data-trim data-noescape>
 $ find . -name '*.md' | \
@@ -350,11 +390,12 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                     </section>
 
                     <section>
-                        <h1>Completenes</h1>
 
-                        <blockquote>
+						<h1 class="gotiskt" style="font-size: 4.0em;">4. <!-- Completenes--></h1>
+
+                        <blockquote class="monorepocitat">
                             Any project in the repo can be built only from dependencies also checked into the repo.
-                            Dependencies are unversioned; projects must use whatever version of their dependency is at
+                            Dependencies are <span class="fragment underline">unversioned</span>; projects must use whatever version of their dependency is at
                             the repo head.
                         </blockquote>
 
