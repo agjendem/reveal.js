@@ -1004,34 +1004,33 @@ apps/app2/README.md
 
                         <div style="display: flex">
 							<span>
-                            <img  src="img/maven.png" alt="Maven logo" />
+                                <img  src="img/maven.png" alt="Maven logo" />
 							</span>
 							<span>
-                            <img  src="img/jenkins.png" class="fragment" alt="Jenkins logo" />
+                                <img  src="img/jenkins.png" class="fragment" alt="Jenkins logo" />
 							</span>
                         </div>
+
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                            Førsta release av <a href="https://maven.apache.org/docs/history.html">Maven slæpptes 30 mars 2002</a>.
-                            I 2005 kom Maven 2.0 och efter det ær inte hela værlden som har skett.
-                            Maven ær alltså ældre æn git, FaceBook och java generics och firar snart 20-årsjubileum...
+                                Maven begynner jo å dra på årene, førsta release av <a href="https://maven.apache.org/docs/history.html"><strong>Maven ble sluppet 30. mars 2002</strong></a>.<br/>
+                                I 2005 kom Maven 2.0, i 2010 kom Maven 3.0, og på de årene har mange andre verktøy kommet og godt, og mye har skjedd.<br/>
                             </p>
                             <p>
-                            Maven clunkyness i monorepo-sammanhang (vi har varit igenom många av dem tidigare i talken):
+                                Mange av <strong>de tingene som knirker mest</strong> nå i Maven-monoreposammenheng har vi allerede vært inne på:<br/>
                             </p>
                             <ul>
-                                <li>Ikke polyglot - javacentrisk</li>
-                                <li>Sparse checkout måste hackas, mavens repomodell byggs upp av pom.xml filer
-                                - ikke vad som finns på disk</li>
-                                <li>Maven trenger explicit referens till roten av repo't, Bazel finner den fint sjælv</li>
-                                <li>Manglar inkrementella bygg - man bygger i regel alltid clean't</li>
-                                <li>Maven brukar groupId och version-begrepp før moduler som i ett monorepo hellre avleds
-                                från filkatalogstrukt resp. git</li>
+                                <li>Ikke polyglot - <strong>Javasentrisk</strong></li>
+                                <li><strong>Sparse checkout må hackes til</strong> siden Mavens repomodell bygges opp av pom.xml filer - ikke hva som finnes på disk</li>
+                                <li>Maven trenger <strong>eksplisitt referanse til roten</strong> av repositoryet. Bazel finner den fint selv.</li>
+                                <li><strong>Mangler inkrementella bygg</strong> - man bygger i hovedsak alltid fra clean tilstand</li>
+                                <li>Maven brukar <strong>groupId og versjons-begrep</strong> for moduler som i et monorepo <strong>heller utledes</strong> fra filkatalogstrukturen i Git</li>
                             </ul>
-                            <p>Jenkins ær en annan gammal travare som først såg dagens ljus under namnet Hudson tillbaka i 2008. Många år och
-                            många plugins senare så saknar Jenkins fortsatt monorepostød (selektiv byggnad baserat på diff).
-                            CodeFresh har <a href="https://codefresh.io/continuous-integration/using-codefresh-with-mono-repos/">stød før monorepo</a>!
+                            <p>
+                                Jenkins er en annen gammel traver som først så dagens lys under navnet Hudson tilbake i 2008.<br/>
+                                Mange år og mange plugins senere, så mangler Jekins fremdeles støtte for monorepo i form av selektiv bygging basert på diff.<br/>
+                                CodeFresh har <a href="https://codefresh.io/continuous-integration/using-codefresh-with-mono-repos/">støtte for monorepo</a>!<br/>
                             </p>
                         </aside>
                     </section>
