@@ -859,24 +859,6 @@ apps/app2/README.md
 							</p>
                         </aside>
                     </section>
-
-                    <!-- TODO: ... -->
-<!--                    <section>-->
-<!--                        Restpost-->
-<!--						<aside class="notes">-->
-<!--							<h6>En av oss:</h6>-->
-<!--                            <h1>Løsninger</h1>-->
-<!--                            <ul>-->
-<!--                                <li>GVFS / large file storage</li>-->
-<!--                                <li>Bazel?</li>-->
-<!--                                <li>Archunit?</li>-->
-<!--                            </ul>-->
-<!--	                            <ul>-->
-<!--                                <li>Python i Monorepo?</li>-->
-<!--                                <li>Rydde i repo</li>-->
-<!--                            </ul>-->
-<!--						</aside>-->
-<!--					</section>-->
 				</section>
 
 				<section>
@@ -904,27 +886,56 @@ apps/app2/README.md
                     <section>
                         <h1>Stort repo</h1>
                         <ul>
-                            <li>.git/</li>
-                            <li>work tree</li>
+                            <li>.git/
+                                <ul class="fragment fade-in">
+                                    <li>VFS for Git</li>
+                                </ul>
+                            </li>
+                            <li>work tree
+                                <ul>
+                                    <li class="fragment fade-in">Sparse Checkouts</li>
+                                    <li class="fragment fade-in">Large File Storage</li>
+                                </ul>
+                            </li>
                         </ul>
 
                         <aside class="notes">
                             <h6>A</h6>
-                            Sparse checkouts hjælper mot stora working trees.
-                            Hantering av stora filer/binærer: "Git large file support"
-
-                            Andra stora repos (egen slide? graf?):
+                            Over tid vokser gjerne kodebasen. Per i dag så regner vi ikke med at <i>vi</i> møter på de største problemene - kanskje med unntak av prosjekter hvor vi versjonerer <strong>store maskinlæringsmodeller</strong> og andre binære datafiler.
+                            Avhengig av hva som er årsaken, er det flere måter å angripe problemet på:<br/>
                             <ul>
-                                <li>Google's monorepo (2 miljard filer, 2018)</li>
-                                <li>Microsoft Windowsrepot 3.5 milj. filer/4000 brukare(som GVFS)</li>
-                                <li>Linuxkerneln bara 65.000 filer<li>
-                                <li>Summan av SpareBank 1's nettbankmultirepo'n: 40.000 filer</li>
-                                <li>SpareBank 1's nettbankmonorepo: 1.500 filer</li>
+                                <li>Vente og håpe verktøyene blir bedre av seg selv</li>
+                                <li>Hvis det er metadata/historikk i .git/-katalogen kan kanskje virtuelle filsystem a'la Microsofts <strong>VFS for Git</strong> være løsningen. Foreløpig best støtte på Windows, men Mac støttes og Linux ser ut til å være under arbeid.</li>
+                                <li>Hvis det er working-treet som er problemer er kanskje <strong>sparse checkouts</strong> som nevnt over en del av løsningen</li>
+                                <li>også kan det kanskje være lurt å så på om <strong>Git Large File Storage</strong> kan være et alternativ for å unngå å ha store binærfiler som del av selve repositoriet. <strong>Arbeidsflyten i Git forblir uendret</strong> når de filene som skal lagres med LFS er definert, så det kan være et godt alternativ. I praksis så lagres det en fil med en peker til hvor fila kan finnes. Den lagres på en egen LFS-server knyttet til repositoriet ditt. Både Github og BitBucket støtter LFS.</li>
                             </ul>
+                        </aside>
+                    </section>
 
-                            SpareBank 1:s nettbank har en kodbas på cirka 40.000 filer. 40.000 ær dock ett osækert estimat, det ær
-                            svårt att få øverblik eftersom vi fortfarande har mycket multirepo-kode. I ett monorepo ær det triviellt
-                            att ta fram siffran.
+                    <section>
+                        <ul>
+                            <li>Google's monorepo: 2 milliarder filer, 2018</li>
+                            <li>Microsoft Windowsrepoet: 3.5 millioner filer / 4000 brukere (som GVFS)</li>
+                            <li>Linuxkernelen: 65.000 filer<li>
+                            <li class="fragment fade-in">Summan av SpareBank 1s nettbankmultirepoer: 40.000 filer</li>
+                            <li class="fragment fade-in">SpareBank 1s nettbankmonorepo: 1.500 filer</li>
+                        </ul>
+
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
+                                Vi prøvde å finne noen tall på hva de store har stappet inn i sine Git repository.<br/>
+                                Som vi ser her, så er vi jo bare smågutter, så vi er <strong>ikke spesielt bekymret for skaleringen</strong> i så måte.<br/>
+                                <strong>Nettbanken</strong> vår består av rundt 40.000 filer, kanskje.<br/>
+                                Det er <strong>vanskelig å få oversikt</strong> siden det er oppdelt i så mange repository.<br/>
+                                I monorepoet er det trivielt å få oversikten, og foreløpig er det veldig tidlig i migreringen.<br/>
+                                Vi har per nå i overkant av <strong>20</strong> små, tilstandsløse applikasjoner der, fordelt på cirka <strong>1500 filer</strong>.<br/>
+                            </p>
+
+                            <hr />
+                            <a href="https://git-lfs.github.com/">Git Large file storage</a><br/>
+                            <a href="https://github.com/Microsoft/VFSForGit/issues/126">VFS for Git on Linux</a><br/>
+                            <a href="https://github.com/github/libprojfs">VFS for Git on Linux</a><br/>
                         </aside>
                     </section>
 
@@ -947,22 +958,26 @@ apps/app2/README.md
 
                         <aside class="notes">
                             <h6>A</h6>
-                            <p>I ett monorepo ønskar man, naturligt nog, att master <strong>alltid</strong> ska bygga grønt. Før
-                            att sækerstælla det kan man inte tillåta merge av PR:s som inte integrerat de senaste commitsen på master.
-                            Alltså måste man rebase:a in master i ens PR innan den kan merge'as.
+                            <p>
+                                I et monorepo ønsker man naturligvis at master-branchen <strong>alltid</strong> skal bygge grønt.<br/>
+                                For å sikre dette kan man ikke tillate å merge pull requester som ikke er <strong>basert på siste versjon av master</strong>.<br/>
+                                Altså <strong>må</strong> man <strong>rebase</strong> inn master i pull requesten før den kan merges.<br/>
                             </p>
                             <p>
-                            Det stora problemet med dæt ær att efter att man reintegrerat sin PR (enkelt att gøra direkt från webbrowser i
-                            Bitbucket) och væntat på grønt bygg så kan någon annat ha hunnit få sin PR merge'ade føre dig.. Rinse and repeat!
+                                Det store problemet med dette, er at etter at man har <strong>rebaset pull requesten</strong> sin, og alle testene har kjørt igjen,
+                                så har noen andre rukket å få merget sin pull request før deg.. og da er det bare å starte på nytt.
                             </p>
-                            <p>Vi har ænnu inte "løst" problemet. Men det håller på att bli mer och mer allvarligt i takt med att fler
-                            utvecklare tillkommer. Trolig løsning ær nån form av automatisering som i loop automatiskt rebase'ar,
-                            væntar på bygg och (om bygget ær grønt) merge'ar.
+                            <p>
+                                Vi har fremdeles <strong>ikke "løst" dette problemet</strong>, men det begynner å nærme seg at vi må ta en mer omfattende kikk på denne biten.<br/>
+                                <strong>Jo flere utviklere og applikasjoner vi ruller på, jo verre blir det</strong>.<br/>
+                                Antakelig er løsningen en eller annen form for <strong>automatisering</strong> hvor man markerer at "denne pull requesten ønsker jeg å merge",
+                                også blir den <strong>lagt i kø</strong> og håndtert automatisk så lenge alle testene fremdeles kjører grønt.
                             </p>
+
                             <hr />
-                            <a href="https://docs.microsoft.com/en-us/azure/devops/learn/git/race-to-push">The race to push</a>
-							<br/>
-							Bild av <a href="https://pixabay.com/sv/users/skeeze-272447/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=558089">skeeze</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=558089">Pixabay</a>
+                            <a href="https://docs.microsoft.com/en-us/azure/devops/learn/git/race-to-push">The race to push</a><br/>
+							Bild av <a href="https://pixabay.com/sv/users/skeeze-272447/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=558089">skeeze</a>
+                            från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=558089">Pixabay</a>
                         </aside>
                     </section>
 
@@ -1255,6 +1270,23 @@ apps/app2/README.md
                   JONAS:
                    * Sluta "smacka"!
                 -->
+
+                <!-- TODO: ... -->
+                <!--                    <section>-->
+                <!--                        Restpost-->
+                <!--						<aside class="notes">-->
+                <!--							<h6>En av oss:</h6>-->
+                <!--                            <h1>Løsninger</h1>-->
+                <!--                            <ul>-->
+                <!--                                <li>Bazel?</li>-->
+                <!--                                <li>Archunit?</li>-->
+                <!--                            </ul>-->
+                <!--	                            <ul>-->
+                <!--                                <li>Python i Monorepo?</li>-->
+                <!--                                <li>Rydde i repo</li>-->
+                <!--                            </ul>-->
+                <!--						</aside>-->
+                <!--					</section>-->
 			</div>
 		</div>
 
