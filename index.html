@@ -127,8 +127,8 @@
 						<h6>A</h6>
 						<p>
                             <strong>Hovedpunktene</strong> vi tenkte å gå igjennom i dag ser slik ut.<br/>
+							vi snakker litt om <strong>problemet med felleskode</strong>,<br/>
                             Vi tar en liten intro til <strong>hva et monorepo er</strong> for noe,<br/>
-                            vi snakker litt om <strong>problemet med felleskode</strong>,<br/>
                             før vi ser på hvordan vi har prøvd å ta det <strong>i bruk</strong> i vårt miljø.<br/>
                             Til slutt så ser vi litt på hvilke <strong>utfordringer</strong> vi har møtt, og hvilke <strong>muligheter og effekter</strong> det har gitt oss.
 						</p>
@@ -136,34 +136,56 @@
 				</section>
 
                 <section>
-                    <section>
+					<section data-background="img/minefield.jpg" data-background-size="contain">
                         <h1>Felleskode</h1>
                         <h3>&ndash; a <i>mixed</i> blessing</h3>
 
                         <aside class="notes">
                             <h6>J</h6>
-                            Tillæmpar man kodedelning primært med Copy-Paste så har man inte felleskode.<br/>
+							<p>
+							Varje gång vi skriver kode som vi delar mellan appar så tar vi på oss <strong>risk</strong>. 
+							Risken ær aldrig særskilt påtaglig dær och då, nej då verkar det alltid vara en god idè:<br/> 
+							man <strong>sparar tid</strong> på att inte behøva uppfinna hjulet igen och, inte minst,
+							man ær sæker på att hjulet blir <strong>implementert likt</strong> på tværs av appar.
+							</p>
 
-                            Om man har fancy en service-mesh / microservice-arkitektur, dær varje fellesfunktion ær sin egen tjeneste,
-                            så har man kanske inte behov før felleskode, men &ndash; till och med Google har felleskode.<br/>
+							<p>
+							Nej, risken blir først påtaglig længre fram. Till exempel nær man måste laga en liiiten fix i felleskoden och upptæcker att man
+                            ligger lite bakpå och måste vælja mellan att fork'a eller ta in ændringar från de 23 versionerna man ligger
+							bak før att få ut sin lilla fix. Delar man felleskode inte bara mellan sin egna appar utan æven mellan olika teams
+							har man bevegt långt ut i minfælt av kopplingar och øverlæmningar som kan riskera førlama hela organisationen.
+							</p>
 
-                            Har du inte felleskode så trenger du knappast monorepo!<br/>
+                            <p>
+							En del delar kode primært med Copy-Paste-metoden vilket ær en sæker form før kodedelning men dær
+							man måsta acceptera hjulen efter tag kommer vara rætt olikt implementerade i apparna.</p>
+                            <p>
+							Ett annat potentiellt felleskode-fritt alternativ ær kanske en fancy service-mesh / microservice-arkitektur, dær
+							varje fellesfunktion ær sin egen tjeneste, men &ndash; till och med Google har felleskode.
+							</p>
 
-                            Har du felleskode så kommer du  vilja du ha monorepo efter att ha fått med dig
-                            denna talk'en!<br/>
+							<p>
+							Vi i SpareBank 1 har (ænnu) inte microservices før all fellesfunktionalitet. Vi tillæmpar inte copy-paste 
+							kodedelning. Vi ær en del av det norska bankvæsendet med allt som føljer av det vad gæller omdømmesrisisko,
+                            compliance-krav etc.  och ønskar att alla
+							apparna i nettbanken till exempel ska ha en helt likt brukauktorisasjonslogik. Vi brukar aktivt felleskode
+							før att våra 20 team ska vara i stånd att leverera appar dær vi kan vara komfortable med att central funktionalitet 
+							ær konsistent och korrekt implementerat.
+							</p>
 
-                            Vi i SpareBank 1 har (ænnu) inte har microservices før all
-                            fellesfunktionalitet.<br/>
-
-                            Vi trenger felleskode før vi ær en bank (TODO: Forklar!), vi ønskar inte att vart och ett av vårt 18
-                            utvecklingsteam ska utveckla var sin implementation av sessionsetablering i nettbanken
-                            (och egentligen ønskar vi inte sessioner heller).<br/>
-
-                            Samtidigt som felleskode ger helt
-                            uppenbara vinster så leder den till ofrånkomlingen kopplingar mellan team som ær førødande før produktiviteten.
+							<p>
+							Før att bættre kunna navigera det minfælt som felleskode i en stor utvecklingsorganisation faktiskt ær
+							så har vi tagit valet att gå før monorepo.
+							</p>
+							<!--
+                            <p>Har du inte felleskode så trenger du knappast monorepo!<br/>
+                            Men Har du felleskode så kommer du vilja du ha monorepo efter att ha fått med dig
+                            denna talk'en!</p>
+							-->
+							<hr /
+							Bild av <a href="https://pixabay.com/sv/users/dimitrisvetsikas1969-1857980/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1592312">Dimitris Vetsikas</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1592312">Pixabay</a>>
                         </aside>
                     </section>
-
 
                     <section data-background="img/app-deps-utan-jar.png" data-background-size="contain">
                         <aside class="notes">
@@ -173,14 +195,10 @@
                             Två applikation och två felleskodemoduler. App1 avhænger av lib1 och lib2, medan app2
                             bara avhænger av lib2. Alla i sina egna repos.
 
-
                             <hr/>
                             TODO: se om det blir bættre om man lægger apparna i en kolonn till vænster och
                             libs i en kolonn till høger
 
-
-                            Ett exempel: app1 ær en applikation som avhænger på felleskode i lib1,
-                            app2 ær en applikation som avhænger på både lib1 och lib2
                             <hr/>
                             (5 min)
                             Utfordringer med klassisk modell for å håndtere felleskode:
@@ -221,9 +239,8 @@
                                     felleskoden som tas i bruk vid versionsbump'en.
                                 </li>
                             </ul>
-                            <h6>J</h6>
                             <p>
-                                Som en lite kicker: ingen har tænkt på app2 (som också avhænger på lib2) i detta sammahanget.
+                                Som en liten bonus: ingen har tænkt på app2 (som också avhænger på lib2) i detta sammahanget.
                                 Denna appen kan nu vara knæckt (nær man bumpar lib2-versionen)!
                             </p>
                         </aside>
@@ -336,13 +353,14 @@
 						<h1 class="gotiskt" style="font-size: 4.0em;">2.<!-- Synchronization --></h1>
 
                         <blockquote class="monorepocitat">The development process is trunkbased; engineers commit to the head of the repo</blockquote>
+<!--
                         <pre class="fragment">
                             <code data-trim data-noescape>
 $ find . -name '*.md' | \
   xargs sed -i 's/ sparebank1 / SpareBank 1 /gi'
                             </code>
                         </pre>
-
+-->
                         <aside class="notes">
                             <h6>J</h6>
                             <strong>"Synkronisering: Utviklingsprosessen er trunkbasert. Utviklerne committer til HEAD i repositoriet"</strong><br/>
