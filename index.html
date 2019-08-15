@@ -169,7 +169,7 @@
                             <h6>J</h6>
 							<p>
 							Varje gång vi skriver kode som vi delar mellan appar så tar vi på oss <strong>risk</strong>. 
-							Risken ær aldrig særskilt påtaglig dær och då, nej då verkar det alltid vara en god idè:<br/> 
+							Risken ær aldrig særskilt påtaglig dær och då, nej då verkar felleskode alltid vara en god idè:<br/> 
 							man <strong>sparar tid</strong> på att inte behøva uppfinna hjulet igen och, inte minst,
 							man ær sæker på att hjulet blir <strong>implementert likt</strong> på tværs av appar.
 							</p>
@@ -190,9 +190,9 @@
 							</p>
 
 							<p>
-							Vi i SpareBank 1 har (ænnu) inte microservices før all fellesfunktionalitet. Vi tillæmpar inte copy-paste 
+							Vi i SpareBank 1 har (ænnu) inte microservices før all fellesfunktionalitet. Vi tillæmpar heller inte copy-paste 
 							kodedelning. Vi ær en del av det norska bankvæsendet med allt som føljer av det vad gæller omdømmesrisisko,
-                            compliance-krav etc.  och ønskar att alla
+                            compliance-krav etc.  och vi ønskar att alla
 							apparna i nettbanken till exempel ska ha en helt likt brukauktorisasjonslogik. Vi brukar aktivt felleskode
 							før att våra 20 team ska vara i stånd att leverera appar dær vi kan vara komfortable med att central funktionalitet 
 							ær konsistent och korrekt implementerat.
@@ -275,17 +275,17 @@
                 <section>
 					<section data-background="img/bud.png" data-background-size="contain">
                         <br/>
-                        <h1 class="gotiskt" style="font-size: 2.0em;">Di Femth Monorepo Bud</h1>
+                        <h1 class="gotiskt" style="font-size: 2.0em;">Di Fem Monorepo Bud</h1>
                         <h4 class="gotiskt fragment" style="margin-top: 430px">etter <span style="color: #da3d00">Google</span> sitt evangelium</h4>
 
                         <aside class="notes">
                             <h6>J</h6>
 							<p>
-								Om det ær någon som gått den talken och ær i tvil om vad som ær løsningen på alla multirepoproblem så kan jag upplysa om det 
-                                så klart ær ett skickeligt monorepo.
+								Om det ær någon som gått på den talken och ær i tvil om vad som ær løsningen på alla multirepoproblem så kan jag upplysa om det:
+                                så klart ær ett skickeligt monolitiskt kællkode-repository.
 							</p>
 							<p>
-								Vi har nu tænkt att gå mer i djupet kring vad som utmærker ett monolitisk kællkodsrepository. Vi utgår från en tæmligen
+								Vi har nu tænkt att gå mer i djupet kring vad som utmærker ett sådan repo. Vi kommer utgå från en tæmligen
 								rigid regelsamling med fem olika påbud om vad som ska till før att man ska få lov før att få kalla sig monorepo.
 								Principerna ær givna till oss från det som ær høgsta møjliga ort i alla monoreposammanhang - Google.
 							</p>
@@ -334,25 +334,17 @@
 
                         <aside class="notes">
                             <h6>J</h6>
-                            <strong>"Synkronisering: Utviklingsprosessen er trunkbasert. Utviklerne committer til HEAD i repositoriet"</strong><br/>
+                            <!-- <strong>"Synkronisering: Utviklingsprosessen er trunkbasert. Utviklerne committer til trunk i repositoriet"</strong><br/> -->
 
-                            - Når vi gjør endringer i felleskode i dag, så kan det ta månedsvis før alle har tatt inn
-                            endringene, og det er vanskelig for den som endrer å gå rundt i alle prosjektene som bruker koden og rette
-                            det selv.
-                            Det gjør at når noen etterslepere endelig skal oppgradere, og har spørsmål, har man for lengst glemt hva det handlet om.
-                            Med monorepo må man også endre alle konsumentene, hvis ikke bryter bygget.
-                            <hr/>
-
-                            I et monorepo gjøres <strong>all versjonering med versjonshåndteringssystemet</strong>. I vårt tilfelle er det Git.<br/>
-                            Hvis man skal dra det helt ut, innebærer det at også <strong>tredjepartskode</strong> behandles på samme måte og <strong>sjekkes inn</strong>.<br/>
-                            Vi har foreløpig valgt å ikke dra det så langt.<br/>
-                            Hvilken <strong>versjon</strong> av vår egen felleskode som en applikasjon bruker <strong>avgjøres</strong> ene og alene av <strong>Git-revisjonen</strong> - ikke versjonsnummer i pom.xml-filer.<br/>
-                            Hver git-revisjon angir et <strong>øyeblikksbilde</strong> av alle avhengigheter mellom appene og felleskode.<br/>
-                            Det er <strong>ikke mulig å utsette</strong> å ta inn felleskoden gjennom å avhenge på en eldre versjon slik som man kan gjøre med Maven.<br/>
-                            I prinsippet så avhenger du alltid på <strong>siste versjon av alt</strong>.<br/>
-                            Man prøver å <strong>unngå langtlevende brancher</strong>. Featurebrancher merges ned til trunk eller master så raskt som mulig.<br/>
+							<p>
+                            Vi prøvar væl redan idag att <strong>unngå langtlevende brancher</strong>? I ett monorepo blir det viktigare æn någonsin eftersom
+							det ær massiv churn på master-branchen.
+							Featurebrancher merges ned til trunk eller master så raskt som mulig.<br/>
                             Det som ligger på trunk skal i størst mulig grad <strong>gjenspeile</strong> det som er i <strong>produksjon</strong>.<br/>
+							<!--
                             Monorepo innebærer en radikalt <strong>annerledes</strong> måte å jobbe med felleskode på enn multirepo, og det gir både <strong>fordeler og ulemper</strong>.<br/>
+							-->
+							</p>
                         </aside>
                     </section>
 
@@ -394,19 +386,29 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 
                         <aside class="notes">
                             <h6>J</h6>
-                            <strong>"Kompletthet: Ethvert prosjekt i repoet kan bli bygd bare fra avhengighetene som er sjekket inn i repoet. Avhengigheter er uversjonerte, prosjektene må bruke den versjonen som ligger på HEAD"</strong><br/>
-
-                            - Denne er krevende å få til for en halvstor organisasjon.
-                            Vi drar skillelinjen mellom tredjepartskode og vår felleskode.
-                            De store kan ta kostnaden med å dra denne strikken enda lengre, og
-                            versjonere _alt_ i eget repo, det er for ressurskrevende å følge
-                            all tredjepartskode i detalj.
-                            Vi har valgt å sjekke inn vår BOM som holder oversikt over- og
-                            definerer hvilke tredjepartsbibliotek vi bruker.
-
-                            Per definisjon skal man vel egentlig dra det så langt at også <strong>tredjepartskode og utviklingsverktøy</strong> som JDKer, kompilatorer osv også samles, og det finnes absolutt de som gjør det.<br/>
-                            Så langt har definitivt ikke vi kommet, og jeg er vel skeptisk til om det vil være hensiktsmessig å dra det så langt for noen på vår størrelse med det første.<br/>
-                            Heldigvis går det ann å ta ting <strong>trinnvis</strong> og gjøre vurderinger underveis på en slik reise.<br/>
+                            <!-- <strong>"Kompletthet: Ethvert prosjekt i repoet kan bli bygd bare fra avhengighetene som er sjekket inn i repoet. Avhengigheter er uversjonerte, prosjektene må bruke den versjonen som ligger på HEAD"</strong><br/> -->
+							<p>
+							Detta ær nog det bud som vi syndar mest mot. Før i praktiken så innebær budet att monorepo't ditt
+							inte bara ska innehålla allt av egen felleskode utan faktiskt æven den kode som kommer från tredjeparter.
+							</p>
+							<p>
+							<strong>Kællkoden</strong> till det som du idag så praktiskt drar ner i jar-format från Maven-central ska alltså checkas in i
+							monorepo't och byggas dærifrån. Det blir rætt så resurskrævande att hålla denna koden uppdaterad med up-stream och vi har
+							føreløpigt valt at istællet checka in en så kallad BOM-fil som pinnar vilka versioner Maven brukar av tredjeparts-jar:erna på
+							tværs av vårt monorepo.
+							</p>
+                            <p>
+							Om man ær riktig storkarl i monorepo-sammanhang tar man detta ænnu ett steg længre och checkar in hela <strong>byggmiljøn</strong>
+							i repo't: JDK:er, kompilatorer, etc. Frågan ær bara om man ska nøja sig med JDK-binærerna eller om man ska satsa på att æven bygga sjælva JDK'en
+							från source...
+							</p>
+							<p>
+							I et monorepo gjøres <strong>all versjonering med versjonshåndteringssystemet</strong>. I vårt tilfelle er det Git.<br/>
+							Hvilken <strong>versjon</strong> av vår egen felleskode som en applikasjon bruker <strong>avgjøres</strong> ene og alene av <strong>Git-revisjonen</strong> - ikke versjonsnummer i pom.xml-filer.<br/>
+							Hver git-revisjon angir et <strong>øyeblikksbilde</strong> av alle avhengigheter mellom appene og felleskode.<br/>
+							Det er <strong>ikke mulig å utsette</strong> å ta inn felleskoden gjennom å avhenge på en eldre versjon slik som man kan gjøre med Maven.<br/>
+							I prinsippet så avhenger du alltid på <strong>siste versjon av alt</strong>.
+							</p>
                         </aside>
                     </section>
 
@@ -446,7 +448,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             <h3>Monolit</h3>
                             <h6>A</h6>
                             <p>
-                                SpareBank 1s nett- og mobilbank var en stor <strong>enterprise Java-monolitt</strong> som ble versjonskontrollert i ClearCase.
+                                SpareBank 1:s nett- og mobilbank var en stor <strong>enterprise Java-monolitt</strong> som ble versjonskontrollert i ClearCase.
                                 <strong>Produksjonssettingen</strong> var en voldsom greie med mange involverte, lange testperioder og frysperioder.
                                 Nattreleaser, høy risiko, lang ledetid og ikke minst nedetid var ikke til å komme utenom.
                                 I praksis var det <strong>ikke mulig å skalere opp</strong> utviklerorganisasjonen til det nivået vi ønsket oss, siden vi uansett
@@ -458,12 +460,15 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             <p>
                                 Før cirka seks år sedan børjade vi bryta upp monoliten i mindre  applikationer som kunde
                                 deploy'as fristånde från varandra. Utvecklingen av apparna sker idag
-                                av dedikerade team som jobbar i egna repos. Mycket av koden i den gamla monoliten vidareførdes som felleskode
+								av dedikerade team som jobbar i egna repos. Denna resan har Anders&amp;co
+								redogjort om från denna scen vid två tillfællen (2015 och 2018).
+							</p>
+							<p>
+								Mycket av koden i den gamla monoliten vidareførdes som felleskode
                                 som apparna avhænger av. Felleskoden ligger i egna repos och byggs till binærer som uppbevaras i Nexus
-                                på kænt java-manèr. Før att hantera ett stigande antal team (p.t ~20) som ansvarar før ett stændigt økande antal appar har vi
-                                utvecklat omfattande intern tooling før att hålla apparna uppdaterade med senaste versioner felleskode. Denna resan har Anders&amp;co
-                                redogjort om från denna scen vid två tillfællen (2015 och 2018).
-                            </p>
+                                på kænt java-manèr. Før att hantera ett stigande antal team som ansvarar før ett stændigt økande antal appar har vi
+                                utvecklat omfattande intern tooling før att hålla apparna uppdaterade med senaste versioner felleskode.
+                             </p>
 
                             <h3>Monorepo</h3>
                             <h6>A</h6>
@@ -508,6 +513,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                                 <li>apps - våre applikasjoner</li>
                                 <li>libs - felleskoden</li>
                             </ul>
+							<p>Referera till monorepo-github-repo't. All kode vi visar ær hæmtat dærifrån</p>
                         </aside>
                     </section>
 
@@ -905,13 +911,13 @@ apps/app2/README.md
 						<aside class="notes">
                             <h6>J</h6>
                             <p>
-                                Som det kanske framgått så har det inte varit helt problemfritt før oss att ta i bruk monorepo. En del 
-                                kan kanske hærledes till att vi envist fortsatt att bruka ett vælkænt Java-baserad byggverktyg trots att det
-                                finns attraktiva alternativt.
+                                Som det kanske framgått så har det inte varit <strong>helt problemfritt</strong> før oss att komma igång monorepo. En del 
+                                smærta kan kanske hærledes till att vi envist fortsatt att bruka ett vælkænt Java-baserad byggverktyg trots att det
+                                finns attraktiva alternativt
                             </p>
                             <p>
-                                Men vi har också børjat få smake på en del av sura sidorna med monorepo som ær mer fundamentala och generiska.
-                                Vi har också læst upp oss en del på de problem som blir påtagligt først vid en større skala æn den vi uppnått ænnu.
+                                Men vi har också børjat få smake på en del av sura sidorna med monorepo som vi tror ær mer fundamentala och generiska.
+                                Vi har också læst upp oss en del på de problem som blir påtagliga først vid en større skala æn den vi hunnit uppnå.
                             </p>
                             <hr />
                             Image by <a href="https://pixabay.com/users/OpenClipart-Vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=153290">OpenClipart-Vectors</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=153290">Pixabay</a>
@@ -991,8 +997,10 @@ apps/app2/README.md
 
                         <aside class="notes">
                             <h6>J</h6>
-                            <p>Om stort repo ær det førsta problemet man kommer att tænka på i monorepo-sammanhang, så ær sækert långa byggtider
-                               det andra.
+                            <p>
+								Om stort repo ær det førsta problemet som slår en nær man tænker monorepo-sammanhang, så ær sækert långa byggtider
+                                det andra.<br/>
+								Ingen gillar att vænta på långsamma bygg. Och med mer kode i samma repo så måste væl byggtiderna gå upp?
                             </p>
                             <hr />
                             Bazel har stød før 100% pålitligta inkrementella bygg vilket troligen hjælper till med CI rætt bra.
@@ -1033,14 +1041,14 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                            I ett monorepo ær det lættare æn någonsin att dela kode och inføra nya avhængigheter - nu slipper man faktiskt krullet med att finna
-                            fram till vilken version man ønskar. Baksidan av myntet ær det ær rætt lætt att vara odisciplinerad och lægga inte avhængigheter på lite væl
-                            mycket felleskode, och, om man inte pasar sig, så har vi kanske snart en ny tætt kopplad monolit.
+								I ett monorepo ær det lættare æn någonsin att dela kode och inføra nya avhængigheter - nu slipper man faktiskt krullet med att finna
+								fram till vilken version man ønskar. Baksidan av myntet ær det ær rætt lætt att vara odisciplinerad och lægga inte avhængigheter på lite væl
+								mycket felleskode, och, om man inte pasar sig, så har vi kanske snart en ny tætt kopplad monolit.
                             </p>
                             <p>
-                            Detta må vi undgå. Vi har ænnu inte kommit till den punkten dær detta kan bli ett problem, men med større skala så ær vi nyfikna
-                            på att titta på kodekvalitetsverktyg som <a href="https://www.archunit.org/">Archunit</a>. Archunit låter dig skriva junit-enhetstester
-                            som på klassnivå verfieriar att man f.eks. inte har avhængigheter mellan appar i ett monorepo.
+								Detta måsta vi bara undgå. Vi har ænnu inte kommit till den punkten dær detta kan bli ett problem, men med større skala så ær vi nyfikna
+								på att titta på kodekvalitetsverktyg som <a href="https://www.archunit.org/">Archunit</a>. Archunit låter dig skriva junit-enhetstester
+								som på klassnivå verfieriar att man f.eks. inte har avhængigheter mellan appar i ett monorepo.
                             </p>
                         </aside>
                     </section>
@@ -1091,7 +1099,27 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
+								Monorepo'n har længe varit de stora drakarna's exklusiva domæn. Tooling som t.ex. versionskontroll, code review och byggsystem har
+								utvecklats innanfør murarna till bedrifter som Google, Facebook och Microsoft. Vi andra har fått hålla till godo med multirepo. <br />
+								Detta håller på och ændra sig. Vi tror detta egentligen bara ær en tidsfråga. <br/>
+								På samma sætt som Facebook populariserade komponentbased 
+								frontend-utveckling och virtual DOM med React
+								och som Google tog storskalig containerorkestrering main stream med Borg/Kubernetes
+								så tror vi att monorepo snart kommer bli allemanseie. 
+								Time will tell, nær det gæller vem av drakarna som kommer kunna ta åt sig det mesta av æran før detta. 
+								Før tillfællet ær kanske den troligaste kandidaten Google med opensourcing av sitt byggsystem - Bazel.
                             </p>
+							<p>
+								Samtidigt ær det inte att sticka under stolen av de monorepo-verktygen som ær tillgængliga før oss idag fortfarande ær rætt omogna.<br/>
+								F.eks. Bazel, ær fortsatt i beta - faktiskt med en 1.0 release planerad i dagarna - och
+								ekosystemet ær mycket svagare æn Maven's nær det gæller IDE-støtte, plugins och så vidare. 
+							</p>
+							<p>
+								CI - mangler ferdige løsninger for å bygge deler av monorepo
+							</p>
+							<p>
+								Bitbucket/Github mangler ordentlig støtte for store monorepo - CODEOWNERS er et plaster
+							</p>
                         </aside>
                     </section>
 
@@ -1201,8 +1229,11 @@ apps/app2/README.md
 								se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.
 								Nyfiken på om en felleskodeændring knæcker en konsument? Det ær enkelt (i alla fall i Bazel)
 								att køra alla konsumenteras tester. Ær det något som knæcker så ær det møjligt att fixa
-								det i samma PR som felleskodeændringen! Man kan laga <i>atomiska refaktoreringar</i> som
-								ær lætta rulla bak, som resulterar i holistiska PR:s dær man ser hela bilden/diffen!
+								det i samma PR som felleskodeændringen! Man kan laga <i>atomiska refaktoreringar</i> som ær lætta rulla fram/bak,<br/>
+								som resulterar i holistiska PR:s dær man ser hela bilden/diffen<br/>
+								som tar allt från ett konsistent tillstånd till ett annat.
+							</p>
+							<p>
 								Sammantaget sænker monorepo trøskeln, som annars kan vara rætt høg, før att folk vågar refaktorer/bidra till felleskode.
 							</p>
 							<p>
