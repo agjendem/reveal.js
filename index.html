@@ -283,6 +283,7 @@
 						<br/>
 						<br/>
 						<br/>
+
                         <aside class="notes">
                             <h6>J</h6>
 							<p>
@@ -310,7 +311,11 @@
 
                     <section>
 						<h1 class="gotiskt" style="font-size: 4.0em;">1.<!-- Centralization--></h1>
-                        <blockquote class="monorepocitat">The codebase is contained in a single repo encompassing multiple projects</blockquote>
+
+                        <blockquote class="monorepocitat">
+                            The codebase is contained in a single repo encompassing multiple projects
+                        </blockquote>
+
                         <pre class="fragment">
                             <code data-trim data-noescape>
 .
@@ -342,12 +347,9 @@
                             I stedet for å modularisere ulike applikasjoner og deres fellesbibliotek i mange forskjellige repository<br/>
                             så <strong>samler man alt og bruker filstrukturen</strong> for å holde de adskilt og organisert.<br/>
                             Om det er <strong>felleskode, backendkode, frontendkode, mobilappkode, Java, Python, JavaScript - alt samles.</strong><br/>
-                            Per definisjon skal man vel egentlig dra det så langt at også <strong>tredjepartskode og utviklingsverktøy</strong> som JDKer, kompilatorer osv også samles, og det finnes absolutt de som gjør det.<br/>
-                            Så langt har definitivt ikke vi kommet, og jeg er vel skeptisk til om det vil være hensiktsmessig å dra det så langt for noen på vår størrelse med det første.<br/>
-                            Heldigvis går det ann å ta ting <strong>trinnvis</strong> og gjøre vurderinger underveis på en slik reise.<br/>
 
-                            Nå begynner jo det vi beskriver her å ligne mistenkelig på den gode gamle monolitten vår, som til og med hadde en håndfull avhengigheter bundlet.<br/>
-                            Den store forskjellen er at vi leverer selvstendige applikasjoner.<br/>
+                            Nå begynner jo det vi beskriver her å <strong>ligne mistenkelig på den gode gamle monolitten</strong> vår, som til og med hadde en håndfull avhengigheter bundlet.<br/>
+                            Den store forskjellen er at vi <strong>leverer selvstendige applikasjoner</strong>.<br/>
                             <strong>Alle monolitter er monorepo, men alle monorepo er ikke monolitiske.</strong><br/>
                         </aside>
                     </section>
@@ -355,15 +357,10 @@
                     <section>
 						<h1 class="gotiskt" style="font-size: 4.0em;">2.<!-- Synchronization --></h1>
 
-                        <blockquote class="monorepocitat">The development process is trunkbased; engineers commit to the head of the repo</blockquote>
-<!--
-                        <pre class="fragment">
-                            <code data-trim data-noescape>
-$ find . -name '*.md' | \
-  xargs sed -i 's/ sparebank1 / SpareBank 1 /gi'
-                            </code>
-                        </pre>
--->
+                        <blockquote class="monorepocitat">
+                            The development process is trunkbased; engineers commit to the head of the repo
+                        </blockquote>
+
                         <aside class="notes">
                             <h6>J</h6>
                             <strong>"Synkronisering: Utviklingsprosessen er trunkbasert. Utviklerne committer til HEAD i repositoriet"</strong><br/>
@@ -389,8 +386,12 @@ $ find . -name '*.md' | \
                     </section>
 
                     <section>
-                        <h1>Visibility</h1>
-                        <blockquote>Code is viewable and searchable by all engineers in the organization</blockquote>
+                        <h1 class="gotiskt" style="font-size: 4.0em;">3.<!-- Visibility --></h1>
+
+                        <blockquote class="monorepocitat">
+                            Code is viewable and searchable by all engineers in the organization
+                        </blockquote>
+
                         <pre class="fragment">
                             <code data-trim data-noescape>
 $ git grep lib1 -- '**/pom.xml'
@@ -412,7 +413,6 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                     </section>
 
                     <section>
-
 						<h1 class="gotiskt" style="font-size: 4.0em;">4. <!-- Completenes--></h1>
 
                         <blockquote class="monorepocitat">
@@ -432,13 +432,17 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                             all tredjepartskode i detalj.
                             Vi har valgt å sjekke inn vår BOM som holder oversikt over- og
                             definerer hvilke tredjepartsbibliotek vi bruker.
+
+                            Per definisjon skal man vel egentlig dra det så langt at også <strong>tredjepartskode og utviklingsverktøy</strong> som JDKer, kompilatorer osv også samles, og det finnes absolutt de som gjør det.<br/>
+                            Så langt har definitivt ikke vi kommet, og jeg er vel skeptisk til om det vil være hensiktsmessig å dra det så langt for noen på vår størrelse med det første.<br/>
+                            Heldigvis går det ann å ta ting <strong>trinnvis</strong> og gjøre vurderinger underveis på en slik reise.<br/>
                         </aside>
                     </section>
 
                     <section>
-                        <h1>Standardization</h1>
+                        <h1 class="gotiskt" style="font-size: 4.0em;">5.<!-- Standardization --></h1>
 
-                        <blockquote>
+                        <blockquote class="monorepocitat">
                             A shared set of tooling governs how engineers interact with the code, including building,
                             testing, browsing, and reviewing code.
                         </blockquote>
