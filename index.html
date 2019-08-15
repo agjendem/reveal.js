@@ -900,17 +900,21 @@ apps/app2/README.md
 				</section>
 
 				<section>
-					<section>
-						<h1>Rosa sky eller tornekratt?</h1>
-                        <ul>
-                            <li>Stort repo</li>
-                            <li>Lange byggtider</li>
-                            <li>The race to merge</li>
-                            <li>Monolit 2.0</li>
-                            <li>Verktøy</li>
-                       </ul>
+                    <section data-background="img/thumb-down.png" data-background-size="contain">
+
 						<aside class="notes">
                             <h6>J</h6>
+                            <p>
+                                Som det kanske framgått så har det inte varit helt problemfritt før oss att ta i bruk monorepo. En del 
+                                kan kanske hærledes till att vi envist fortsatt att bruka ett vælkænt Java-baserad byggverktyg trots att det
+                                finns attraktiva alternativt.
+                            </p>
+                            <p>
+                                Men vi har också børjat få smake på en del av sura sidorna med monorepo som ær mer fundamentala och generiska.
+                                Vi har också læst upp oss en del på de problem som blir påtagligt først vid en større skala æn den vi uppnått ænnu.
+                            </p>
+                            <hr />
+                            Image by <a href="https://pixabay.com/users/OpenClipart-Vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=153290">OpenClipart-Vectors</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=153290">Pixabay</a>
 							<p>
 								(7 min)
 								Hvilke nye utfordringer får vi nå?
@@ -987,6 +991,10 @@ apps/app2/README.md
 
                         <aside class="notes">
                             <h6>J</h6>
+                            <p>Om stort repo ær det førsta problemet man kommer att tænka på i monorepo-sammanhang, så ær sækert långa byggtider
+                               det andra.
+                            </p>
+                            <hr />
                             Bazel har stød før 100% pålitligta inkrementella bygg vilket troligen hjælper till med CI rætt bra.
                         </aside>
                     </section>
@@ -1021,7 +1029,7 @@ apps/app2/README.md
 
                     <section>
                         <h1>Monolit 2.0</h1>
-
+                        <img class="fragment" src="img/archunit.png" />
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
@@ -1132,8 +1140,7 @@ apps/app2/README.md
 				</section>
 
 				<section>
-                    <section>
-                        <h1>Effekter</h1>
+                    <section data-background="img/thumb-up.png" data-background-size="contain">
 
                         <aside class="notes">
                             <h6>J</h6>
@@ -1141,7 +1148,7 @@ apps/app2/README.md
 							Jobbing i ett monorepo ær på många sætt rætt radikalt annorlunda æn hur vi jobbar med multirepo idag.
 							</p>
 							<p>
-							Att vi børjade med monorepo var inte bara før att monorepo ær <i>the next shiny thing</i> vi trodde också att
+                            Att vi børjade med monorepo var inte bara før att monorepo ær <strong>the next shiny thing</strong> vi trodde också att
 							det faktiskt skulle ha en del utslagsgivande positiva effekter. Vi har nu tillræckligt med praktiska erfarenhet før att kunna dela lite kring
 							vilka effekter vi har upplevt.
                             </p>
@@ -1184,9 +1191,9 @@ apps/app2/README.md
 						</aside>
 					</section>
 
-                    <section>
-                        <h2>Jobbing med felleskode</h2>
-						<p class="ffe-lead-paragraph">Hvis du ikke har et monorepo, integrerer du ikke kontinuerlig - i beste fall hyppig!</p>
+                    <section data-background="#0071cd">
+                        <h2 style="color: white">Jobbing med felleskode</h2>
+                        <p  style="color: white" class="ffe-lead-paragraph">Hvis du ikke har et monorepo, integrerer du ikke kontinuerlig - i beste fall hyppig!</p>
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
@@ -1247,7 +1254,7 @@ apps/app2/README.md
                             </p>
 
                             <p>
-                            Det visade sig att utvecklarna starkt preferade ett jobba i monorepo't nær detta sattes
+                            Det visade sig att utvecklarna starkt prefererade ett jobba i monorepo't nær detta sattes
                             upp mot tidigare erfarenhet av jobb i en multirepo-miljø. (så det var kanske inte helt bortkastat att gå på den hær talken)
 							Det kan naturligtvis ifrågasættas i vilken grad det resultatet berodde på den inneboende styrkan i monorepotankegången och
                             i vilken grad resultatet kan vara påverkat av kvalitèn på Googles utvecklingsverktyg (versionshantering,
@@ -1267,24 +1274,23 @@ apps/app2/README.md
                             Bilde: https://pixabay.com/photos/survey-opinion-research-voting-fill-1594962/
                         </aside>
                     </section>
+                </section>
 
-                    <section data-background="img/success.jpg" data-background-size="contain">
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <h2 style="text-shadow: 0 0 4px #FFFFFF; background: rgba(255, 255, 255, 0.4)">Du får det till med Maven, Jenkins og Git!</h2>
-                        <h2 class="fragment fade-in" style="text-shadow: 0 0 4px #FFFFFF; background: rgba(255, 255, 255, 0.4)">...men på sikt ryker nok Maven!</h2>
-                        <aside class="notes">
-                            <h6>A</h6>
-                            <hr />
-                            Bild av <a href="https://pixabay.com/sv/users/StartupStockPhotos-690514/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">StartupStockPhotos</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">Pixabay</a>
-                        </aside>
-                    </section>
-				</section>
-
+                <section data-background="img/success.jpg" data-background-size="contain">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h2 style="text-shadow: 0 0 4px #FFFFFF; background: rgba(255, 255, 255, 0.4)">Du får det till med Maven, Jenkins og Git!</h2>
+                    <h2 class="fragment fade-in" style="text-shadow: 0 0 4px #FFFFFF; background: rgba(255, 255, 255, 0.4)">...men på sikt ryker nok Maven!</h2>
+                    <aside class="notes">
+                        <h6>A</h6>
+                        <hr />
+                        Bild av <a href="https://pixabay.com/sv/users/StartupStockPhotos-690514/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">StartupStockPhotos</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">Pixabay</a>
+                    </aside>
+                </section>
 
 				<section>
 					<h1>Takk for oss!</h1>
