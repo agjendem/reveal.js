@@ -53,6 +53,30 @@
 				opacity: 1;
 				visibility: visible;
 			}
+
+            @font-face {
+                font-family: "gotiskt";
+                src: url("img/deutschgothic.woff") format('woff');
+                font-weight: bold;
+            }
+
+            .gotiskt {
+                font-family: gotiskt,serif !important;
+                text-shadow: 2px 2px 2px #000000 !important;
+            }
+
+            .monorepocitat {
+                color: #002776;
+                font-family: serif;
+                font-weight: 600;
+                width: 90% !important;
+                box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3) !important;
+            }
+
+            .monorepocitat:first-letter {
+                font-size: 1.5em;
+                font-family: gotiskt,serif
+            }
         </style>
 	</head>
 
@@ -77,6 +101,8 @@
                         <p>
                             Jeg heter Anders og dette er Jonas, og vi vil snakke litt om våre første <strong>erfaringer</strong> med å migrere til <strong>monorepo</strong> i SpareBank 1.
                         </p>
+
+                        <hr />
                         Bildekilde: https://pixabay.com/photos/dog-great-dane-old-animal-pet-2514968/
                     </aside>
 				</section>
@@ -127,7 +153,7 @@
 						<h6>A</h6>
 						<p>
                             <strong>Hovedpunktene</strong> vi tenkte å gå igjennom i dag ser slik ut.<br/>
-							vi snakker litt om <strong>problemet med felleskode</strong>,<br/>
+							Vi snakker litt om <strong>problemet med felleskode</strong>,<br/>
                             Vi tar en liten intro til <strong>hva et monorepo er</strong> for noe,<br/>
                             før vi ser på hvordan vi har prøvd å ta det <strong>i bruk</strong> i vårt miljø.<br/>
                             Til slutt så ser vi litt på hvilke <strong>utfordringer</strong> vi har møtt, og hvilke <strong>muligheter og effekter</strong> det har gitt oss.
@@ -182,8 +208,8 @@
                             Men Har du felleskode så kommer du vilja du ha monorepo efter att ha fått med dig
                             denna talk'en!</p>
 							-->
-							<hr /
-							Bild av <a href="https://pixabay.com/sv/users/dimitrisvetsikas1969-1857980/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1592312">Dimitris Vetsikas</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1592312">Pixabay</a>>
+							<hr />
+							Bild av <a href="https://pixabay.com/sv/users/dimitrisvetsikas1969-1857980/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1592312">Dimitris Vetsikas</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1592312">Pixabay</a>
                         </aside>
                     </section>
 
@@ -248,32 +274,9 @@
                 </section>
 
                 <section>
-<style>
-@font-face {
-    font-family: "gotiskt";
-    src: url("img/deutschgothic.woff") format('woff');
-    font-weight: bold;
-}
-.gotiskt {
-	font-family: gotiskt !important;
-	text-shadow: 2px 2px 2px #000000 !important;
-}
-
-.monorepocitat {
-	color: #002776;
-	font-family: serif;
-    font-weight: 600;
-    width: 90% !important;
-	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3) !important;
-}
-.monorepocitat:first-letter {
-  font-size: 1.5em;
-  font-family: gotiskt
-}
-</style>
 					<section data-background="img/bud.png" data-background-size="contain">
                         <h1 class="gotiskt" style="font-size: 2.0em;">Dem Femth Monorepo Bud</h1>
-						<h4 class="gotiskt fragment">etter Google sitt evangelium</h1>
+						<h4 class="gotiskt fragment">etter Google sitt evangelium</h4>
 						<br/>
 						<br/>
 						<br/>
