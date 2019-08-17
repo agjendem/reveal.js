@@ -984,6 +984,7 @@ apps/app2/README.md
                             <a href="https://git-lfs.github.com/">Git Large file storage</a><br/>
                             <a href="https://github.com/Microsoft/VFSForGit/issues/126">VFS for Git on Linux</a><br/>
                             <a href="https://github.com/github/libprojfs">VFS for Git on Linux</a><br/>
+							<a href="https://devblogs.microsoft.com/devops/exploring-new-frontiers-for-git-push-performance/">Exploring new frontiers for Git push performance</a><br/>
                         </aside>
                     </section>
 
@@ -1058,10 +1059,10 @@ apps/app2/README.md
 
                         <div style="display: flex">
 							<span>
-                                <img  src="img/maven.png" alt="Maven logo" />
+                                <img src="img/maven.png" alt="Maven logo" />
 							</span>
 							<span>
-                                <img  src="img/jenkins.png" class="fragment" alt="Jenkins logo" />
+                                <img src="img/jenkins.png" class="fragment" alt="Jenkins logo" />
 							</span>
                         </div>
 
@@ -1091,35 +1092,48 @@ apps/app2/README.md
 
                     <section>
                         <h1>Umodne verktøy</h1>
+						<img style="width: 50%" alt="Bazel logo" src="img/bazel.png" />
+						<img style="width: 60%" alt="Gut VFS logo" src="img/gitvfs.png" />
+						<!--
                         <ul>
                             <li>Bazel er i beta og har middels verktøystøtte</li>
                             <li>CI - mangler ferdige løsninger for å bygge deler av monorepo</li>
                             <li>Bitbucket/Github mangler ordentlig støtte for store monorepo - CODEOWNERS er et plaster</li>
                         </ul>
+						-->
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-								Monorepo'n har længe varit de stora drakarna's exklusiva domæn. Tooling som t.ex. versionskontroll, code review och byggsystem har
-								utvecklats innanfør murarna till bedrifter som Google, Facebook och Microsoft. Vi andra har fått hålla till godo med multirepo. <br />
-								Detta håller på och ændra sig. Vi tror detta egentligen bara ær en tidsfråga. <br/>
-								På samma sætt som Facebook populariserade komponentbased 
+								Monorepo'n har længe varit førbehållet de stora drakarna. Tooling som t.ex. versionskontroll, code review och byggsystem har
+								utvecklats innanfør murarna till bedrifter som Google och Facebook. Vi andra har fått hålla till godo med multirepo, de
+								allmænt tillgængliga verktygen har i varierande grad varit møjliga att skalera upp till monorepo-skala. Mycket av dagens
+								talk har handlat om olika sider med att bruka multirepoverktyg i ett monorepo. <br />
+								Allt detta håller på och ændra sig. <br/>
+								På ett liknande sætt som Facebook en gång populariserade komponentbased 
 								frontend-utveckling och virtual DOM med React
 								och som Google tog storskalig containerorkestrering main stream med Borg/Kubernetes
-								så tror vi att monorepo snart kommer bli allemanseie. 
+								så tror vi att monorepo snart kommer bli <strong>mycket</strong> vanligare æn vad det ær idag.
 								Time will tell, nær det gæller vem av drakarna som kommer kunna ta åt sig det mesta av æran før detta. 
-								Før tillfællet ær kanske den troligaste kandidaten Google med opensourcing av sitt byggsystem - Bazel.
+								Før tillfællet ær kanske de två troligaste kandidaterna:
+								<ul>
+									<li>Google, med opensourcing av sitt ambitiøsa byggsystem - Bazel, och</li>
+									<li>Microsoft som idogt jobbar vidare med ytelse och skalering av allas vårt favoritversionskontrollsystem - git</li>
+								</ul>
                             </p>
 							<p>
-								Samtidigt ær det inte att sticka under stolen av de monorepo-verktygen som ær tillgængliga før oss idag fortfarande ær rætt omogna.<br/>
-								F.eks. Bazel, ær fortsatt i beta - faktiskt med en 1.0 release planerad i dagarna - och
-								ekosystemet ær mycket svagare æn Maven's nær det gæller IDE-støtte, plugins och så vidare. 
+								Samtidigt ær det inte att sticka under stolen att de monorepo-verktygen som ær tillgængliga før oss idag fortfarande ær omogna.<br/>
+								<strong>Bazel</strong>, ær fortsatt i beta - faktiskt med en 1.0 release planerad i dagarna - och
+								ekosystemet ær mycket svagare æn Maven's nær det gæller IDE-støtte, plugins och så vidare. <br/>
+								<strong>Microsoft VFS løsning før git</strong> stødjer fortsatt officiellt inte Linux.
 							</p>
+							<!--
 							<p>
 								CI - mangler ferdige løsninger for å bygge deler av monorepo
 							</p>
 							<p>
 								Bitbucket/Github mangler ordentlig støtte for store monorepo - CODEOWNERS er et plaster
 							</p>
+							-->
                         </aside>
                     </section>
 
