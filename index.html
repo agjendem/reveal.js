@@ -190,7 +190,7 @@
 							<p>
 							Vi i SpareBank 1 har (ænnu) inte microservices før all fellesfunktionalitet. Vi tillæmpar heller inte copy-paste 
 							kodedelning. Vi ær en del av det norska bankvæsendet med allt som føljer av det vad gæller omdømmesrisisko,
-                            compliance-krav etc.  och vi ønskar att alla
+							compliance-krav etc.  och vi ønskar att alla
 							apparna i nettbanken till exempel ska ha en helt likt brukauktorisasjonslogik. Vi brukar aktivt felleskode
 							før att våra 20 team ska vara i stånd att leverera appar dær vi kan vara komfortable med att central funktionalitet 
 							ær konsistent och korrekt implementerat.
@@ -1001,6 +1001,13 @@ apps/app2/README.md
                                 det andra.<br/>
 								Ingen gillar att vænta på långsamma bygg. Och med mer kode i samma repo så måste væl byggtiderna gå upp?
                             </p>
+							<p>
+								Resonemanget ær i stor sett korrekt. Før att undgå dett så handlar det om att bygga:
+								parallellsera (vilket Maven
+								stødjer så dær, men Bazel ær fantatiskt på), .
+								inkrementellt
+								selektivt
+							</p>
                             <hr />
                             Bazel har stød før 100% pålitligta inkrementella bygg vilket troligen hjælper till med CI rætt bra.
                         </aside>
@@ -1040,7 +1047,8 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-								I ett monorepo ær det lættare æn någonsin att dela kode och inføra nya avhængigheter - nu slipper man faktiskt krullet med att finna
+								I ett monorepo ær det lættare æn någonsin att dela kode och inføra nya avhængigheter på kors och tværs - 
+								nu slipper man faktiskt krullet med att finna
 								fram till vilken version man ønskar. Baksidan av myntet ær det ær rætt lætt att vara odisciplinerad och lægga inte avhængigheter på lite væl
 								mycket felleskode, och, om man inte pasar sig, så har vi kanske snart en ny tætt kopplad monolit.
                             </p>
@@ -1091,7 +1099,7 @@ apps/app2/README.md
                     <section>
                         <h1>Umodne verktøy</h1>
 						<img style="width: 50%" alt="Bazel logo" src="img/bazel.png" />
-						<img style="width: 60%" alt="Gut VFS logo" src="img/gitvfs.png" />
+						<img style="width: 60%" alt="Git VFS logo" src="img/gitvfs.png" />
 						<!--
                         <ul>
                             <li>Bazel er i beta og har middels verktøystøtte</li>
@@ -1103,24 +1111,15 @@ apps/app2/README.md
                             <h6>J</h6>
                             <p>
 								Monorepo'n har længe varit førbehållet de stora drakarna. Tooling som t.ex. versionskontroll, code review och byggsystem har
-								utvecklats innanfør murarna till bedrifter som Google och Facebook. Vi andra har fått hålla till godo med multirepo, de
-								allmænt tillgængliga verktygen har i varierande grad varit møjliga att skalera upp till monorepo-skala. Mycket av dagens
-								talk har handlat om olika sider med att bruka multirepoverktyg i ett monorepo. <br />
-								Allt detta håller på och ændra sig. <br/>
-								Lite som Facebook en gång populariserade komponentbased
-								frontend-utveckling och virtual DOM med React
-								och som Google tog storskalig containerorkestrering main stream med Borg/Kubernetes
-								så tror vi att monorepo snart kommer bli <strong>mycket</strong> vanligare æn vad det ær idag.
-								Time will tell, nær det gæller vem av drakarna som kommer kunna ta åt sig det mesta av æran før detta. 
-								Før tillfællet ær kanske de två troligaste kandidaterna:
-								<ul>
-									<li>Google, med opensourcing av sitt ambitiøsa byggsystem - Bazel, och</li>
-									<li>Microsoft som idogt jobbar vidare med ytelse och skalering av allas vårt favoritversionskontrollsystem - git</li>
-								</ul>
+								utvecklats innanfør murarna till bedrifter som Google och Facebook.
+								De allmænt tillgængliga verktygen ær anpassade multirepo har i varierande grad varit møjliga att skalera upp till monorepo-skala. 
+								Mycket av det vi snackat om idag ær de olika sider med att bruka multirepoverktyg i ett monorepo. <br />
+								Allt detta håller på och ændra sig: framførallt på versionskontroll och byggsystemsidan har det de sista årenu kommit nya verktyg som
+								ær væl tillpassade monorepo.
                             </p>
 							<p>
-								Samtidigt ær det inte att sticka under stolen att de monorepo-verktygen som ær tillgængliga før oss idag fortfarande ær omogna.<br/>
-								<strong>Bazel</strong>, ær fortsatt i beta - faktiskt med en 1.0 release planerad i dagarna - och
+								Samtidigt ær det inte att sticka under stolen att dessa verktygen fortfarande ær omogna.<br/>
+								<strong>Google's Bazel</strong>, ær fortsatt i beta - faktiskt med en 1.0 release planerad i dagarna - och
 								ekosystemet ær mycket svagare æn Maven's nær det gæller IDE-støtte, plugins och så vidare. <br/>
 								<strong>Microsoft VFS løsning før git</strong> stødjer fortsatt officiellt inte Linux.
 							</p>
@@ -1237,27 +1236,28 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-								Att jobba med felleskode i ett monorepo ær helt annorlunda, och bættre, æn i multirepo. Ønskar du
-								se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.
-								Nyfiken på om en felleskodeændring knæcker en konsument? Det ær enkelt (i alla fall i Bazel)
-								att køra alla konsumenteras tester. Ær det något som knæcker så ær det møjligt att fixa
-								det i samma PR som felleskodeændringen! Man kan laga <i>atomiska refaktoreringar</i> som ær lætta rulla fram/bak,<br/>
-								som resulterar i holistiska PR:s dær man ser hela bilden/diffen<br/>
-								som tar allt från ett konsistent tillstånd till ett annat.
+								Att jobba med felleskode i ett monorepo ær helt annorlunda, och bættre, æn i multirepo:
+								<ul>
+									<li> Ønskar du se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.</li>
+									<li>Nyfiken på om en felleskodeændring knæcker en konsument? Det ær enkelt (i alla fall i Bazel)
+										att køra alla konsumenteras tester. Och ær det något som knæcker så ær det møjligt att fixa
+										det i samma PR som felleskodeændringen!</li>
+									<li>Man kan laga <i>atomiska refaktoreringar</i> som tar hela værlden från ett konsistent tillstånd
+										till ett annat utan någon mellanliggande period dær saker ær knæckta. En sida av detta ær att integrationstiden går
+ 										ner: man har inte længre den falska viloputen att man kan førdrøja integrationen som att ligga kvar på gamla versioner -
+										sækerhetsuppdateringar och kritiska fixar i felleskoden kom direkt ut i alla appar.</li>
+									<li>Bump PR:s utan meningsfulla diffar blir ett gammalt ont minne</li>
 							</p>
 							<p>
 								Sammantaget sænker monorepo trøskeln, som annars kan vara rætt høg, før att folk vågar refaktorer/bidra till felleskode.
 							</p>
-							<p>
-								Det ær inte længre møjligt att vælja att inte ta in en ny version av felleskode. Felleskodeændringar
-								integreras kontinuerligt i apparna: betydligt mer kontinuerligt æn vad som brukar vara fallet i
-								multirepo. Sækerhetsuppdateringar och kritiska bugfixar får en rask T2M.
-							</p>
+							<!--
 							<p>
                                Tidigare kunde man ændra felleskode utan att att ta ansvara før att integrera
                                ændringen i konsumenterna. Med monorepo blir man mer ansvarligt før konsumenterna,
                                det blir också praktiskt møjligt att gøra det.
                             </p>
+							-->
                         </aside>
                     </section>
 
@@ -1282,7 +1282,7 @@ apps/app2/README.md
                     <section data-background="img/survey.jpg" data-background-size="contain">
                         <h1>Googles erfaringar</h1>
                         <br/><br/><br/><br/><br/><br/><br/>
-                        <p class="ffe-small-text" style="color:black; background-color: rgba(255, 255, 255, 0.2);">Advantages and Disadvantages of a Monolithic Repository:
+						<p class="ffe-small-text" style="color:black; background-color: rgba(255, 255, 255, 0.2);">Advantages and Disadvantages of a M onolithic Repository:
                         A case study at Google<br/>
                         Ciera Jaspan, Matthew Jorde, Andrea Knight, Caitlin Sadowski, Edward K. Smith, Collin Winter-Google;
                         Emerson Murphy-Hill NC State University
@@ -1297,8 +1297,8 @@ apps/app2/README.md
                             </p>
 
                             <p>
-                            Det visade sig att utvecklarna starkt prefererade ett jobba i monorepo't nær detta sattes
-                            upp mot tidigare erfarenhet av jobb i en multirepo-miljø. (så det var kanske inte helt bortkastat att gå på den hær talken)
+                            Det visade sig att utvecklarna <strong>starkt prefererade</strong> ett jobba i monorepo't nær detta sattes
+                            upp mot tidigare erfarenhet av jobb i en multirepo-miljø. (så det var kanske inte helt bortkastat att gå på den hær talken - trots allt)
 							Det kan naturligtvis ifrågasættas i vilken grad det resultatet berodde på den inneboende styrkan i monorepotankegången och
                             i vilken grad resultatet kan vara påverkat av kvalitèn på Googles utvecklingsverktyg (versionshantering,
                             code review, code browsing, etc.) versus mot dær man hade jobbat med multirepo tidigare.
@@ -1307,7 +1307,7 @@ apps/app2/README.md
                             <p>
                             En kanske lite ovæntad finding var att den aspekt av monorepo't som utvecklarna satte mest pris på <strong>inte</strong>
                             var enkel versionering, atomiska refaktoreringar eller något annat av det vi næmnt tidigare.<br/>
-                            Nej, det var møjligheten att lætt kunna søka i och læsa all kællkod før att f.eks. finna relevanta kodeexempler som kom ut på topp.
+                            Nej, det var tillgængligheten och søkbarheten av kællkoden før att f.eks. raskt finna relevanta kodeexempler som kom ut på topp.
                             </p>
 
                             <p>
@@ -1330,6 +1330,16 @@ apps/app2/README.md
                     <h2 class="fragment fade-in" style="text-shadow: 0 0 4px #FFFFFF; background: rgba(255, 255, 255, 0.4)">...men på sikt ryker nok Maven!</h2>
                     <aside class="notes">
                         <h6>A</h6>
+						Lite som Facebook en gång populariserade komponentbased
+						frontend-utveckling och virtual DOM med React
+						och som Google tog storskalig containerorkestrering main stream med Borg/Kubernetes
+						så tror vi att monorepo, med god stød från jættarna i USA, snart kommer bli <strong>mycket</strong> vanligare æn vad det ær idag.
+						Time will tell, nær det gæller vem av drakarna som kommer kunna ta åt sig det mesta av æran før detta. 
+						Før tillfællet ær kanske de två troligaste kandidaterna:
+						<ul>
+							<li>Google, med opensourcing av sitt ambitiøsa byggsystem - Bazel, och</li>
+							<li>Microsoft som idogt jobbar vidare med ytelse och skalering av allas vårt favoritversionskontrollsystem - git</li>
+						</ul>
                         <hr />
                         Bild av <a href="https://pixabay.com/sv/users/StartupStockPhotos-690514/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">StartupStockPhotos</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">Pixabay</a>
                     </aside>
