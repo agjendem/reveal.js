@@ -934,13 +934,25 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <ul>
-                            <li>Google's monorepo: 2 milliarder filer, 2018</li>
-                            <li>Microsoft Windowsrepoet: 3.5 millioner filer / 4000 brukere (som GVFS)</li>
-                            <li>Linuxkernelen: 65.000 filer<li>
-                            <li class="fragment fade-in">Summan av SpareBank 1s nettbankmultirepoer: 40.000 filer</li>
-                            <li class="fragment fade-in">SpareBank 1s nettbankmonorepo: 1.500 filer</li>
-                        </ul>
+                        <canvas data-chart="line">
+                            <!--
+                            {
+                             "data": {
+                              "labels": ["Google","Microsoft Windows","Linuxkernel","Multirepo","Monorepo"],
+                              "datasets": [
+                               {
+                                "data":[9000000, 3500000, 65000, 40000, 1500],
+                                "label":"Antall filer","backgroundColor":"rgba(20,220,220,.8)"
+                               }
+                              ]
+                             },
+                             "options": {
+                                "responsive": "true", "animation": {"duration": "9000", "easing": "easeInExpo"},
+                                "scales": { "yAxes": [{ "display": false }] }
+                              }
+                            }
+                            -->
+                        </canvas>
 
                         <aside class="notes">
                             <h6>A</h6>
@@ -1379,8 +1391,9 @@ apps/app2/README.md
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true }
-				]
+					{ src: 'plugin/highlight/highlight.js', async: true },
+                    { src: 'plugin/chart/Chart.min.js' },
+                    { src: 'plugin/chart/csv2chart.js' }				]
 			});
 		</script>
 	</body>
