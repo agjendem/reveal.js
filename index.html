@@ -352,16 +352,14 @@
                             Code is viewable and searchable by all engineers in the organization.
                         </blockquote>
 
-                        <pre class="fragment">
-                            <code data-trim data-noescape>
+                        <pre class="fragment"><code data-trim data-noescape>
 $ git grep lib1 -- '**/pom.xml'
 apps/app1/pom.xml:            &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
 apps/app1/pom.xml:            &lt;artifactId&gt;lib1&lt;/artifactId&gt;
 libs/lib1/pom.xml:    &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
 libs/lib1/pom.xml:    &lt;artifactId&gt;lib1&lt;/artifactId&gt;
 libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
-                            </code>
-                        </pre>
+                        </code></pre>
 
                         <aside class="notes">
                             <h6>A</h6>
@@ -479,8 +477,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 					</section>
 
                     <section>
-                        <pre>
-                            <code data-trim data-noescape>
+                        <pre><code data-trim data-noescape>
 .
 ├── apps
 │   ├── app1
@@ -500,8 +497,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 │   └── pom.xml
 ├── pom.xml
 ├── README.md
-                            </code>
-                        </pre>
+                        </code></pre>
 
                         <aside class="notes">
                             <h6>A</h6>
@@ -544,8 +540,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                     </section>
 
                     <section>
-                        <pre>
-                            <code data-trim data-noescape>
+                        <pre><code data-trim data-noescape>
 $ mvn clean install
 [INFO] Scanning for projects...
 [INFO] ----------------------------------------------------
@@ -559,8 +554,7 @@ $ mvn clean install
 [INFO] app1                                           [jar]
 [INFO] app2                                           [jar]
 [INFO]
-                            </code>
-                        </pre>
+                        </code></pre>
 
                         <aside class="notes">
                             <h6>J</h6>
@@ -571,8 +565,7 @@ $ mvn clean install
                     </section>
 
                     <section>
-                        <pre>
-                            <code data-trim data-noescape>
+                        <pre><code data-trim data-noescape>
 $ apps/app1 $ mvn clean install
 [INFO] Scanning for projects...
 [INFO]
@@ -580,8 +573,7 @@ $ apps/app1 $ mvn clean install
 [INFO] Building app1 1.0.0-SNAPSHOT
 [INFO] --------------------------------[ jar ]-------------
 
-                            </code>
-                        </pre>
+                        </code></pre>
 
                         <aside class="notes">
                             <h6>A</h6>
@@ -593,8 +585,7 @@ $ apps/app1 $ mvn clean install
                     </section>
 
                     <section>
-                        <pre>
-                            <code data-trim data-noescape>
+                        <pre><code data-trim data-noescape>
 apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-pl :app1 </mark><mark class="fragment">-am</mark> clean install
 [INFO] Scanning for projects...
 [INFO] ----------------------------------------------------
@@ -607,8 +598,7 @@ apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-p
 [INFO] apps                                           [pom]
 [INFO] app1                                           [jar]
 [INFO]
-                            </code>
-                        </pre>
+                        </code></pre>
 
 						<aside class="notes">
                             <h6>A</h6>
@@ -625,7 +615,7 @@ apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-p
                     </section>
 
 					<section>
-						<h1>Mavenutfordringer med GAV-koordinater</h1>
+						<h1>Mavenutfordringer</h1>
 						<ul>
                             <li>groupId<span class="fragment fade-in"> - bør utledes fra katalogstruktur</span></li>
                             <li>version<span class="fragment fade-in"> - bør utledes fra versjonskontroll</span></li>
@@ -667,15 +657,15 @@ apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-p
                     </section>
 
 					<section>
-                        <h1>Versjonering i Maven</h1>
-                        <pre>
-                            <code data-trim data-noescape>
+                        <h1>Versjonering</h1>
+                        <h3>i Maven</h3>
+
+                        <pre><code data-trim data-noescape>
 &lt;project&gt;
   &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
   &lt;artifactId&gt;lib1&lt;/artifactId&gt;
   &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
-        					</code>
-                        </pre>
+                        </code></pre>
 
                         <aside class="notes">
                             <h6>A</h6>
@@ -689,8 +679,7 @@ apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-p
 
                     <section>
                         <h3>CI-vennlig versjonering</h3>
-                        <pre>
-                            <code data-trim data-noescape>
+                        <pre><code data-trim data-noescape>
 &lt;project&gt;
   &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
   &lt;artifactId&gt;lib1&lt;/artifactId&gt;
@@ -699,14 +688,11 @@ apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-p
   &lt;properties&gt;
     &lt;revision&gt;1.0-SNAPSHOT&lt;/revision&gt;
   &lt;/properties&gt;
-                            </code>
-                        </pre>
+                        </code></pre>
 
-						<pre class="fragment fade-up">
-                            <code data-trim data-noescape>
+						<pre class="fragment fade-up"><code data-trim data-noescape>
 $ mvn -Drevision=$(git rev-parse HEAD) clean install
-						    </code>
-                        </pre>
+                        </code></pre>
 
 						<aside class="notes">
                             <h6>J</h6>
@@ -732,16 +718,14 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					</section>
 
 					<section>
-                        <pre>
-                            <code data-trim data-noescape>
+                        <pre><code data-trim data-noescape>
 &lt;dependencies&gt;
   &lt;dependency&gt;
     &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
     &lt;artifactId&gt;lib1&lt;/artifactId&gt;
     &lt;version&gt;${project.version}&lt;/version&gt;
   &lt;/dependency&gt;
-						    </code>
-                        </pre>
+                        </code></pre>
 
                         <aside class="notes">
                             <h6>A</h6>
@@ -754,16 +738,14 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
 					<section>
 						<h1>CODEOWNERS</h1>
-						<pre class="fragment fade-up">
-                            <code data-trim data-noescape>
+						<pre class="fragment fade-up"><code data-trim data-noescape>
 # Default owner
 / @nordstrand
 
 # Code owner for the applications
 /apps/app1/   @nordstrand
 /apps/app2/   @agjendem
-						    </code>
-                        </pre>
+                        </code></pre>
 
 						<img src="img/codereview-in-github.png" alt="eksempel på hvordan github viser codereviewers via codeowners-fil" class="fragment fade-in"/>
 
@@ -793,13 +775,11 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                     <section>
                         <h1>Jenkins(file)</h1>
-                        <pre class="fragment fade-up">
-                            <code data-trim data-noescape>
+                        <pre class="fragment fade-up"><code data-trim data-noescape>
 $ git diff --name-only origin/master...HEAD
 apps/app2/src/main/java/no/monorepo/app2/App2.java
 apps/app2/README.md
-                            </code>
-                        </pre>
+                        </code></pre>
 
                         <aside class="notes">
                             <h6>J</h6>
@@ -845,14 +825,12 @@ apps/app2/README.md
 
                     <section>
                         <h2>Git sparse checkouts</h2>
-                        <pre class="fragment fade-up">
-                            <code data-trim data-noescape>
+                        <pre class="fragment fade-up"><code data-trim data-noescape>
 .git/info/sparse-checkout
 /*
 !/apps/*/*
 /apps/app1/*
-                            </code>
-                        </pre>
+                        </code></pre>
 
                         <aside class="notes">
                             <h6>A</h6>
@@ -875,8 +853,7 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <pre>
-                            <code data-trim data-noescape>
+                        <pre><code data-trim data-noescape>
 &lt;profile&gt;
   &lt;id&gt;app2&lt;/id&gt;
   &lt;activation&gt;
@@ -888,8 +865,7 @@ apps/app2/README.md
     &lt;module&gt;app2&lt;/module&gt;
   &lt;/modules&gt;
 &lt;/profile&gt;
-                            </code>
-                        </pre>
+                        </code></pre>
 
                         <aside class="notes">
                             <h6>A</h6>
