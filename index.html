@@ -143,7 +143,7 @@
 					<ul>
 						<li>Felleskode</li>
 						<li>Møt monorepo</li>
-						<li>Vår reise fra multi- til monorepo</li>
+						<li>Fra multi- til monorepo</li>
 						<li>Utfordringer</li>
 						<li>Positive effekter</li>
 					</ul>
@@ -431,13 +431,10 @@ libs/pom.xml:       &lt;module&gt;lib1&lt;/module&gt;
 
                 <section>
 					<section>
-                        <h1>Vår reise</h1>
-
-                        <ol>
-                            <li class="fragment">Monolitt</li>
-                            <li class="fragment">Multirepo</li>
-                            <li class="fragment">Monorepo</li>
-                        </ol>
+                        <span>
+                            <!-- TODO: Skaffe versjon med Monolitt skrevet på norsk -->
+                            <img src="/img/monolitt-multirepo-monorepo-blank.png" alt="Illustrasjon fra Monolitt til Multirepo til Monorepo" />
+                        </span>
 
 						<aside class="notes">
                             <h3>Monolitt</h3>
@@ -567,7 +564,7 @@ $ mvn clean install
 
                     <section>
                         <pre><code class="console" data-trim data-noescape>
-apps/app1 $ mvn clean install
+<mark>apps/app1</mark> $ mvn clean install
 [INFO] Scanning for projects...
 [INFO]
 [INFO] --------------------------< no.monorepo:app1 >------
@@ -587,7 +584,7 @@ apps/app1 $ mvn clean install
 
                     <section>
                         <pre><code class="console" data-trim data-noescape>
-apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-pl :app1 </mark><mark class="fragment">-am</mark> clean install
+<mark>apps/app1</mark> $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-pl :app1 </mark><mark class="fragment">-am</mark> clean install
 [INFO] Scanning for projects...
 [INFO] ----------------------------------------------------
 [INFO] Reactor Build Order:
@@ -690,6 +687,8 @@ apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-p
     &lt;revision&gt;1.0-SNAPSHOT&lt;/revision&gt;
   &lt;/properties&gt;
                         </code></pre>
+
+                        <br/>
 
 						<pre class="fragment fade-up"><code class="console" data-trim data-noescape>
 $ mvn -Drevision=$(git rev-parse HEAD) clean install
@@ -825,7 +824,7 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <h2>Git sparse checkouts</h2>
+                        <h1>Sparse checkouts</h1>
                         <pre class="fragment fade-up"><code class="plaintext" data-trim data-noescape>
 .git/info/sparse-checkout
 /*
@@ -1052,14 +1051,14 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <h2>Overmodne verktøy</h2>
+                        <h1>Overmodent</h1>
 
                         <div style="display: flex">
 							<span class="fragment">
                                 <img src="img/maven.png" alt="Maven logo" />
 							</span>
 							<span class="fragment">
-                                <img src="img/jenkins.png" alt="Jenkins logo" />
+                                <img src="img/jenkins.png" style="height:30%" alt="Jenkins logo" />
 							</span>
                         </div>
 
@@ -1088,7 +1087,7 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <h1>Umodne verktøy</h1>
+                        <h1>Umodent</h1>
                         <span class="fragment">
     						<img style="width: 50%" alt="Bazel logo" src="img/bazel.png" />
                         </span>
@@ -1224,19 +1223,19 @@ apps/app2/README.md
                         <p  style="color: white" class="ffe-lead-paragraph">Hvis du ikke har et monorepo, integrerer du ikke kontinuerlig - i beste fall hyppig!</p>
                         <aside class="notes">
                             <h6>J</h6>
-                            <p>
-								Att jobba med felleskode i ett monorepo ær helt annorlunda, och bættre, æn i multirepo:
-								<ul>
-									<li> Ønskar du se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.</li>
-									<li>Nyfiken på om en felleskodeændring knæcker en konsument? Det ær enkelt (i alla fall i Bazel)
-										att køra alla konsumenteras tester. Och ær det något som knæcker så ær det møjligt att fixa
-										det i samma PR som felleskodeændringen!</li>
-									<li>Man kan laga <i>atomiska refaktoreringar</i> som tar hela værlden från ett konsistent tillstånd
-										till ett annat utan någon mellanliggande period dær saker ær knæckta. En sida av detta ær att integrationstiden går
- 										ner: man har inte længre den falska viloputen att man kan førdrøja integrationen som att ligga kvar på gamla versioner -
-										sækerhetsuppdateringar och kritiska fixar i felleskoden kom direkt ut i alla appar.</li>
-									<li>Bump PR:s utan meningsfulla diffar blir ett gammalt ont minne</li>
-							</p>
+                            Att jobba med felleskode i ett monorepo ær helt annorlunda, och bættre, æn i multirepo:
+                            <ul>
+                                <li> Ønskar du se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.</li>
+                                <li>Nyfiken på om en felleskodeændring knæcker en konsument? Det ær enkelt (i alla fall i Bazel)
+                                    att køra alla konsumenteras tester. Och ær det något som knæcker så ær det møjligt att fixa
+                                    det i samma PR som felleskodeændringen!</li>
+                                <li>Man kan laga <i>atomiska refaktoreringar</i> som tar hela værlden från ett konsistent tillstånd
+                                    till ett annat utan någon mellanliggande period dær saker ær knæckta. En sida av detta ær att integrationstiden går
+                                    ner: man har inte længre den falska viloputen att man kan førdrøja integrationen som att ligga kvar på gamla versioner -
+                                    sækerhetsuppdateringar och kritiska fixar i felleskoden kom direkt ut i alla appar.</li>
+                                <li>Bump PR:s utan meningsfulla diffar blir ett gammalt ont minne</li>
+                            </ul>
+
 							<p>
 								Sammantaget sænker monorepo trøskeln, som annars kan vara rætt høg, før att folk vågar refaktorer/bidra till felleskode.
 							</p>
