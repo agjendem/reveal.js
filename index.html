@@ -352,13 +352,13 @@
                             Code is viewable and searchable by all engineers in the organization.
                         </blockquote>
 
-                        <pre class="fragment"><code data-trim data-noescape>
+                        <pre class="fragment"><code class="console" data-trim data-noescape>
 $ git grep lib1 -- '**/pom.xml'
-apps/app1/pom.xml:            &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
-apps/app1/pom.xml:            &lt;artifactId&gt;lib1&lt;/artifactId&gt;
-libs/lib1/pom.xml:    &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
-libs/lib1/pom.xml:    &lt;artifactId&gt;lib1&lt;/artifactId&gt;
-libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
+apps/app1/pom.xml:  &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
+apps/app1/pom.xml:  &lt;artifactId&gt;lib1&lt;/artifactId&gt;
+libs/lib1/pom.xml:  &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
+libs/lib1/pom.xml:  &lt;artifactId&gt;lib1&lt;/artifactId&gt;
+libs/pom.xml:       &lt;module&gt;lib1&lt;/module&gt;
                         </code></pre>
 
                         <aside class="notes">
@@ -477,7 +477,8 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
 					</section>
 
                     <section>
-                        <pre><code data-trim data-noescape>
+                        <pre><code class="stretch console" data-trim data-noescape>
+$ tree
 .
 ├── apps
 │   ├── app1
@@ -540,7 +541,7 @@ libs/pom.xml:        &lt;module&gt;lib1&lt;/module&gt;
                     </section>
 
                     <section>
-                        <pre><code data-trim data-noescape>
+                        <pre><code class="console" data-trim data-noescape>
 $ mvn clean install
 [INFO] Scanning for projects...
 [INFO] ----------------------------------------------------
@@ -565,8 +566,8 @@ $ mvn clean install
                     </section>
 
                     <section>
-                        <pre><code data-trim data-noescape>
-$ apps/app1 $ mvn clean install
+                        <pre><code class="console" data-trim data-noescape>
+apps/app1 $ mvn clean install
 [INFO] Scanning for projects...
 [INFO]
 [INFO] --------------------------< no.monorepo:app1 >------
@@ -585,7 +586,7 @@ $ apps/app1 $ mvn clean install
                     </section>
 
                     <section>
-                        <pre><code data-trim data-noescape>
+                        <pre><code class="console" data-trim data-noescape>
 apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-pl :app1 </mark><mark class="fragment">-am</mark> clean install
 [INFO] Scanning for projects...
 [INFO] ----------------------------------------------------
@@ -660,7 +661,7 @@ apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-p
                         <h1>Versjonering</h1>
                         <h3>i Maven</h3>
 
-                        <pre><code data-trim data-noescape>
+                        <pre><code class="xml" data-trim data-noescape>
 &lt;project&gt;
   &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
   &lt;artifactId&gt;lib1&lt;/artifactId&gt;
@@ -679,7 +680,7 @@ apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-p
 
                     <section>
                         <h3>CI-vennlig versjonering</h3>
-                        <pre><code data-trim data-noescape>
+                        <pre><code class="xml" data-trim data-noescape>
 &lt;project&gt;
   &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
   &lt;artifactId&gt;lib1&lt;/artifactId&gt;
@@ -690,7 +691,7 @@ apps/app1 $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-p
   &lt;/properties&gt;
                         </code></pre>
 
-						<pre class="fragment fade-up"><code data-trim data-noescape>
+						<pre class="fragment fade-up"><code class="console" data-trim data-noescape>
 $ mvn -Drevision=$(git rev-parse HEAD) clean install
                         </code></pre>
 
@@ -718,7 +719,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					</section>
 
 					<section>
-                        <pre><code data-trim data-noescape>
+                        <pre><code class="xml" data-trim data-noescape>
 &lt;dependencies&gt;
   &lt;dependency&gt;
     &lt;groupId&gt;no.monorepo.libs.lib1&lt;/groupId&gt;
@@ -775,7 +776,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 
                     <section>
                         <h1>Jenkins(file)</h1>
-                        <pre class="fragment fade-up"><code data-trim data-noescape>
+                        <pre class="fragment fade-up"><code class="console" data-trim data-noescape>
 $ git diff --name-only origin/master...HEAD
 apps/app2/src/main/java/no/monorepo/app2/App2.java
 apps/app2/README.md
@@ -825,7 +826,7 @@ apps/app2/README.md
 
                     <section>
                         <h2>Git sparse checkouts</h2>
-                        <pre class="fragment fade-up"><code data-trim data-noescape>
+                        <pre class="fragment fade-up"><code class="plaintext" data-trim data-noescape>
 .git/info/sparse-checkout
 /*
 !/apps/*/*
@@ -853,14 +854,16 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <pre><code data-trim data-noescape>
+                        <pre><code class="xml" data-trim data-noescape>
 &lt;profile&gt;
   &lt;id&gt;app2&lt;/id&gt;
+
   &lt;activation&gt;
     &lt;file&gt;
       &lt;exists&gt;app2/pom.xml&lt;/exists&gt;
     &lt;/file&gt;
   &lt;/activation&gt;
+
   &lt;modules&gt;
     &lt;module&gt;app2&lt;/module&gt;
   &lt;/modules&gt;
