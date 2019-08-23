@@ -77,6 +77,73 @@
                 font-size: 1.5em;
                 font-family: gotiskt,serif
             }
+
+            /* https://leaverou.github.io/bubbly/ */
+            .speech-bubble {
+                position: relative;
+                background: #00aabb;
+                border-radius: .4em;
+            }
+
+            .speech-bubble-left:after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                width: 0;
+                height: 0;
+                border: 31px solid transparent;
+                border-left-color: #00aabb;
+                border-right: 0;
+                border-bottom: 0;
+                margin-top: -15.5px;
+                margin-right: -31px;
+            }
+
+            .speech-bubble-right:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                width: 0;
+                height: 0;
+                border: 31px solid transparent;
+                border-right-color: #00aabb;
+                border-left: 0;
+                border-bottom: 0;
+                margin-top: -15.5px;
+                margin-left: -31px;
+            }
+
+            .speech-bubble-bottom:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                height: 0;
+                border: 6px solid transparent;
+                border-top-color: #00aabb;
+                border-bottom: 0;
+                border-left: 0;
+                margin-left: -3px;
+                margin-bottom: -6px;
+            }
+
+            .speech-bubble-top:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 0;
+                height: 0;
+                border: 6px solid transparent;
+                border-bottom-color: #00aabb;
+                border-top: 0;
+                border-left: 0;
+                margin-left: -3px;
+                margin-top: -6px;
+            }
         </style>
 	</head>
 
@@ -1124,16 +1191,56 @@ apps/app2/README.md
 
                     <section>
                         <h1>... men</h1>
-                        <ul>
-                            <li>.. dette er jo ikke et ekte monorepo!</li>
-                            <li><a href="https://medium.com/@mattklein123/monorepos-please-dont-e9a279be011b">.. monorepo er latterlig, ikke gjør det!</a></li>
-                            <li>.. dere støtter jo bare ett språk!</li>
-                            <li>.. dere har jo bare noen få applikasjoner i repoet!</li>
-                            <li>.. definisjonen er jo at <strong>alt</strong> av kode skal bo i ett repo!</li>
-                            <li>.. monorepo skalerer ikke</li>
-                            <li>.. monorepo er en &lt;flopp|hype&gt;</li>
-                            <li>.. andre innspill?</li>
-                        </ul>
+
+                        <div class="speech-bubble-bottom speech-bubble">
+                            Dette er jo ikke<br/>
+                            et ekte monorepo!
+                        </div>
+
+                        <br/>
+
+                        <div class="speech-bubble-bottom speech-bubble">
+                            <!-- https://medium.com/@mattklein123/monorepos-please-dont-e9a279be011b -->
+                            Monorepo er latterlig,<br/>
+                            ikke bruk det!
+                        </div>
+
+                        <br/>
+
+                        <div class="speech-bubble-left speech-bubble">
+                            Dere støtter jo bare ett språk!
+                        </div>
+
+                        <br/>
+
+                        <div class="speech-bubble-right speech-bubble">
+                            Dere har jo bare noen få applikasjoner i repoet!
+                        </div>
+
+                        <br/>
+
+                        <div class="speech-bubble-left speech-bubble">
+                            Definisjonen er jo at <strong>alt</strong> av kode skal bo i ett repo!
+                        </div>
+
+                        <br/>
+
+                        <div class="speech-bubble-right speech-bubble">
+                            Monorepo skalerer ikke!
+                        </div>
+
+                        <br/>
+
+                        <div class="speech-bubble-top speech-bubble">
+                            Monorepo er en &lt;flopp|hype&gt;
+                        </div>
+
+                        <br/>
+
+                        <div class="speech-bubble-top speech-bubble">
+                            &lt;andre innspill her&gt;
+                        </div>
+
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
