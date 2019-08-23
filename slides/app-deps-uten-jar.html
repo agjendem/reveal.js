@@ -1,0 +1,37 @@
+<!-- Source: https://bl.ocks.org/mbostock/3231298 -->
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <link rel="stylesheet" href="/plugin/diagram/revealjs-diagram.css">
+</head>
+<body>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="/plugin/diagram/revealjs-diagram.js"></script>
+<script>
+    var treeData = {
+        name: 'App1',
+        x0: window.diagram.height / 2,
+        y0: 0,
+        children: []
+    };
+
+    var _transitions = [
+        window.diagram.addItem('Lib1', 'App1', treeData),
+        window.diagram.addItem('Lib2', 'App1', treeData),
+        // window.diagram.addItem('App2', null, treeData),
+    ];
+
+    var _inverse_transitions = [
+        window.diagram.removeItem('B', treeData),
+        window.diagram.removeItem('C', treeData),
+    ];
+
+    // register the diagram
+    window.diagram.register('intro', function() {
+        window.diagram.init(treeData);
+    });
+</script>
+
+</body>
