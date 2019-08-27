@@ -13,7 +13,7 @@ body {
   background-color: #fff; }
 
 .reveal {
-  font-family: MuseoSans-400, arial, sans-serif;
+  font-family: MuseoSans-400, Calibri, arial, sans-serif;
   font-size: 42px;
   font-weight: normal;
   color: #000; }
@@ -44,7 +44,7 @@ body {
 .reveal h6 {
   margin: 0 0 20px 0;
   color: #002776;
-  font-family: MuseoSansRounded-700, arial, sans-serif;
+  font-family: MuseoSansRounded-700, Calibri, arial, sans-serif;
   font-weight: normal;
   line-height: 1.2;
   letter-spacing: normal;
