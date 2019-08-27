@@ -992,7 +992,7 @@ apps/app2/README.md
 							<p>
 								Resonemanget ær i stor sett korrekt. Før att undgå dett så handlar det om att bygga:
 								parallellsera (vilket Maven
-								stødjer så dær, men Bazel ær fantatiskt på), .
+								stødjer så dær, men Bazel ær fantastiskt på), .
 								inkrementellt
 								selektivt
 							</p>
@@ -1224,7 +1224,7 @@ apps/app2/README.md
                             <h6>J</h6>
                             Att jobba med felleskode i ett monorepo ær helt annorlunda, och bættre, æn i multirepo:
                             <ul>
-                                <li> Ønskar du se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.</li>
+                                <li>Ønskar du se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.</li>
                                 <li>Nyfiken på om en felleskodeændring knæcker en konsument? Det ær enkelt (i alla fall i Bazel)
                                     att køra alla konsumenteras tester. Och ær det något som knæcker så ær det møjligt att fixa
                                     det i samma PR som felleskodeændringen!</li>
@@ -1254,13 +1254,15 @@ apps/app2/README.md
                         <h3 style="color:white">i SpareBank 1 Utvikling</h3>
                         <aside class="notes">
                             <h6>A</h6>
-                            <p>Vår nettbank har historiskt varit uppdelat i två olika "marknader": privat och bedrift.
-                            Dessa har betjænats av olika team och det har uppstått många tillfæller dær samma typ av
-                            app lagats två gånger, en gång i en privat-smak och gång i en bedrift-smak.</p>
-
-                            <p>Monorepo't læægger upp till bættre genomsiktligt och samarbetsmøjligheter på tværs av
-                            team och vi ser nu tillfællen av appar som kan upptræda som i både privat och bedriftsammanhang
-                            från samma kodebas</p>
+                            <p>
+                                Historisk sett har nettbanken vår vært oppdelt i <strong>to forskjellige markeder</strong>; privat og bedrift.<br/>
+                                Disse har stort sett vært vedlikeholdt av <strong>ulike team</strong>, og vi har noen applikasjoner som er <strong>kloner</strong> av hverandre,<br/>
+                                eller hvor samme funksjonalitet er implementert for begge markeder med mindre variasjoner<br/>
+                            </p>
+                            <p>
+                                Vi antar at monorepoet her vil gi oss <strong>bedre gjennomsiktighet og samarbeidsmuligheter</strong> på tvers av team,<br/>
+                                og vi har allerede tilfeller hvor vi samme app nå opptrer i begge markeder, med litt forskjellige konfigurasjon<br/>
+                            </p>
                             <hr />
                             Biljardbild: https://pixabay.com/photos/billiards-pool-play-game-sport-1967938/
                         </aside>
@@ -1317,16 +1319,15 @@ apps/app2/README.md
                     <h3 class="fragment fade-in" style="text-shadow: 0 0 4px #FFFFFF; background: rgba(255, 255, 255, 0.4)">(men på sikt ryker nok Maven)</h3>
                     <aside class="notes">
                         <h6>A</h6>
-						Lite som Facebook en gång populariserade komponentbased
-						frontend-utveckling och virtual DOM med React
-						och som Google tog storskalig containerorkestrering main stream med Borg/Kubernetes
-						så tror vi att monorepo, med god stød från jættarna i USA, snart kommer bli <strong>mycket</strong> vanligare æn vad det ær idag.
-						Time will tell, nær det gæller vem av drakarna som kommer kunna ta åt sig det mesta av æran før detta. 
-						Før tillfællet ær kanske de två troligaste kandidaterna:
-						<ul>
-							<li>Google, med opensourcing av sitt ambitiøsa byggsystem - Bazel, och</li>
-							<li>Microsoft som idogt jobbar vidare med ytelse och skalering av allas vårt favoritversionskontrollsystem - git</li>
-						</ul>
+                        <p>
+                            <!-- TODO: Uklar sammenheng mellom slide tekst og notes! -->
+                            Facebook populariserte komponentbasert frontendutvikling og virtuell DOM med React<br/>
+                            Google gjorde storskala containerorkestrering main-stream med Borg/Kubernetes<br/>
+                            På samme måte så mistenker vi at med de store aktørene som foregangsfigurer så vil monorepo etterhvert også bli mye vanligere enn hva det er i dag.<br/>
+                            Tiden vil antakelig vise hvem som kan ta æren for det, men per nå så ligger nok<br/>
+                            Google med sitt ambisiøse byggsystem Bazel<br/>
+                            og Microsoft med sitt bidrag på virtuelle filsystem for Git best ann.<br/>
+                        </p>
                         <hr />
                         Bild av <a href="https://pixabay.com/sv/users/StartupStockPhotos-690514/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">StartupStockPhotos</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">Pixabay</a>
                     </aside>
