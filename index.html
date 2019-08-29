@@ -148,9 +148,10 @@
 
                         <aside class="notes">
                             <h6>J</h6>
+                            <!-- 150 s -->
 							<p>
 							Varje gång vi skriver kode som vi delar mellan appar så tar vi på oss <strong>risk</strong>. 
-							Risken ær aldrig særskilt påtaglig dær och då och førdelarna med felleskode ær uppenbara:<br/> 
+							Dær och då ær førdelarna med felleskode uppenbara medan riskerna ær mer diffusa:<br/> 
 							man <strong>sparar tid</strong> på att inte behøva uppfinna hjulet igen och, inte minst,
 							man ær sæker på att hjulet blir <strong>implementert likt</strong> på tværs av appar.
 							</p>
@@ -158,13 +159,14 @@
 							<p>
 							Nej, risken blir først påtaglig længre fram. Till exempel nær man måste laga en liiiten fix i felleskoden och upptæcker att man
                             ligger lite bakpå och måste vælja mellan att fork'a eller ta in ændringar från de 23 versionerna man ligger
-							bak før att få ut sin lilla fix. Delar man felleskode inte bara mellan sin egna appar utan æven mellan olika teams
-							har man bevegt långt ut i ett minfælt av kopplingar och øverlæmningar som kan riskera førlama hela organisationen.
+							bak før att få ut sin lilla fix. Delar man felleskode inte bara mellan sin egna appar utan æven mellan olika teams appar
+							har man bevegt långt ut i ett minfælt av kopplingar och øverlæmningar som kan riskera førlama en hel organisation.
 							</p>
 
                             <p>
 							En del delar kode primært med Copy-Paste-metoden vilket ær en sæker form før kodedelning men dær
-							man måsta acceptera hjulen efter tag kommer vara rætt olikt implementerade i apparna.</p>
+							man måsta acceptera hjulen efter tag kommer vara rætt olikt implementerade i apparna.
+                            </p>
                             <p>
 							Ett annat potentiellt felleskode-fritt alternativ ær kanske en fancy service-mesh / microservice-arkitektur, dær
 							varje fellesfunktion ær sin egen tjeneste, men &ndash; till och med Google har felleskode.
@@ -180,7 +182,7 @@
 							</p>
 
 							<p>
-							Før att bættre kunna navigera det minfælt som felleskode i en stor utvecklingsorganisation faktiskt ær
+							Før att bættre kunna navigera det minfælt som felleskode i en stor organisation faktiskt ær
 							så har vi tagit valet att gå før monorepo.
 							</p>
 							<!--
