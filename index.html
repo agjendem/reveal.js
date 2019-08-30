@@ -218,18 +218,12 @@
                         </aside>
                     </section>
 
-                    <section data-background="img/app-deps2.svg" data-background-size="contain">
+                    <section data-background="img/app-deps3.svg" data-background-size="contain">
                         <aside class="notes">
                             <h6>A</h6>
                             Det vi i praksis gjør når vi jobber med <strong>felleskode</strong> i multireposammenheng er at vi <strong>ikke avhenger på koden</strong> til våre avhengigheter <strong>direkte</strong>.<br/>
                             I stedet avhenger vi på <strong>bygde, versjonerte artifakter</strong> av koden.<br/>
                             Disse artifaktene lagres i kjent stil som <strong>binærfiler separat fra kildekoden</strong> - typisk i Nexus.<br/>
-                        </aside>
-                    </section>
-
-                    <section data-background="img/app-deps3.svg" data-background-size="contain">
-                        <aside class="notes">
-                            <h6>A</h6>
                         </aside>
                     </section>
 
@@ -313,7 +307,6 @@
 
                             Nå begynner jo det vi beskriver her å <strong>ligne mistenkelig på den gode gamle monolitten</strong> vår, som til og med hadde en håndfull avhengigheter bundlet.<br/>
                             Den store forskjellen er at vi <strong>leverer selvstendige applikasjoner</strong>.<br/>
-                            <strong>Alle monolitter er monorepo, men alle monorepo er ikke monolitiske.</strong><br/>
                         </aside>
                     </section>
 
@@ -407,8 +400,6 @@
                             Monorepo har i praksis vært <strong>forbeholdt de store aktørene</strong> fordi tooling koster.<br/>
                             De nødvendige <strong>verktøyene</strong> for å bruke monorepo på store prosjekter begynner nå å bli tilgjengelig.<br/>
                             Google har open sourcet deler av sitt byggeverktøy <strong>Bazel</strong> som i disse dager blir sluppet i versjon 1.0.<br/>
-                            Bazel er et <strong>graf-basert</strong> byggverktøy.<br/>
-                            Google har også gjort tilgjengelig en plugin for <strong>IntelliJ</strong> slik at det er relativt lett å ta i bruk.<br/>
                             Microsoft har gjort tilgjengelig sitt <strong>VFS for Git</strong> som gjør det mulig å versjonskontrollere <strong>_store_ mengder kode</strong> i ett vanlig gitrepo.<br/>
                             I tillegg har vi fått standarder som <strong>CODEOWNERS</strong> for å håndtere <strong>eierskap til kode og reviewers</strong> på pull requests.<br/>
                         </aside>
@@ -486,7 +477,6 @@ $ tree
                                 <li>apps - våre applikasjoner</li>
                                 <li>libs - felleskoden</li>
                             </ul>
-							<p>Referera till monorepo-github-repo't. All kode vi visar ær hæmtat dærifrån</p>
                         </aside>
                     </section>
 
@@ -594,36 +584,36 @@ $ mvn clean install
 						</aside>
                     </section>
 
-					<section>
-						<h2>Mavenutfordringer</h2>
-						<ul>
-                            <li>groupId<span class="fragment fade-in"> - bør utledes fra katalogstruktur</span></li>
-                            <li>version<span class="fragment fade-in"> - bør utledes fra versjonskontroll</span></li>
-                            <!-- TODO: ær detta nåt vi bør ta upp?		<li>Trenger nyere version av Maven for å unngå minnelekasje og få CI-vennlig "revisions"</li> -->
-						</ul>
+<!--					<section>-->
+<!--						<h2>Mavenutfordringer</h2>-->
+<!--						<ul>-->
+<!--                            <li>groupId<span class="fragment fade-in"> - bør utledes fra katalogstruktur</span></li>-->
+<!--                            <li>version<span class="fragment fade-in"> - bør utledes fra versjonskontroll</span></li>-->
+<!--                            &lt;!&ndash; TODO: ær detta nåt vi bør ta upp?		<li>Trenger nyere version av Maven for å unngå minnelekasje og få CI-vennlig "revisions"</li> &ndash;&gt;-->
+<!--						</ul>-->
 
-						<aside class="notes">
-                            <h6>A</h6>
-                            <p>
-                                Maven bruker jo GroupId, ArtifactId og Version som sine koordinater for å separere moduler.
-                                I en monoreposetting er det ikke alt som er like interessant, og vi skal se nærmere på to av de:
-                            </p>
-                            <ul>
-                                <li>groupId</li>
-								<li>bruk av project.version for å referere til monorepo-interna avhengigheter</li>
-							</ul>
+<!--						<aside class="notes">-->
+<!--                            <h6>A</h6>-->
+<!--                            <p>-->
+<!--                                Maven bruker jo GroupId, ArtifactId og Version som sine koordinater for å separere moduler.-->
+<!--                                I en monoreposetting er det ikke alt som er like interessant, og vi skal se nærmere på to av de:-->
+<!--                            </p>-->
+<!--                            <ul>-->
+<!--                                <li>groupId</li>-->
+<!--								<li>bruk av project.version for å referere til monorepo-interna avhengigheter</li>-->
+<!--							</ul>-->
 
-                            <p>Sammenlignet med Bazel:</p>
-                            <ul>
-                                <li>Mangler grupperingsbegrep à la maven groupId. Gruppering på disk er identisk med katalogstrukturen</li>
-                                <li>Mangler versionsbegrep. Brukar filstrukturen på disk som versjonshandteres av VCS</li>
-                            </ul>
-						</aside>
-					</section>
+<!--                            <p>Sammenlignet med Bazel:</p>-->
+<!--                            <ul>-->
+<!--                                <li>Mangler grupperingsbegrep à la maven groupId. Gruppering på disk er identisk med katalogstrukturen</li>-->
+<!--                                <li>Mangler versionsbegrep. Brukar filstrukturen på disk som versjonshandteres av VCS</li>-->
+<!--                            </ul>-->
+<!--						</aside>-->
+<!--					</section>-->
 
                     <section>
                         <h2>filsti == groupId</h2>
-                        <p><span><code>libs/lib1</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.libs.lib1</code></p>
+                        <p><span class="fragment fade-in"><code>libs/lib1</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.libs.lib1</code></p>
                         <p><span class="fragment fade-in"><code>apps/app2</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.apps.app2</code></p>
 
                         <aside class="notes">
@@ -691,9 +681,9 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						<aside class="notes">
                             <h6>A</h6>
 							<p>
-                                For å unngå at pom-filer med <strong>$revision</strong>-innslag som ikke er "konkretisert" blir installert på f.eks. Nexus,
-                                kan man bruke Maven <a href="https://www.mojohaus.org/flatten-maven-plugin/"><strong>flatten-pluginen</strong></a>.<br/>
-                                Denna <strong>resolver revisjonsnummer, fjerner bygg- og utviklingsspesifikke detaljer som test-avhengigheter</strong> og produserer en pom-fil som er tilrettelagt for publisering til tredjepart, og som kan brukes i fremtidige bygg uten problemer.
+                                For å unngå at pom-filer med <strong>$revision</strong>-innslag som ikke er "konkretisert" blir installert,
+                                kan man bruke Maven sin <a href="https://www.mojohaus.org/flatten-maven-plugin/"><strong>flatten-pluginen</strong></a>.<br/>
+                                Denna <strong>resolver revisjonsnummer, fjerner bygg- og utviklingsspesifikke detaljer som test-avhengigheter</strong> og produserer en pom-fil som er <strong>tilrettelagt for publisering til tredjepart</strong>, og som kan brukes i fremtidige bygg uten problemer.
                                 I eksemplet vi har lagt ut på Github kan dere se hvordan det fungerer i praksis.
                             </p>
 						</aside>
@@ -750,7 +740,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 							</p>
 
 							<p>
-                                I dette eksempelet blir Jonas automatisk lagt til som reviewer med et spesielt nøkkelhullikon på alle pull requests som treffer hans app - app1.
+                                I dette eksempelet fra Github blir jeg automatisk lagt til som reviewer med et spesielt nøkkelhullikon på alle pull requests som treffer min app - app1.
                             </p>
 						</aside>
 					</section>
@@ -941,7 +931,7 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                                Vi prøvde å finne noen tall på hva de store har stappet inn i sine Git repository.<br/>
+                                Vi prøvde å finne noen tall på hva de store har stappet inn i sine monorepo-repository.<br/>
                                 Som vi ser her, så er vi jo bare smågutter, så vi er <strong>ikke spesielt bekymret for skaleringen</strong> i så måte.<br/>
                                 <strong>Nettbanken</strong> vår består av rundt 40.000 filer, kanskje.<br/>
                                 Det er <strong>vanskelig å få oversikt</strong> siden det er oppdelt i så mange repository.<br/>
@@ -1340,9 +1330,9 @@ apps/app2/README.md
 					<aside class="notes">
 						<h6>En av oss:</h6>
 						<p>
-                            <strong>Takk for oss!</strong>
+                            Hvis noen vil se nærmere på oppsettet så har vi laget et <strong>eksempel-repository</strong> som ligger på Github.
                             Vi kommer til å rusle ned til <strong>SpareBank1 sin stand</strong> etterpå og stå der en times tid. Kom gjerne å snakk med oss der!
-							Hejdå!
+                            <strong>Takk for oss!</strong>
 						</p>
 					</aside>
 				</section>
