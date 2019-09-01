@@ -949,28 +949,34 @@ apps/app2/README.md
 
                     <section>
                         <h2>Lange byggtider</h2>
+                        <!--
                         <ul>
                             <li>Ikke bygg alt alltid</li>
                             <li>Ikke bygg fra "clean" alltid <span class="fragment fade-in">(vurder alternativ til Maven)</span></li>
                             <li class="fragment fade-in">Bazel har støtte for <i>build cache</i> og <i>build workers</i></li>
                         </ul>
-
+                        -->
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-								Om stort repo ær det førsta problemet som slår en nær man tænker monorepo-sammanhang, så ær sækert långa byggtider
+								Om stort repo ær det førsta problemet som slår en nær man tænker monorepo, så ær sækert långa byggtider
                                 det andra.<br/>
 								Ingen gillar att vænta på långsamma bygg. Och med mer kode i samma repo så måste væl byggtiderna gå upp?
                             </p>
 							<p>
-								Resonemanget ær i stor sett korrekt. Før att undgå dett så handlar det om att bygga:
-								parallellsera (vilket Maven
-								stødjer så dær, men Bazel ær fantastiskt på), .
-								inkrementellt
-								selektivt
+								Resonemanget ær i stor sett korrekt: att bygga mer kode tar i regel længre tid æn att bygga mindre kode.
+                                Før att undgå før långa byggtider så handlar det om att bruka de verktygen som vi har alltid kan bruka nær
+                                vi ska prøva att få någonting att gå snabbare:
 							</p>
-                            <hr />
-                            Bazel har stød før 100% pålitligta inkrementella bygg vilket troligen hjælper till med CI rætt bra.
+                            <ul>
+                                <li>bryta ner i mindre bitar och kør bitarna  <strong>parallellt</strong> - gærna på egna CPU cores</li>
+                                <li>gøra <strong>mindre</strong>, typiskt genom smartare algoritmer eller bruk av caches</li>
+                            </ul>
+                            <p>
+                                Maven har haft rudimentært stød før att bygga moduler parallellt sedan version 3. Caching av byggresultat,
+                                eller <strong>inkrementell bygging</strong> ær svårt att få till med Maven dær man i regel alltid bygger
+                                från en clean utgångspunkt. På båda punkterna ær Bazel rætt øverlægsen.
+                            </p>
                         </aside>
                     </section>
 
