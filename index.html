@@ -816,6 +816,14 @@ apps/app2/README.md
                                 Hvis man endrer på felleskoden bør man jo helst ha all koden tilgjengelig.<br/>
                                 Eventuelt så vil forhåpentligvis byggserveren og tester plukke opp eventuelle feil og mangler.<br/>
                             </p>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <img alt="Manglende app2 i filstrukturen ved Sparse checkouts og standard maven modules-liste" style="height: 152px" src="img/modules-missing-sparse.png" />
+
+                        <aside class="notes">
+                            <h6>A</h6>
                             <p>
                                 Nå skurrer kanskje dette litt for mange av dere, <strong>Maven vil jo ikke like at halve kodebasen er borte</strong>?<br/>
                                 I utgangspunktet <strong>støtter ikke Maven sparse checkouts</strong>, siden modul-lista i apps f.eks. vil referere til applikasjoner vi ikke har koden til.<br/>
