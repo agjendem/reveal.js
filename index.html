@@ -582,33 +582,6 @@ $ mvn clean install<span class="fragment">
 						</aside>
                     </section>
 
-<!--					<section>-->
-<!--						<h2>Mavenutfordringer</h2>-->
-<!--						<ul>-->
-<!--                            <li>groupId<span class="fragment fade-in"> - bør utledes fra katalogstruktur</span></li>-->
-<!--                            <li>version<span class="fragment fade-in"> - bør utledes fra versjonskontroll</span></li>-->
-<!--                            &lt;!&ndash; TODO: ær detta nåt vi bør ta upp?		<li>Trenger nyere version av Maven for å unngå minnelekasje og få CI-vennlig "revisions"</li> &ndash;&gt;-->
-<!--						</ul>-->
-
-<!--						<aside class="notes">-->
-<!--                            <h6>A</h6>-->
-<!--                            <p>-->
-<!--                                Maven bruker jo GroupId, ArtifactId og Version som sine koordinater for å separere moduler.-->
-<!--                                I en monoreposetting er det ikke alt som er like interessant, og vi skal se nærmere på to av de:-->
-<!--                            </p>-->
-<!--                            <ul>-->
-<!--                                <li>groupId</li>-->
-<!--								<li>bruk av project.version for å referere til monorepo-interna avhengigheter</li>-->
-<!--							</ul>-->
-
-<!--                            <p>Sammenlignet med Bazel:</p>-->
-<!--                            <ul>-->
-<!--                                <li>Mangler grupperingsbegrep à la maven groupId. Gruppering på disk er identisk med katalogstrukturen</li>-->
-<!--                                <li>Mangler versionsbegrep. Brukar filstrukturen på disk som versjonshandteres av VCS</li>-->
-<!--                            </ul>-->
-<!--						</aside>-->
-<!--					</section>-->
-
                     <section>
                         <h2>filsti == groupId</h2>
                         <p><span class="fragment fade-in"><code>libs/lib1</code> &rArr;</span> <code class="fragment fade-in">no.monorepo.libs.lib1</code></p>
