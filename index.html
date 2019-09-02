@@ -31,7 +31,7 @@
 
 			.reveal .slides section .fragment.visible.underline {
 				text-decoration: underline;
-				text-decoration-color: red;
+				text-decoration-color: #4eafff;
 			}
 
 			.reveal .slides section .fragment.current-underline {
@@ -509,7 +509,7 @@ $ tree
 
                     <section>
                         <pre><code class="console" data-trim data-noescape>
-$ mvn clean install
+$ mvn clean install<span class="fragment">
 [INFO] Scanning for projects...
 [INFO] ----------------------------------------------------
 [INFO] Reactor Build Order:
@@ -522,7 +522,7 @@ $ mvn clean install
 [INFO] app1                                           [jar]
 [INFO] app2                                           [jar]
 [INFO]
-                        </code></pre>
+                        </span></code></pre>
 
                         <aside class="notes">
                             <h6>J</h6>
@@ -534,14 +534,14 @@ $ mvn clean install
 
                     <section>
                         <pre><code class="console" data-trim data-noescape>
-<mark>apps/app1</mark> $ mvn clean install
+<span class="fragment underline">apps/app1</span> $ mvn clean install<span class="fragment">
 [INFO] Scanning for projects...
+[INFO] ----------------------------------------------------
+[INFO] Reactor Build Order:
 [INFO]
-[INFO] --------------------------< no.monorepo:app1 >------
-[INFO] Building app1 1.0.0-SNAPSHOT
-[INFO] --------------------------------[ jar ]-------------
-
-                        </code></pre>
+[INFO] app1                                           [jar]
+[INFO]
+                        </span></code></pre>
 
                         <aside class="notes">
                             <h6>A</h6>
@@ -554,7 +554,7 @@ $ mvn clean install
 
                     <section>
                         <pre><code class="console" data-trim data-noescape>
-<mark>apps/app1</mark> $ mvn <mark class="fragment">-f ../.. </mark><mark class="fragment">-pl :app1 </mark><mark class="fragment">-am</mark> clean install
+<span class="fragment underline">apps/app1</span> $ mvn <mark class="fragment">-f ../..</mark> <mark class="fragment">-pl :app1</mark> <mark class="fragment">-am</mark> clean install<span class="fragment">
 [INFO] Scanning for projects...
 [INFO] ----------------------------------------------------
 [INFO] Reactor Build Order:
@@ -566,7 +566,7 @@ $ mvn clean install
 [INFO] apps                                           [pom]
 [INFO] app1                                           [jar]
 [INFO]
-                        </code></pre>
+                        </span></code></pre>
 
 						<aside class="notes">
                             <h6>A</h6>
