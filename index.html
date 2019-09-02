@@ -625,8 +625,7 @@ $ mvn clean install
                     </section>
 
 					<section>
-                        <h1>Versjonering</h1>
-                        <h3>i Maven</h3>
+                        <h2>Versjonering i Maven</h2>
 
                         <pre><code class="xml" data-trim data-noescape>
 &lt;project&gt;
@@ -675,7 +674,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                     </section>
 
 					<section>
-						<h1>Flate pom-filer</h1>
+						<h2>Flate pom-filer</h2>
 						<aside class="notes">
                             <h6>A</h6>
 							<p>
@@ -707,7 +706,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					</section>
 
 					<section>
-						<h1>CODEOWNERS</h1>
+						<h2>CODEOWNERS</h2>
 						<pre class="fragment fade-up"><code data-trim data-noescape>
 # Default owner
 / @nordstrand
@@ -744,7 +743,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					</section>
 
                     <section>
-                        <h1>Jenkins(file)</h1>
+                        <h2>Jenkins(file)</h2>
                         <pre class="fragment fade-up"><code class="console" data-trim data-noescape>
 $ git diff --name-only origin/master...HEAD
 apps/app2/src/main/java/no/monorepo/app2/App2.java
@@ -767,7 +766,7 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <h1>Jenkins(file)</h1>
+                        <h2>Jenkins(file)</h2>
                         <img alt="Logo for Jenkins" src="img/Jenkinsfile.png" />
 
                         <aside class="notes">
@@ -780,7 +779,7 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <h1>partial-build-plugin</h1>
+                        <h2>partial-build-plugin</h2>
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
@@ -794,7 +793,7 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <h1>Sparse checkouts</h1>
+                        <h2>Sparse checkouts</h2>
                         <pre class="fragment fade-up"><code class="plaintext" data-trim data-noescape>
 .git/info/sparse-checkout
 /*
