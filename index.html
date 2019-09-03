@@ -1186,19 +1186,15 @@ apps/app2/README.md
 						<aside class="notes">
 							<h6>A</h6>
 							<p>
-                                Tidigare versionerade vi i git _och_ maven. I monorepo versionerar vi bara i git.
+                                <strong>Tidligere så versjonerte vi i både Git og Maven</strong>.<br/>
+                                I monorepo versjonerer vi bare i Git<br/>
 
-                                Konceptuellt lættare att førhålla sig till git (en viss SHA1 tillsvarar att
-                                allt ska vara i sync), æn att førhålla sig till &lt;dependencyManagement&gt;,
-                                bom'ar, snapshots, dependency version convergence (risiko før detta utgår helt på
-                                egen felleskode i monorepot, 3e part kan fortfarande vara ett issue om dessa ikke
-                                också ligger i monorepot), maven sin release-plugin, NPM:s semver, pinning, lock-filer,
-                                etc. etc. allt annat som folk uppfunnit genom historiens før før att
-                                førsøka gøra versionering av felleskode i artefaktregistries levlig.
+                                Konseptuelt så er det mye <strong>lettere å forholde seg til KUN en Git revisjon</strong>,<br/>
+                                enn å måtte forholde seg til maven sin version plugin, release-plugin, &lt;version&gt; SNAPSHOTs, dependencyManagement, BOM'er, dependency-version-convergence, og NPMs SemVer, pinning, lock-filer og alt annet som er oppfunnet for å gjøre avhengigheter til å leve med.<br/>
+                                Det vil si, så lenge vi beholder <strong>tredjepartsbibliotek eksternt</strong>, så må vi beholde noe av dette - men det <strong>blir ihvertfall mindre og mer oversiktlig</strong><br/>
 							</p>
 							<p>
-							Mindre behov før komplex tooling før att hålla appar uppdaterade med nya versioner
-							av felleskode.
+                                I tillegg krever det <strong>mindre behov før komplisert tooling</strong> for å holde apper oppdatert med nye versjoner av felleskode.
 							</p>
 						</aside>
 					</section>
