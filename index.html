@@ -505,15 +505,24 @@ $ tree
                             <h6>J</h6>
 
                             <p>
-                                Maven ær i grunden ett rekursivt byggsystem, ikke ett graf-baserat som e.g. bazel. Bazel ær en open sourcing'n av byggsystemet som brukas
-                                før att bygga Google's monorepo och, føga førvånande, ær det också ur många perspektivt mer læmpat før Monorepo æn vad Maven ær.
+                            Vi brukar det i den hær førsamlingen kanske inte <strong>helt okænda</strong>, javabaserade byggverktyget, Maven før att bygga monorepot.
+                            I Maven definierar man enheter att bygga, moduler, med pom-filer som kan referera submoduler som gærna placeras på en lægre nivå
+                            i filsystemet. I praktiken brukar modulstrukturen i ett mavenprojekt avspegla filsystemshierakin rætt tætt.
                             </p>
 
                             <p>
-                                Vi har ænnu inte tagit steget att uppgradera till Bazel, det ær också en fråga om vilka verktyg som programmerarna kænner och har kompetens på.
-                                Bazel ær mer æn materia før en egen talk och vi kommer inte gå in i detalj på Bazel i vår talk idag. Alla exempel vi visar idag utspelar
-                                sig i ett <a href="https://github.com/SpareBank1/monorepo-sample">exempel-monorepo på github</a>.
-                                Monorepot ær uppsatt att bygga med både Maven och Bazel men idag kommer vi bara berøra Maven.
+                            Maven ær i grunden ett <strong>rekursivt byggsystem</strong>, som bygger från en rot katalog/module och nedåt i modultrædet.
+                            Andra byggsystem som f.eks. Bazel ær <strong>grafbaserade</strong> vilket kan vara mer flexibelt och naturligt i ett monorepo.
+                            Bazel ær en open sourcing'n av byggsystemet som brukas før att bygga kan værldens størst monorepo, Google's, och,
+                            och ær ett i monoreposammanhang rætt intressant produkt.
+                            </p>
+
+                            <p>
+                            Vi har ænnu inte tagit steget att uppgradera till Bazel, det ær också en fråga om vilka verktyg som programmerna kænner och har kompetens på.
+                            Bazel ær mer æn materia før en egen talk och vi kommer inte gå in i detalj på Bazel i vår talk idag. <br/>
+                            Dock utspelar sig alla maven-expempel som vi kommer gå igenom idag i ett 
+                            <a href="https://github.com/SpareBank1/monorepo-sample">exempel-monorepo som vi har lagt ut på github</a>
+                            som ær uppsatt att bygga med både Maven och Bazel men idag kommer vi bara berøra Maven.
                             </p>
                         </aside>
                     </section>
@@ -522,7 +531,7 @@ $ tree
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                                Med maven kan man ha avhængigheter på tværs av filtrædstruktur
+                                Med maven kan man ha avhængigheter mellan moduler på tværs av filtrædstruktur
                             </p>
                         </aside>
                     </section>
@@ -643,7 +652,7 @@ $ mvn clean install<span class="fragment">
 &lt;project&gt;
   &lt;groupId&gt;no.monorepo.libs&lt;/groupId&gt;
   &lt;artifactId&gt;lib1&lt;/artifactId&gt;
-  &lt;version&gt;${revision}&lt;/version&gt;
+  &lt;version&gt;<span class="fragment underline">${revision}</span>&lt;/version&gt;
 
   &lt;properties&gt;
     &lt;revision&gt;1.0-SNAPSHOT&lt;/revision&gt;
@@ -659,9 +668,11 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 						<aside class="notes">
                             <h6>J</h6>
 							<p>
-                                Maven har på senare tid fått stød før så kallade  <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a> versioner.
-                                Det innebær att man kan parametriera version med en property som man kan sætta från kommandolinjen. Vi sætter det till git commit.
-                                Tidigare har vi i många sammanhang mutera pom-filer med mvn versions:set, det slipper vi nu!
+                            Maven har på senare tid fått stød før så kallade  <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a> versioner.
+                            Det innebær att man kan parametriera version med en property som man kan sætta från kommandolinjen. 
+                            </p>
+                            <p> 
+                            Vi sætter enkelt property'n till aktuellt git commit vid bygging på byggserver.
 							</p>
 						</aside>
                     </section>
@@ -747,12 +758,12 @@ apps/app2/README.md
                             <h6>J</h6>
                             <p>
                                 I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
-                                Vi har valt att lægga upp egna Jenkinsfile's før varje app i monorepot så att teamen har møjlighet
+                                Vi har valt att lægga upp egna Jenkinsfile's før varje app i monorepot så att teamen som æger de olika apparna har møjlighet
                                 att f.eks. sætta upp sina testmiljøer som man ønskar.
                             </p>
                             <p>
                                 Detta har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
-                                Vi har løst detta med en root Jenkinsfile som hjælp av git diff finner fram till exakt vilka filer som har ændrats
+                                Vi har løst detta med en root Jenkinsfile som hjælp av git diff-kommando finner fram till exakt vilka filer som har ændrats
                                 i en PR jæmført mot master.
                             </p>
                         </aside>
@@ -766,7 +777,7 @@ apps/app2/README.md
                             <h6>J</h6>
                             Vår root-jenkinsfile finner vilka Jenkinsfile(s) som ær berørda av diffen och delegerar till den mest specifika.
 
-                            Gør man ændring på felleskode så berørs i regel flera Jenkinsfile och lastar då en default pipeline som bygger hela
+                            Gør man ændring på felleskode så berørs i regel flera Jenkinsfile och vi lastar då en default pipeline som bygger hela
                             monorepo't.
                         </aside>
                     </section>
@@ -779,7 +790,7 @@ apps/app2/README.md
                                 Att bygg <strong>hela</strong> monorepo't från maven clean blir en længre och længre process ju større repo't blir.
                                 Andra byggsystem (Bazel) har stød før inkrementell bygging, dær bara den kod som har ændrats och dess avhængigheter blir byggt. Vi tar tagit i bruk
                                 <a href="https://github.com/lesfurets/partial-build-plugin">partial-build-plugin</a> en plugin som hackar sig in i maven
-                                byggning och prøvar att bara bygga moduler som har en diff mot trunk, lite likt upplægget kring val av Jenkinsfile.
+                                och prøvar att bara bygga moduler som har en diff mot trunk, lite likt upplægget kring val av Jenkinsfile.
                                 Dessværre ær pluginen insomnad på Github, men den har fungerat fint før oss så långt.
                             </p>
                         </aside>
@@ -856,9 +867,9 @@ apps/app2/README.md
 						<aside class="notes">
                             <h6>J</h6>
                             <p>
-                                Som det kanske framgått så har det inte varit <strong>helt problemfritt</strong> før oss att komma igång monorepo. En del 
-                                smærta kan kanske hærledes till att vi envist fortsatt att bruka ett vælkænt Java-baserad byggverktyg trots att det
-                                finns attraktiva alternativt
+                                Som det kanske framgått så har det inte varit <strong>helt problemfritt</strong> før oss att komma igång monorepo. En del
+                                smærta kan kanske hærledes till att vi envist hållit fast vid ett vælkænt Java-baserad byggverktyg trots att det
+                                finns attraktiva alternativ.
                             </p>
                             <p>
                                 Men vi har också børjat få smake på en del av sura sidorna med monorepo som vi tror ær mer fundamentala och generiska.
@@ -963,8 +974,8 @@ apps/app2/README.md
                             </p>
 							<p>
 								Resonemanget ær i stor sett korrekt: att bygga mer kode tar i regel længre tid æn att bygga mindre kode.
-                                Før att undgå før långa byggtider så handlar det om att bruka de verktygen som vi har alltid kan bruka nær
-                                vi ska prøva att få någonting att gå snabbare:
+                                Før att undgå før långa byggtider så handlar det om att bruka de verktygen som vi har alltid har tillgång
+                                till nær vi ska prøva att få någonting på data'n att gå snabbare:
 							</p>
                             <ul>
                                 <li>bryta ner i mindre bitar och kør bitarna  <strong>parallellt</strong> - gærna på egna CPU cores</li>
@@ -1013,7 +1024,7 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-								I ett monorepo ær det lættare æn någonsin att dela kode och inføra nya avhængigheter på kors och tværs - 
+								I ett monorepo ær det lættare æn någonsin att dela kode och inføra nya avhængigheter på kors och tværs -
 								nu slipper man faktiskt krullet med att finna
 								fram till vilken version man ønskar. Baksidan av myntet ær det ær rætt lætt att vara odisciplinerad och lægga inte avhængigheter på lite væl
 								mycket felleskode, och, om man inte pasar sig, så har vi kanske snart en ny tætt kopplad monolit.
