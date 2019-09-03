@@ -219,29 +219,20 @@
                     <section data-background="img/app-deps1.svg" data-background-size="contain">
                         <aside class="notes">
                             <h6>A</h6>
-                            Før att visa hur hur man gærna jobbar idag  med felleskode i ett multirepo-sammanhang
-                            har vi hær ett exempel.
-                            Två applikation och två felleskodemoduler. App1 avhænger av lib1 och lib2, medan app2
-                            bara avhænger av lib2. Alla i sina egna repos.
-
-                            <hr/>
-                            TODO: se om det blir bættre om man lægger apparna i en kolonn till vænster och
-                            libs i en kolonn till høger
-
-                            <hr/>
-                            (5 min)
-                            Utfordringer med klassisk modell for å håndtere felleskode:
-                            Mange repository og artifaktpublisering (Arbeidsflyt, waste, branching modeller)
-
+                            For å vise hvordan man gjerne <strong>jobber med felleskode i dag i et multirepo</strong> så har vi her et eksempel<br/>
+                            <strong>To applikasjoner, og to felleskodemoduler</strong>.
+                            Applikasjon 1 avhenger av <strong>både lib1 og lib2</strong><br/>
+                            mens Applikasjon 2 avhenger <strong>bare av lib2</strong><br/>
+                            <strong>Alle disse har sine egne repository</strong>.<br/>
                         </aside>
                     </section>
 
                     <section data-background="img/app-deps2.svg" data-background-size="contain">
                         <aside class="notes">
                             <h6>A</h6>
-                            Det vi i praksis gjør når vi jobber med <strong>felleskode</strong> i multireposammenheng er at vi <strong>ikke avhenger på koden</strong> til våre avhengigheter <strong>direkte</strong>.<br/>
+                            Det vi i praksis gjør når vi jobber med <strong>felleskode</strong> i multireposammenheng er at vi <strong>ikke avhenger direkte på koden</strong> til våre avhengigheter.<br/>
                             I stedet avhenger vi på <strong>bygde, versjonerte artifakter</strong> av koden.<br/>
-                            Disse artifaktene lagres i kjent stil som <strong>binærfiler separat fra kildekoden</strong> - typisk i Nexus.<br/>
+                            Disse artifaktene lagres i kjent stil som <strong>separat fra kildekoden</strong> - typisk i Nexus.<br/>
                         </aside>
                     </section>
 
@@ -250,27 +241,23 @@
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                                Ett exempel: man ønskar laga en feature i app1 som innebær att felleskode i lib2
-                                samtidigt måste ændras. Detta måste rent praktiskt ordnas som två PR-processer:
+                                Ett eksempel:<br/>
+                                vis man ønsker å <strong>lage en feature i applikasjon 1</strong> som innebærer at
+                                <strong>felleskode i lib2 også må endres</strong>, så må det gjøres i <strong>to separate pull-request</strong> prosesser.
                             </p>
                             <ul>
                                 <li>
-                                    <i>først</i> en PR i lib2-repo't dær diffen inte visar hur felleskodeændringen
-                                    træffar app1. PR:n ær också inte heller møjlig att testa på en høgre nivå.
+                                    <i>Første trinn</i> er da en <strong>PR i lib2-repoet der diffen ikke viser hvordan felleskodeendringene treffer app1</strong>.<br/>
+                                    Typisk er det også <strong>tidkrevende</strong> å teste dette ut på egenhånd, så den blir gjerne tatt med halvveis <strong>bind for øynene</strong>.
                                 </li>
                                 <li>
-                                    Nær denna førsta PR:n ær mergead, och artefakt ær byggd och deploy'ad, kan man få
-                                    vidare med app1-repo't och laga en <i>andra</i> PR som bumpar versionnumret før
-                                    lib2-artefakten, integrerar app1:s kode med den nya versionen av lib2 och uppdaterar
-                                    høgnivåtesterna.<br/>
-                                    Denna PR:n ær møjlig att deploy'a till en testmiljø - vad som dæremot inte ær
-                                    møjligt, eller i allafall praktiskt, ær att få en øversikt øver kodeændringarna i
-                                    felleskoden som tas i bruk vid versionsbump'en.
+                                    <i>Andre trinn</i> er når <strong>felleskoden er merget</strong>, og artefaktene bygd og deployet, så kan man gå <strong>videre med App1-repoet</strong> og
+                                    lage en ny PR hvor man <strong>bumper felleskodeversjonen til lib2</strong>, integrerer App1s kode med den nye versjonen og oppdaterer evt. noen tester.<br/>
+                                    Denne PRen er <strong>mulig å deploye til et testmiljø</strong>, men det som derimot ikke er mulig - eller ihvertfall ikke praktiskt - er å <strong>få en oversikt over kodeendringene i felleskoden</strong> som taes i bruk ved bumpingen.
                                 </li>
                             </ul>
                             <p>
-                                Som en liten bonus: ingen har tænkt på app2 (som också avhænger på lib2) i detta sammahanget.
-                                Denna appen kan nu vara knæckt (nær man bumpar lib2-versionen)!
+                                Som en bonus her, så har antakelig <strong>ingen tenkt på App2</strong> som også har en avhengighet av lib2, så den kan fint være brukket når den oppgraderes på et senere tidspunkt..
                             </p>
                         </aside>
                     </section>
