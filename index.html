@@ -412,13 +412,9 @@
                 </section>
 
                 <section>
-					<section>
-                        <span>
-                            <img src="/img/monolitt-multirepo-monorepo-blank.svg" alt="Illustrasjon fra Monolitt til Multirepo til Monorepo" />
-                        </span>
-
+                    <section data-background="img/monolitt-multirepo-monorepo-blank1.svg" data-background-size="contain">
 						<aside class="notes">
-                            <h6>A - Monolitt</h6>
+                            <h6>J - Monolitt</h6>
                             <p>
                                 SpareBank 1:s nett- og mobilbank var en stor <strong>enterprise Java-monolitt</strong> som ble versjonskontrollert i ClearCase.
                                 <strong>Produksjonssettingen</strong> var en voldsom greie med mange involverte, lange testperioder og frysperioder.
@@ -426,22 +422,29 @@
                                 I praksis var det <strong>ikke mulig å skalere opp</strong> utviklerorganisasjonen til det nivået vi ønsket oss, siden vi uansett
                                 ikke hadde greid å fått det ut døra. Noe måtte gjøres.
                             </p>
+						</aside>
+					</section>
 
-                            <h6>J - Multirepo</h6>
+                    <section data-background="img/monolitt-multirepo-monorepo-blank2.svg" data-background-size="contain">
+						<aside class="notes">
+                            <h6>A - Multirepo</h6>
                             <p>
-                                Før cirka seks år sedan børjade vi bryta upp monolitten i mindre  applikationer som kunde
-                                deploy'as fristånde från varandra. Utvecklingen av apparna sker idag
-								av dedikerade team som jobbar i egna repos. Denna resan har Anders&amp;co
-								redogjort om från denna scen vid två tillfællen (2015 och 2018).
+                                For cirka seks år siden begynte vi å <strong>bryte opp monolitten</strong> i mindre applikasjoner som kunne <strong>deployes frittstående</strong> fra hverandre.<br/>
+                                Utviklingen av applikasjonene skjer i dag av <strong>dedikerte team, som jobber i egne repository</strong>.<br/>
+                                Denne reisen har vi allerede vært å presentert her et par ganger tidligere, senest i fjor.
 							</p>
 							<p>
-								Mycket av koden i den gamla monolitten vidareførdes som felleskode
-                                som apparna avhænger av. Felleskoden ligger i egna repos och byggs till binærer som uppbevaras i Nexus
-                                på kænt java-manèr. Før att hantera ett stigande antal team som ansvarar før ett stændigt økande antal appar har vi
-                                utvecklat omfattande intern tooling før att hålla apparna uppdaterade med senaste versioner felleskode.
+                                Mye av koden i den gamle <strong>monolitten ble videreført som felleskode</strong> som applikasjonene avhenger av.<br/>
+                                Felleskoden ligger i <strong>egne repository</strong>, og bygges i kjent stil til Nexus.<br/>
+                                For å håndtere et <strong>økende antall team og applikasjoner</strong> har vi utviklet <strong>omfattende intern tooling</strong> for å holde<br/>
+                                applikasjonene mest mulig <strong>oppdatert</strong> med den siste versjonen av <strong>felleskoden</strong>.<br/>
                              </p>
+						</aside>
+					</section>
 
-                            <h6>A - Monorepo</h6>
+                    <section data-background="img/monolitt-multirepo-monorepo-blank3.svg" data-background-size="contain">
+						<aside class="notes">
+                            <h6>J - Monorepo</h6>
                             <p>
                                 Vi driver nå å går i <strong>retning av tilstandsløse, skyklare applikasjoner</strong> som helt kutter båndet til den gamle monolitten.<br/>
                                 Vi har <strong>fremdeles felleskode</strong>.<br/>
