@@ -324,8 +324,8 @@
                             så <strong>samler man alt og bruker filstrukturen</strong> for å holde de adskilt og organisert.<br/>
                             Om det er <strong>felleskode, backendkode, frontendkode, mobilappkode, Java, Python, JavaScript - alt samles.</strong><br/>
 
-                            Nå begynner jo det vi beskriver her å <strong>ligne mistenkelig på den gode gamle monolitten</strong> vår, som til og med hadde en håndfull avhengigheter bundlet.<br/>
-                            Den store forskjellen er at vi <strong>leverer selvstendige applikasjoner</strong>.<br/>
+                            Nå begynner jo det vi beskriver her å <strong>ligne mistenkelig på den gode gamle monolitten</strong> vår.<br/>
+                            Den <strong>store forskjellen</strong> er at vi <strong>leverer selvstendige applikasjoner</strong>.<br/>
                         </aside>
                     </section>
 
@@ -418,7 +418,7 @@
                             <strong>"Standardisering: Felles verktøy bestemmer hvordan utviklerne interakterer med koden, inkludert bygging, testing, lesing og vurdering av koden"</strong><br/>
                             Monorepo har i praksis vært <strong>forbeholdt de store aktørene</strong> fordi tooling koster.<br/>
                             De nødvendige <strong>verktøyene</strong> for å bruke monorepo på store prosjekter begynner nå å bli tilgjengelig.<br/>
-                            Google har open sourcet deler av sitt byggeverktøy <strong>Bazel</strong> som i disse dager blir sluppet i versjon 1.0.<br/>
+                            Google har open sourcet deler av sitt byggeverktøy <strong>Bazel</strong>.<br/>
                             Microsoft har gjort tilgjengelig sitt <strong>VFS for Git</strong> som gjør det mulig å versjonskontrollere <strong>_store_ mengder kode</strong> i ett vanlig gitrepo.<br/>
                             I tillegg har vi fått standarder som <strong>CODEOWNERS</strong> for å håndtere <strong>eierskap til kode og reviewers</strong> på pull requests.<br/>
                         </aside>
@@ -807,11 +807,10 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                                Hvis <strong>kodebasen</strong> blir så stor at det er <strong>upraktisk å laste ned</strong> alt, eller man faktisk bare <strong>jobber med en konkret applikasjon</strong> uten behov for å endre felleskode så finnes det utveier.<br/>
+                                Hvis <strong>kodebasen</strong> blir så stor at det er <strong>upraktisk å sjekke ut</strong> alt, eller man faktisk bare <strong>jobber med en konkret applikasjon</strong> uten behov for å endre felleskode så finnes det utveier.<br/>
                                 Med <strong>"sparse checkouts"</strong> kan man instruere Git til å sjekke ut en delmengde av arbeidstreet.<br/>
-                                I eksemelet her så sier vi at vi i utgangspunktet vil ha alle filer, men ikke alle applikasjonene, før vi igjen sier at vi vil ha app1 som er den vi jobber på.<br/>
+                                I <strong>eksempelet</strong> her så sier vi at vi i utgangspunktet vil ha alle filer, men ikke alle applikasjonene, før vi igjen sier at vi vil ha app1 som er den vi jobber på.<br/>
                                 Resultatet blir da at vi får det vi trenger av felleskode samt app1.<br/>
-                                Det kan være gunstig med tanke på indekseringstid i f.eks. IntelliJ.<br/>
                                 Ved å bruke sparse checkouts på denne måten får man i praksis en <strong>utvikleropplevelse som er temmelig lik den man har med multirepo</strong>, foruten at felleskoden er tilgjengelig.<br/>
                                 Hvis man endrer på felleskoden bør man jo helst ha all koden tilgjengelig.<br/>
                                 Eventuelt så vil forhåpentligvis byggserveren og tester plukke opp eventuelle feil og mangler.<br/>
@@ -887,25 +886,17 @@ apps/app2/README.md
 					</section>
 
                     <section>
-                        <h2>Stort repo</h2>
+                        <h2>Stort repository?</h2>
                         <ul>
-                            <li>.git/
-                                <ul class="fragment fade-in">
-                                    <li>VFS for Git</li>
-                                </ul>
-                            </li>
-                            <li>work tree
-                                <ul>
-                                    <li class="fragment fade-in">Sparse Checkouts</li>
-                                    <li class="fragment fade-in">Large File Storage</li>
-                                </ul>
-                            </li>
+                            <li class="fragment fade-in">VFS for Git</li>
+                            <li class="fragment fade-in">Sparse Checkouts</li>
+                            <li class="fragment fade-in">Large File Storage</li>
                         </ul>
 
                         <aside class="notes">
                             <h6>A</h6>
-                            Over tid vokser gjerne kodebasen. Per i dag så regner vi ikke med at <i>vi</i> møter på de største problemene - kanskje med unntak av prosjekter hvor vi versjonerer <strong>store maskinlæringsmodeller</strong> og andre binære datafiler.
-                            Avhengig av hva som er årsaken, er det flere måter å angripe problemet på:<br/>
+                            Over tid <strong>vokser gjerne kodebasen</strong>. Per i dag så regner vi ikke med at <i>vi</i> møter på de største problemene - kanskje med unntak av prosjekter hvor vi versjonerer <strong>store maskinlæringsmodeller</strong> og andre binære datafiler.
+                            Avhengig av hva som er årsaken, er det <strong>flere måter å angripe problemet</strong> på:<br/>
                             <ul>
                                 <li>Vente og håpe verktøyene blir bedre av seg selv</li>
                                 <li>Hvis det er metadata/historikk i .git/-katalogen kan kanskje virtuelle filsystem a'la Microsofts <strong>VFS for Git</strong> være løsningen. Foreløpig best støtte på Windows, men Mac støttes og Linux ser ut til å være under arbeid.</li>
@@ -1326,71 +1317,59 @@ apps/app2/README.md
                     </section>
                 </section>
 
-                <section data-background="img/success.jpg" data-background-size="contain">
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <h2 style="background: rgba(255, 255, 255, 0.4)">Du får det til med Maven, Jenkins og Git!</h2>
-                    <h3 class="fragment fade-in" style="background: rgba(255, 255, 255, 0.4)">(men på sikt ryker nok Maven)</h3>
-                    <aside class="notes">
-                        <h6>A</h6>
-                        <p>
-                            <!-- TODO: Uklar sammenheng mellom slide tekst og notes! -->
-                            <strong>Facebook</strong> populariserte komponentbasert <strong>frontendutvikling</strong> og virtuell DOM med <strong>React</strong><br/>
-                            <strong>Google</strong> gjorde storskala <strong>containerorkestrering</strong> main-stream med <strong>Borg/Kubernetes</strong><br/>
-                            På samme måte så mistenker vi at med de store aktørene som <strong>foregangsfigurer</strong> så vil monorepo etterhvert også bli mye vanligere enn hva det er i dag.<br/>
-                            Tiden vil antakelig vise hvem som kan ta <strong>æren</strong> for det, men per nå så ligger nok<br/>
-                            <strong>Google</strong> med sitt ambisiøse byggsystem <strong>Bazel</strong><br/>
-                            og <strong>Microsoft</strong> med sitt bidrag på virtuelle <strong>filsystem</strong> for Git best ann.<br/>
-                        </p>
-                        <hr />
-                        Bild av <a href="https://pixabay.com/sv/users/StartupStockPhotos-690514/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">StartupStockPhotos</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">Pixabay</a>
-                    </aside>
+                <section>
+                    <section>
+                        <!-- Blank slide -->
+
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
+                                <strong>Facebook</strong> populariserte komponentbasert <strong>frontendutvikling</strong> og virtuell DOM med <strong>React</strong><br/>
+                                <strong>Google</strong> gjorde storskala <strong>containerorkestrering</strong> main-stream med <strong>Borg/Kubernetes</strong><br/>
+                                På samme måte så mistenker vi at med de store aktørene som <strong>foregangsfigurer</strong> så vil monorepo etterhvert også bli mye vanligere enn hva det er i dag.<br/>
+                                Tiden vil antakelig vise hvem som kan ta <strong>æren</strong> for det, men per nå så ligger nok<br/>
+                                <strong>Google</strong> med sitt ambisiøse byggsystem <strong>Bazel</strong><br/>
+                                og <strong>Microsoft</strong> med sitt bidrag på virtuelle <strong>filsystem</strong> for Git best ann.<br/>
+                            </p>
+                        </aside>
+                    </section>
+
+                    <section data-background="img/success.jpg" data-background-size="contain">
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <h2 style="background: rgba(255, 255, 255, 0.4)">Du får det til med Maven, Jenkins og Git!</h2>
+                        <h3 class="fragment fade-in" style="background: rgba(255, 255, 255, 0.4)">(men på sikt kommer Bazel)</h3>
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
+                                <strong>Så, da blir vår erfaring så langt at, du får det til med Maven, Jenkins og Git</strong><br/>
+                                <strong>.. men på sikt kommer nok Bazel</strong>
+                            </p>
+                            <hr />
+                            Bild av <a href="https://pixabay.com/sv/users/StartupStockPhotos-690514/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">StartupStockPhotos</a> från <a href="https://pixabay.com/sv/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">Pixabay</a>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <div style="width: 70%; display: inline-flex; justify-content: center; align-items: center; margin: 50px">
+                            <img alt="QR-kode til https://github.com/SpareBank1/monorepo-sample" src="img/avslutning.svg" />
+                        </div>
+
+                        <aside class="notes">
+                            <h6>En av oss:</h6>
+                            <p>
+                                Hvis noen vil se nærmere på oppsettet så har vi laget et <strong>eksempel-repository</strong> som ligger på Github.<br/>
+                                <strong>Hvis vi har tid: Spørsmål fra salen?</strong><br/>
+                                Vi kommer til å rusle ned til <strong>SpareBank1 sin stand</strong> etterpå og stå der en times tid. Kom gjerne å snakk med oss der!<br/>
+                                <strong>Takk for oss!</strong>
+                            </p>
+                        </aside>
+                    </section>
                 </section>
-
-				<section>
-                    <div style="width: 70%; display: inline-flex; justify-content: center; align-items: center; margin: 50px">
-                        <img alt="QR-kode til https://github.com/SpareBank1/monorepo-sample" src="img/avslutning.svg" />
-                    </div>
-
-					<aside class="notes">
-						<h6>En av oss:</h6>
-						<p>
-                            Hvis noen vil se nærmere på oppsettet så har vi laget et <strong>eksempel-repository</strong> som ligger på Github.
-                            Vi kommer til å rusle ned til <strong>SpareBank1 sin stand</strong> etterpå og stå der en times tid. Kom gjerne å snakk med oss der!
-                            <strong>Takk for oss!</strong>
-						</p>
-					</aside>
-				</section>
-
-                <!--
-                  TODO:s
-
-                  DELIVERY
-
-                  JONAS:
-                   * Sluta "smacka"!
-                -->
-
-                <!-- TODO: ... -->
-                <!--                    <section>-->
-                <!--                        Restpost-->
-                <!--						<aside class="notes">-->
-                <!--							<h6>En av oss:</h6>-->
-                <!--                            <h1>Løsninger</h1>-->
-                <!--                            <ul>-->
-                <!--                                <li>Bazel?</li>-->
-                <!--                                <li>Archunit?</li>-->
-                <!--                            </ul>-->
-                <!--	                            <ul>-->
-                <!--                                <li>Python i Monorepo?</li>-->
-                <!--                                <li>Rydde i repo</li>-->
-                <!--                            </ul>-->
-                <!--						</aside>-->
-                <!--					</section>-->
 			</div>
 		</div>
 
