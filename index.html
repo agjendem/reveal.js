@@ -421,11 +421,16 @@
 							från source...
 							</p>
 							<p>
-							I et monorepo gjøres <strong>all versjonering med versjonshåndteringssystemet</strong>. I vårt tilfelle er det Git.<br/>
-							Hvilken <strong>versjon</strong> av vår egen felleskode som en applikasjon bruker <strong>avgjøres</strong> ene og alene av <strong>Git-revisjonen</strong> - ikke versjonsnummer i pom.xml-filer.<br/>
-							Hver git-revisjon angir et <strong>øyeblikksbilde</strong> av alle avhengigheter mellom appene og felleskode.<br/>
-							Det er <strong>ikke mulig å utsette</strong> å ta inn felleskoden gjennom å avhenge på en eldre versjon slik som man kan gjøre med Maven.<br/>
-							I prinsippet så avhenger du alltid på <strong>siste versjon av alt</strong>.
+                            En annan aspekt av ett monorepo ær avhængigheterna <strong>inte ær versionerade</strong>.
+                            I princip så avhenger du alltid på <strong>siste versjon av alt</strong>.
+                            Det er alltså <strong>inte længre møjligt att utsætta</strong> å ta inn felleskode gjennom å avhenge på en eldre versjoner som som 
+                            man kan gjøre i ett multirepo-Mavenuppsætt.<br/>
+                            </p>
+                            <p>
+							I et monorepo gjøres faktiskt <strong>all versjonering med versjonshåndteringssystemet</strong>.
+							Hvilken <strong>versjon</strong> av felleskoden som en applikation bruker <strong>avgörs</strong> ene og alene av
+                            <strong>Git-revisjonen</strong> - inte några versjonsnummer i pom.xml-filer.<br/>
+							Hver git-revisjon anger en konsistent <strong>øgonblickbild</strong> av alle avhengigheter mellan appar og felleskode.<br/>
 							</p>
                         </aside>
                     </section>
