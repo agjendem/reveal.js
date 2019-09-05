@@ -1259,19 +1259,30 @@ apps/app2/README.md
                             <h6>J</h6>
                             Att jobba med felleskode i ett monorepo ær helt annorlunda, och bættre, æn i multirepo:
                             <ul>
-                                <li>Ønskar du se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.</li>
-                                <li>Nyfiken på om en felleskodeændring knæcker en konsument? Det ær enkelt (i alla fall i Bazel)
-                                    att køra alla konsumenteras tester. Och ær det något som knæcker så ær det møjligt att fixa
-                                    det i samma PR som felleskodeændringen!</li>
-                                <li>Man kan laga <i>atomiska refaktoreringar</i> som tar hela værlden från ett konsistent tillstånd
-                                    till ett annat utan någon mellanliggande period dær saker ær knæckta. En sida av detta ær att integrationstiden går
-                                    ner: man har inte længre den falska viloputen att man kan førdrøja integrationen som att ligga kvar på gamla versioner -
-                                    sækerhetsuppdateringar och kritiska fixar i felleskoden kom direkt ut i alla appar.</li>
-                                <li>Bump PR:s utan meningsfulla diffar blir ett gammalt ont minne</li>
+                                <li>
+                                Ønskar du se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.
+                                </li>
+                                <li>
+                                Nyfiken på om en felleskodeændring knæcker en konsument? Det ær enkelt (i alla fall i Bazel)
+                                att køra alla konsumenteras tester. Och ær det något som knæcker så ær det møjligt att fixa
+                                det i samma PR som felleskodeændringen!
+                                </li>
+                                <li>
+                                Man kan laga <strong>atomiska refaktoreringar</strong> som tar hela værlden från ett konsistent tillstånd
+                                till ett annat <strong>utan</strong> någon mellanliggande period dær saker ær knæckta.<br/> 
+                                Bump PR:s utan meningsfulla diffar blir ett gammalt ont minne
+                                </li>
+                                <li>
+                                En sida av detta ær att integrationstiden dramtiskt går ner: man har inte længre den falska viloputen 
+                                att man kan førdrøja integrationen som att ligga kvar på gamla versioner -
+                                sækerhetsuppdateringar och kritiska fixar i felleskoden kom direkt ut i alla appar.</li>
+                                </li>
                             </ul>
 
 							<p>
-								Sammantaget sænker monorepo trøskeln, som annars kan vara rætt høg, før att folk vågar refaktorer/bidra till felleskode.
+								Om har felleskode så ær næstan monorepo ett krav før att man ska
+                                kunna sæga att man driver med <strong>continuous integration</strong>, utan monorepo ær integrerar
+                                man i bæsta fall <strong>hyppigt</strong> - knappast kontinuerligt.
 							</p>
 							<!--
 							<p>
@@ -1284,10 +1295,15 @@ apps/app2/README.md
                     </section>
 
                     <section data-background="#0071cd">
-                        <img alt="Sitat fra utvikler med mange års erfaring" src="img/sitat.svg"/>
+                        <img class="fragment" alt="Sitat fra utvikler med mange års erfaring" src="img/sitat.svg"/>
 
                         <aside class="notes">
                             <h6>J</h6>
+                            <p>
+                            Men ta inte bara mitt ord før denna konklusionen. Jag tog och intervjuade en anonym,
+                            och vældigt repressentativ, utvecklare som jobbat i øver 15 år i SpareBank 1:s felleskode-tunga
+                            multirepo-miljø.<br />
+                            Det hær var vad han hade att sæga.
                         </aside>
                     </section>
 
