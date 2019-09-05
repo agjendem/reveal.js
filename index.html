@@ -497,7 +497,7 @@
                             </p>
 						</aside>
 					</section>
-
+                    <!--
                     <section>
                         <pre><code class="stretch console" data-trim data-noescape>
 $ tree
@@ -531,13 +531,14 @@ $ tree
                             </ul>
                         </aside>
                     </section>
-
-                    <section data-background="img/maven-moduler.svg" data-background-size="contain">
+                    -->
+                    <section>
+                        <img class="fragment" src="img/maven.png"/>
                         <aside class="notes">
                             <h6>J</h6>
 
                             <p>
-                            Vi brukar det i den hær førsamlingen kanske inte <strong>helt okænda</strong>, javabaserade byggverktyget, Maven før att bygga monorepot.
+                            Før att bygga monorepot brukar vi det i den hær førsamlingen kanske inte <strong>helt okænda</strong>, byggverktyget Maven.
                             I Maven definierar man enheter att bygga, moduler, med pom-filer som kan referera submoduler som gærna placeras på en lægre nivå
                             i filsystemet. I praktiken brukar modulstrukturen i ett mavenprojekt avspegla filsystemshierakin rætt tætt.
                             </p>
@@ -545,17 +546,28 @@ $ tree
                             <p>
                             Maven ær i grunden ett <strong>rekursivt byggsystem</strong>, som bygger från en rot katalog/module och nedåt i modultrædet.
                             Andra byggsystem som f.eks. Bazel ær <strong>grafbaserade</strong> vilket kan vara mer flexibelt och naturligt i ett monorepo.
-                            Bazel ær en open sourcing'n av byggsystemet som brukas før att bygga kan værldens størst monorepo, Google's, och,
-                            och ær ett i monoreposammanhang rætt intressant produkt.
+                            Bazel ær en open sourcing'n av byggsystemet som brukas før att bygga det som kanske ær værldens størst monorepo, 
+                            Google's, och, och ær ett i monoreposammanhang rætt intressant produkt.
                             </p>
 
                             <p>
                             Vi har ænnu inte tagit steget att uppgradera till Bazel, det ær också en fråga om vilka verktyg som programmerna kænner och har kompetens på.
-                            Bazel ær mer æn materia før en egen talk och vi kommer inte gå in i detalj på Bazel i vår talk idag. <br/>
+                            Bazel ær mer æn nog materia før en egen talk och vi kommer inte gå in i detalj på detta i vår talk idag. <br/>
                             Dock utspelar sig alla maven-expempel som vi kommer gå igenom idag i ett 
                             <a href="https://github.com/SpareBank1/monorepo-sample">exempel-monorepo som vi har lagt ut på github</a>
-                            som ær uppsatt att bygga med både Maven och Bazel men idag kommer vi bara berøra Maven.
+                            som ær uppsatt att bygga med både Maven och Bazel om man vill utforska lite i efterkant på egenh hand.
                             </p>
+                        </aside>
+                    </section>
+
+                    <section data-background="img/maven-moduler.svg" data-background-size="contain">
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <strong>Monorepoet vårt i dag er et Maven multimodul-bygg med hovedsaklig to toppnivåmoduler, og ser ut noenlunde som dette:</strong>
+                            <ul>
+                                <li>apps - våre applikasjoner</li>
+                                <li>libs - felleskoden</li>
+                            </ul>
                         </aside>
                     </section>
 
