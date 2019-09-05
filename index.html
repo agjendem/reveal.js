@@ -242,22 +242,43 @@
                             <h6>A</h6>
                             <p>
                                 Ett eksempel:<br/>
-                                vis man ønsker å <strong>lage en feature i applikasjon 1</strong> som innebærer at
+                                Hvis man ønsker å <strong>lage en feature i applikasjon 1</strong> som innebærer at
                                 <strong>felleskode i lib2 også må endres</strong>, så må det gjøres i <strong>to separate pull-request</strong> prosesser.
                             </p>
-                            <ul>
-                                <li>
-                                    <i>Første trinn</i> er da en <strong>PR i lib2-repoet der diffen ikke viser hvordan felleskodeendringene treffer app1</strong>.<br/>
-                                    Typisk er det også <strong>tidkrevende</strong> å teste dette ut på egenhånd, så den blir gjerne tatt med halvveis <strong>bind for øynene</strong>.
-                                </li>
-                                <li>
-                                    <i>Andre trinn</i> er når <strong>felleskoden er merget</strong>, og artefaktene bygd og deployet, så kan man gå <strong>videre med App1-repoet</strong> og
-                                    lage en ny PR hvor man <strong>bumper felleskodeversjonen til lib2</strong>, integrerer App1s kode med den nye versjonen og oppdaterer evt. noen tester.<br/>
-                                    Denne PRen er <strong>mulig å deploye til et testmiljø</strong>, men det som derimot ikke er mulig - eller ihvertfall ikke praktiskt - er å <strong>få en oversikt over kodeendringene i felleskoden</strong> som taes i bruk ved bumpingen.
-                                </li>
-                            </ul>
+                        </aside>
+                    </section>
+
+                    <section data-background="img/app-deps4.svg" data-background-size="contain">
+
+                        <aside class="notes">
+                            <h6>A</h6>
                             <p>
-                                Som en bonus her, så har antakelig <strong>ingen tenkt på App2</strong> som også har en avhengighet av lib2, så den kan fint være brukket når den oppgraderes på et senere tidspunkt..
+                                <i>Første trinn</i> er da en <strong>PR i lib2-repoet der diffen ikke viser hvordan felleskodeendringene treffer app1</strong>.
+                            </p>
+                        </aside>
+                    </section>
+
+                    <section data-background="img/app-deps5.svg" data-background-size="contain">
+
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
+                                <i>Andre trinn</i> er når <strong>felleskoden er merget</strong>, og artefaktene bygd og deployet, så kan man gå <strong>videre med App1-repoet</strong> og
+                                lage en ny PR hvor man <strong>bumper felleskodeversjonen til lib2</strong>, integrerer App1s kode med den nye versjonen og oppdaterer evt. noen tester.<br/>
+                                Denne PRen er <strong>mulig å deploye til et testmiljø</strong>, men det som derimot ikke er mulig - eller ihvertfall ikke praktiskt - er å <strong>få en oversikt over kodeendringene i felleskoden</strong> som taes i bruk ved bumpingen.
+                            </p>
+                            <p>
+                                Hvis vedkommende som har gjort pull requesten har vært flink så <strong>legger han opp begge samtidig, med samme reviewers og en midlertidig versjon</strong>, det hjelper _litt_.<br/>
+                            </p>
+                        </aside>
+                    </section>
+
+                    <section data-background="img/app-deps6.svg" data-background-size="contain">
+
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
+                                Men, fremdeles så har antakelig <strong>ingen tenkt på App2</strong> som også har en avhengighet av lib2, så den kan fint være brukket når den oppgraderes på et senere tidspunkt..
                             </p>
                         </aside>
                     </section>
