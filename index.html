@@ -460,8 +460,9 @@
 						<aside class="notes">
                             <h6>J - Monolitt</h6>
                             <p>
-                            SpareBank 1:s nett- og mobilbank var en stor och tætt kopplad <strong>enterprise Java-monolit</strong>. <!-- som ble versjonskontrollert i ClearCase. -->
-                            <strong>Produktionssættningar</strong> var våldsamma saker med månge involverte, långe testperioder og frysperioder.
+                            SpareBank 1:s nett- og mobilbank var en stor och tætt kopplad <strong>system med monolitisk arkitektur</strong>
+                            som versionskontrollerades i ett likaledes <strong>monolitiskt källkodsrepository</strong>.
+                            <strong>Produktionssättningar</strong> var våldsamma saker med månge involverte, långe testperioder og frysperioder.
                             Nattreleaser, høy risiko, lang ledetid og ikke minst nedetid var ikke til å komme utenom.
                             I praksis var det <strong>ikke mulig å skalere opp</strong> utviklerorganisasjonen til det nivået vi ønsket oss, siden vi uansett
                             ikke hadde greid å fått det ut dørren. Något måste gøras.
@@ -493,7 +494,10 @@
                                 Vi driver nå å går i <strong>retning av tilstandsløse, skyklare applikasjoner</strong> som helt kutter båndet til den gamle monolitten.<br/>
                                 Vi har <strong>fremdeles felleskode</strong>.<br/>
                                 MEN, vi har valgt å <strong>prøve ut monorepo</strong> på den nye generasjonen applikasjoner.
-                                OG vi prøver å første omgang å <strong>benytte de verktøyene vi allerede kan</strong> godt, som Git, Maven og Jenkins.
+                                Att appar versioneras tillsammans i ett monorepo innebær <strong>ikke att vi ær på væg att laga oss en
+                                ny monolit</strong> - apparna produktionsætts fortsatt helt fristående från varandra! <br/>
+                                I vårt monorepo prøver vi i første omgang att <strong>anvænda de verktøyene vi allerede kan</strong> gott,
+                                som Git, Maven og Jenkins.
                             </p>
 						</aside>
 					</section>
