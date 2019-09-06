@@ -1002,7 +1002,7 @@ apps/app2/README.md
                             <h6>A</h6>
                             <p>
                                 I et monorepo ønsker man naturligvis at master-branchen <strong>alltid</strong> skal bygge grønt.<br/>
-                                Da har du overordnet to måter å håndtere det på:<br/>
+                                Da har du overordnet <strong>to måter å håndtere det på</strong>:<br/>
                             </p>
 
                             <hr />
@@ -1016,8 +1016,9 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                                For å sikre dette kan man ikke tillate å merge pull requester som ikke er <strong>basert på siste versjon av master</strong>.<br/>
-                                Hvis ikke, kan man <strong>ikke garantere at det etter en merge ikke vil kunne brekke</strong>.
+                                <strong>Den første måten</strong> å sikre dette kan man ikke tillate å merge pull requester som ikke er <strong>basert på siste versjon av master</strong>.<br/>
+                                Hvis ikke, kan man <strong>ikke garantere at det etter en merge ikke vil kunne brekke</strong>.<br/>
+                                Så, <strong>hvis dette er vår master branch</strong>
                             </p>
                         </aside>
                     </section>
@@ -1026,7 +1027,7 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                                Altså <strong>må</strong> man <strong>rebase</strong> inn master i pull requesten før den kan merges, og <strong>vente på resultatet av bygget</strong>.
+                                og vi <strong>lager oss en featurebranch</strong> basert på siste revisjon av master<br/>
                             </p>
                         </aside>
                     </section>
@@ -1035,14 +1036,32 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                                Det store problemet med dette, er at etter at man har <strong>rebaset pull requesten</strong> sin, og alle testene har kjørt igjen,
-                                så har noen andre rukket å få merget sin pull request før deg.. og da er det bare å starte på nytt.
+                                og det fortsetter å tikke inn <strong>endringer på Master-branchen</strong>, så må vi <strong>rebase master inn i featurebranchen</strong> før den kan merges
+                            </p>
+                        </aside>
+                    </section>
+
+					<section data-background="img/git-graph4.svg" data-background-size="contain">
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
+                                ... og <strong>vente på resultatet av bygget</strong>.<br/>
+                                Det store <strong>problemet med dette</strong>, er at etter at man har <strong>rebaset pull requesten</strong> sin, og alle testene har kjørt igjen,
+                            </p>
+                        </aside>
+                    </section>
+
+					<section data-background="img/git-graph5.svg" data-background-size="contain">
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
+                                ... så har <strong>noen andre rukket å få merget sin pull request</strong> før deg.. og da er det bare å starte på nytt.
                             </p>
                             <p>
                                 <strong>Jo flere utviklere og applikasjoner vi ruller på, jo verre blir det</strong>.
                             </p>
                             <p>
-                                Antakelig er løsningen på dette alternativet en eller annen form for <strong>automatisering</strong> hvor man markerer at "denne pull requesten ønsker jeg å merge",
+                                Antakelig er <strong>løsningen på dette alternativet</strong> en eller annen form for <strong>automatisering</strong> hvor man markerer at "denne pull requesten ønsker jeg å merge",
                                 også blir den <strong>lagt i kø</strong> og håndtert automatisk så lenge alle testene fremdeles kjører grønt.
                             </p>
                         </aside>
