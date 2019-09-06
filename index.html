@@ -501,41 +501,7 @@
                             </p>
 						</aside>
 					</section>
-                    <!--
-                    <section>
-                        <pre><code class="stretch console" data-trim data-noescape>
-$ tree
-.
-├── apps
-│   ├── app1
-│   │   ├── pom.xml
-│   │   └── src
-│   ├── app2
-│   │   ├── pom.xml
-│   │   └── src
-│   └── pom.xml
-├── libs
-│   ├── lib1
-│   │   ├── pom.xml
-│   │   └── src
-│   ├── lib2
-│   │   ├── pom.xml
-│   │   └── src
-│   └── pom.xml
-├── pom.xml
-├── README.md
-                        </code></pre>
 
-                        <aside class="notes">
-                            <h6>A</h6>
-                            <strong>Monorepoet vårt i dag er et Maven multimodul-bygg med hovedsaklig to toppnivåmoduler, og ser ut noenlunde som dette:</strong>
-                            <ul>
-                                <li>apps - våre applikasjoner</li>
-                                <li>libs - felleskoden</li>
-                            </ul>
-                        </aside>
-                    </section>
-                    -->
                     <section>
                         <img class="fragment" src="img/maven.png"/>
                         <aside class="notes">
@@ -577,9 +543,9 @@ $ tree
 
                     <section data-background="img/maven-moduler-deps.svg" data-background-size="contain">
                         <aside class="notes">
-                            <h6>J</h6>
+                            <h6>A</h6>
                             <p>
-                                Med maven kan man ha avhængigheter mellan moduler på tværs av filtrædstruktur
+                                Med maven kan man ha <strong>avhengigheter</strong> mellom modulene <strong>på tvers av filstrukturen</strong>.
                             </p>
                         </aside>
                     </section>
@@ -602,9 +568,9 @@ $ mvn clean install<span class="fragment">
                         </span></code></pre>
 
                         <aside class="notes">
-                            <h6>J</h6>
+                            <h6>A</h6>
                             <p>
-                                Det ær avhængigheterna mellan modulerna som bestæmmer i vilken ordning modulerna byggs.
+                                Det er <strong>avhengighetene</strong> mellom modulene som <strong>bestemmer rekkefølgen</strong> Maven bygger modulene på
                             </p>
                         </aside>
                     </section>
