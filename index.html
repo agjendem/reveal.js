@@ -791,8 +791,8 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					</section>
 
                     <section>
-                        <h2>Jenkins(file)</h2>
-                        <pre class="fragment fade-up"><code class="console" data-trim data-noescape>
+                        <img class "fragment" src="img/maven-moduler-jenkinsfile.svg" />
+                        <pre class="fragment" ><code class="console" data-trim data-noescape>
 $ git diff --name-only origin/master...HEAD
 apps/app2/src/main/java/no/monorepo/app2/App2.java
 apps/app2/README.md
@@ -802,19 +802,19 @@ apps/app2/README.md
                             <h6>J</h6>
                             <p>
                                 I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
-                                Vi har valt att lægga upp egna Jenkinsfile's før varje app i monorepot så att teamen som æger de olika apparna har møjlighet
+                                Vi har valt att lægga upp <strong>egna Jenkinsfile's før varje app</strong> i monorepot så att teamen som æger de olika apparna har møjlighet
                                 att f.eks. sætta upp sina testmiljøer som man ønskar.
                             </p>
                             <p>
                                 Detta har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
-                                Vi har løst detta med en root Jenkinsfile som hjælp av git diff-kommando finner fram till exakt vilka filer som har ændrats
+                                Vi har løst detta med en root Jenkinsfile som hjælp av <strong>git diff-kommando</strong> finner fram till exakt vilka filer som har ændrats
                                 i en PR jæmført mot master.
                             </p>
                         </aside>
                     </section>
 
                     <section>
-                        <h2>Jenkins(file)</h2>
+                        <h4>Valg av Jenkinsfile</h4>
                         <img alt="Jenkinsfile diagram - appspesifikk Jenkinsfile eller build-the-world?" src="img/jenkinsfile-diagram.svg" />
 
                         <aside class="notes">
