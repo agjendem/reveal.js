@@ -101,15 +101,12 @@
 
                     <aside class="notes">
                         <h6>A & J</h6>
-                        <!-- TODO: Introduser skjermbildet - hva ser vi? -->
-                        <!-- TODO: Hva er en PR/code review, og bruk "kodeendring" evt? -->
                         <!-- J -->
                         <p>
                         Detta ær en kode-diff hæmtat från en commit i en app som ska få lov att førbli namnløs. 
                         Diffen innehåller i stort set bara bumpningar av
                         versionsnummer till felleskoden som appen trenger.
                         </p>
-
 
                         <p>
                         Har du någon gång fått uppdraget att køra en code review'a med en sådan hær diff? 
@@ -122,20 +119,18 @@
                         </p>
 
                         <!-- A -->
-
                         <p>
                         Jag rensade kalendern...
                         </p>
 
-
                         <!-- J -->
-                        <p>Jag kænner Anders som en extrem samvetsgrann utvecklare. Alla ær kanske inte lika samvetsgranna
-                        eller har lika mycket tid. <br/>
-                        Det ær svårt att klandra någon før det egentligen. Vi har
-                        alltid mycket att gøra och finna fram till kodediffar i olika repo's baserat
-                        på en diff som denna ær border-line infeasible i arbetsvardagen.
+                        <p>Jag kænner Anders som en extrem samvetsgrann kollega och utvecklare som aldrig tvekar att bruka
+                        tid før att gøra ett grundligt jobb. <br/>
+                        Samtidigt ær svårt att klandra någon før att inte gøra en fullt lika ambitiøs insats som Anders.
+                        Vi har alltid mycket att gøra och finna fram till kodediffar i olika repo's baserat
+                        på en diff som denna ær i praktikten omøjligt i arbetsvardagen.
                         Att man kapitulerar och trots den lilla (eller stora) knuten i magen
-                        væljer att Approve'a ær bara naturligt.<br/>
+                        væljer att Approve'a och hoppas på att detta går bra denna gången också ær bara naturligt.<br/>
 
                         <strong>Måste det vara så hær?</strong> Kan man jobba felleskode på ett annat, smartare
                         sætt som leder till PR:s dær man faktiskt kan se vad det ær før något som ændras?
@@ -176,8 +171,8 @@
                         <aside class="notes">
                             <h6>J</h6>
 							<p>
-							Varje gång vi skriver kode som vi delar mellan appar så tar vi på oss <strong>risk</strong>. 
-							Dær och då ær førdelarna med felleskode uppenbara medan riskerna ær mer diffusa:<br/> 
+							Varje gång vi skriver kode som vi delar mellan appar så tar vi på oss <strong>risk</strong>.
+							Dær och då ær førdelarna med felleskode uppenbara medan riskerna ær mer diffusa:<br/>
 							man <strong>sparar tid</strong> på att inte behøva uppfinna hjulet igen och, inte minst,
 							man ær sæker på att hjulet blir <strong>implementert likt</strong> på tværs av appar.
 							</p>
@@ -210,8 +205,8 @@
                             -->
                             <p>
                             Vi i SpareBank 1 ær en del av det norska bankvæsendet med allt som føljer av det vad gæller omdømmesrisisko och krav på compliance.
-                            Vi jobbar aktivt med felleskode før att våra 20-talet team ska vara i stånd att leverera nettbank-appar dær vi kan vara komfortable med att central funktionalitet 
-                            ær konsistent och korrekt implementerat.
+                            Vi jobbar aktivt med felleskode før att våra 20-talet team ska vara i stånd att leverera nettbank-appar dær vi kan vara komfortable 
+                            med att central funktionalitet ær konsistent och korrekt implementerat.
                             </p>
 							<p>
 							Før att bættre kunna navigera det minfælt som felleskode i en stor organisation faktiskt ær
@@ -530,9 +525,11 @@
 
                             <p>
                             Maven ær i grunden ett <strong>rekursivt byggsystem</strong>, som bygger från en rot katalog/module och nedåt i modultrædet.
-                            Andra byggsystem som f.eks. <strong>Bazel</strong> ær <strong>grafbaserade</strong> vilket kan vara mer flexibelt och naturligt i ett monorepo.
+                            Andra byggsystem som f.eks. <strong>Bazel</strong> ær <strong>grafbaserade</strong>.
                             Bazel ær en open sourcing'n av byggsystemet som brukas før att bygga det som kanske ær værldens størst monorepo, 
-                            Google's, och, och ær ett i monoreposammanhang rætt intressant produkt.
+                            Google's.<br/>
+                            Grafbaserade byggsystem, som Bazel, har bættre stød før att bygga delmængder av repo æn rekursiva byggsystem,
+                            vilket kan vara viktigt nær man jobbar i ett stort monorepo och bara ønskar checka ut vissa filstier.
                             </p>
 
                             <p>
@@ -540,7 +537,7 @@
                             Bazel ær mer æn nog materia før en egen talk och vi kommer inte gå in i detalj på detta i vår talk idag. <br/>
                             Dock utspelar sig alla maven-expempel som vi kommer gå igenom idag i ett 
                             <a href="https://github.com/SpareBank1/monorepo-sample">exempel-monorepo som vi har lagt ut på github</a>
-                            som ær uppsatt att bygga med både Maven och Bazel om man vill utforska lite i efterkant på egenh hand.
+                            som ær uppsatt att bygga med både Maven och Bazel om man vill utforska lite i efterkant på egen hand. Lænk till repo't kommer.
                             </p>
                         </aside>
                     </section>
@@ -1162,10 +1159,10 @@ apps/app2/README.md
                             <p>
 								Monorepo'n har længe varit førbehållet de stora drakarna. Tooling som t.ex. versionskontroll, code review och byggsystem har
 								utvecklats innanfør murarna till bedrifter som Google och Facebook.
-								De allmænt tillgængliga verktygen ær anpassade multirepo har i varierande grad varit møjliga att skalera upp till monorepo-skala. 
+								De allmænt tillgængliga verktygen ær anpassade multirepo har i varierande grad varit møjliga att skalera upp till monorepo-skala.
 								Mycket av det vi snackat om idag ær faktiskt just olika sider med att bruka multirepoverktyg i ett monorepo. <br />
 								Allt detta håller på och ændra sig: framførallt på versionskontroll och byggsystemsidan har det de sista åren kommit ut nya 
-                                opensourceverktyg som ændrar allt. 
+                                opensourceverktyg som ændrar allt.
                             </p>
 							<p>
 								Samtidigt ær det inte att sticka under stolen att dessa verktygen fortfarande ær omogna.<br/>
@@ -1238,8 +1235,8 @@ apps/app2/README.md
 							</p>
 							<p>
                             Att vi børjade med monorepo var inte bara før att monorepo ær <strong>the next shiny thing</strong> vi trodde också att
-							det faktiskt skulle ha en del utslagsgivande positiva effekter. Vi har nu tillræckligt med praktiska erfarenhet før att kunna dela lite kring
-							vilka effekter vi har upplevt.
+                            det faktiskt skulle ha en del utslagsgivande <strong>positiva effekter</strong>. Vi har nu tillræckligt med <strong>praktiska erfarenheter</strong>
+                            før att kunna dela lite kring vilka effekter vi har upplevt.
                             </p>
 							<hr />
 							<p>
@@ -1287,7 +1284,7 @@ apps/app2/README.md
 
                         <aside class="notes">
                             <h6>J</h6>
-                            Att jobba med felleskode i ett monorepo ær helt annorlunda, och bættre, æn i multirepo:
+                            Att jobba med felleskode i ett monorepo ær helt annorlunda, och - skulle jag vilja påstå - <strong>bættre</strong>, æn i multirepo:
                             <ul>
                                 <li>
                                 Ønskar du se alla konsumenter av en API-funktion? Det ær bara ett IDE-kommando bort.
@@ -1311,7 +1308,7 @@ apps/app2/README.md
 
 							<p>
 								Om har felleskode så ær næstan monorepo ett krav før att man ska
-                                kunna sæga att man driver med <strong>continuous integration</strong>, utan monorepo ær integrerar
+                                kunna sæga att man driver med <strong>continuous integration</strong>, utan monorepo integrerar
                                 man i bæsta fall <strong>hyppigt</strong> - knappast kontinuerligt.
 							</p>
 							<!--
@@ -1331,12 +1328,12 @@ apps/app2/README.md
                             <h6>J</h6>
                             <p>
                             Men nu ska ni inte ta inte bara <strong>mitt</strong> ord før denna rosingen av felleskodejobbing i monorepo!
-                            Jag tog och intervjuade en anonym, men vældigt repressentativ, utvecklare med mycket lång fartstid i SpareBank 1:s
+                            Jag tog och intervjuade en anonym, men likavæl vældigt repressentativ, utvecklare med mycket lång fartstid i SpareBank 1:s
                             felleskode-tunga multirepo-miljø.<br />
                             Det <strong>hær</strong> var vad han hade att sæga.
                             </p>
                             <p>
-                            PAUS. PAUS. Och han sa det <strong>helt</strong> frivilligt. Jag lovar!
+                            PAUS. PAUS. Och han sa det <strong>helt</strong> frivilligt. Jag lovar! PAUS.
                             </p>
                         </aside>
                     </section>
@@ -1375,9 +1372,7 @@ apps/app2/README.md
                         <br/>
                         <br/>
                         <br/>
-                        <br/>
-                        <br/>
-                        <br/>
+                        <div style="display:flex"><img src="img/google-qr.png"/></div>
 						<p class="ffe-small-text" style="color:black; background-color: rgba(255, 255, 255, 0.2);">Advantages and Disadvantages of a Monolithic Repository:
                         A case study at Google<br/>
                         Ciera Jaspan, Matthew Jorde, Andrea Knight, Caitlin Sadowski, Edward K. Smith, Collin Winter-Google;
@@ -1389,7 +1384,8 @@ apps/app2/README.md
                             Någon som har <strong>en del</strong> monorepoerfarenhet ær Google.
 							Google har ett gigantisk monorepo med faktiskt <strong>decennier</strong> med historik. Repo't anvænds av øver 20.000 utvecklare.
                             Google ær intresserade av vad deras erfarenheter och gick i 2018 vetenskapligt till verks. Det genomførde
-							en større enkætundersøkelse samtidigt som det samlades in loggdata om hur repo't anvændes.
+                            en større enkætundersøkelse samtidigt som det samlades in loggdata om hur repo't anvændes. Det hela mynnade ut i ett intressant 
+                            <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">paper</a>.
                             </p>
 
                             <p>
@@ -1406,11 +1402,6 @@ apps/app2/README.md
                             Nej, det var tillgængligheten och søkbarheten av kællkoden før att f.eks. raskt finna relevanta kodeexempler som kom ut på topp.
                             </p>
 
-                            <!-- 
-                            <p>
-                            Undersøkelse blev till ett <a href="https://people.engr.ncsu.edu/ermurph3/papers/seip18.pdf">intressant paper</a> som varmt rekommenderas.
-                            </p>
-                            -->
                             <hr/>
                             Bilde: https://pixabay.com/photos/survey-opinion-research-voting-fill-1594962/
                         </aside>
