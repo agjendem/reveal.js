@@ -103,19 +103,19 @@
                         <h6>A & J</h6>
                         <!-- J -->
                         <p>
-                        Detta ær en kode-diff hæmtat från en commit i en app som ska få lov att førbli namnløs. 
+                        Detta ær en kode-diff hæmtat från en commit i en app som ska få lov att førbli namnløs.
                         Diffen innehåller i stort set bara bumpningar av
                         versionsnummer till felleskoden som appen trenger.
                         </p>
 
                         <p>
-                        Har du någon gång fått uppdraget att køra en code review'a med en sådan hær diff? 
+                        Har du någon gång fått uppdraget att køra en code review'a med en sådan hær diff?
                         Någon..? Åh, Anders har tydligen fått nøjet.
                         </p>
 
                         <p>
                         Hur kændes det, Anders? Hur skaffade du dig egentligen øverblick øver vilka kodeændringar
-                        i felleskoden som dessa, på ytan, så oskyldiga ændringar av versionnummer inførde?
+                        som gømde sig bakom dessa, på ytan, så oskyldiga ændringar av versionnummer inførde?
                         </p>
 
                         <!-- A -->
@@ -125,15 +125,15 @@
 
                         <!-- J -->
                         <p>Jag kænner Anders som en extrem samvetsgrann kollega och utvecklare som aldrig tvekar att bruka
-                        tid før att gøra ett grundligt jobb. <br/>
+                        tid før att gøra ett fullgott arbete. <br/>
                         Samtidigt ær svårt att klandra någon før att inte gøra en fullt lika ambitiøs insats som Anders.
                         Vi har alltid mycket att gøra och finna fram till kodediffar i olika repo's baserat
                         på en diff som denna ær i praktikten omøjligt i arbetsvardagen.
                         Att man kapitulerar och trots den lilla (eller stora) knuten i magen
-                        væljer att Approve'a och hoppas på att detta går bra denna gången också ær bara naturligt.<br/>
+                        væljer att Approve'a och hoppas på att saker och ting går bra denna gången också ær bara naturligt.<br/>
 
                         <strong>Måste det vara så hær?</strong> Kan man jobba felleskode på ett annat, smartare
-                        sætt som leder till PR:s dær man faktiskt kan se vad det ær før något som ændras?
+                        sætt som leder till PR:s dær man faktiskt kan se vad det ær før något som man Approve'ar?
 
                         <hr/>
                         (5 min)
@@ -172,16 +172,16 @@
                             <h6>J</h6>
 							<p>
 							Varje gång vi skriver kode som vi delar mellan appar så tar vi på oss <strong>risk</strong>.
-							Dær och då ær førdelarna med felleskode uppenbara medan riskerna ær mer diffusa:<br/>
+							Dær och då ær førdelarna med felleskode uppenbara medan riskerna ær mer diffusa och længre fram i tid:<br/>
 							man <strong>sparar tid</strong> på att inte behøva uppfinna hjulet igen och, inte minst,
 							man ær sæker på att hjulet blir <strong>implementert likt</strong> på tværs av appar.
 							</p>
 
 							<p>
 							Nej, risken blir først påtaglig længre fram. Till exempel nær man måste laga en liiiten fix i felleskoden och upptæcker att man
-                            ligger lite bakpå och måste vælja mellan att fork'a eller ta in ændringar från de 23 versionerna man ligger
-							bak før att få ut sin lilla fix. Delar man felleskode inte bara mellan sin egna appar utan æven mellan olika teams appar
-							har man bevegt långt ut i ett minfælt av kopplingar och øverlæmningar som kan riskera førlama en hel organisation.
+                            ligger anings bakpå och måste vælja mellan att fork'a eller ta in ændringar från de 23 versionerna man ligger
+                            bak før att få ut sin lilla fix. Delar man felleskode inte bara mellan sin egna appar utan æven mellan olika <strong>teams</strong> appar
+							har man bevegt långt ut i ett minfælt av kopplingar och øverlæmningar som troligen inte kan komma sig helskinnad igenom.
 							</p>
 
                             <!--
@@ -206,7 +206,7 @@
                             <p>
                             Vi i SpareBank 1 ær en del av det norska bankvæsendet med allt som føljer av det vad gæller omdømmesrisisko och krav på compliance.
                             Vi jobbar aktivt med felleskode før att våra 20-talet team ska vara i stånd att leverera nettbank-appar dær vi kan vara komfortable 
-                            med att central funktionalitet ær konsistent och korrekt implementerat.
+                            med att central funktionalitet ær konsistent och korrekt.
                             </p>
 							<p>
 							Før att bættre kunna navigera det minfælt som felleskode i en stor organisation faktiskt ær
@@ -296,7 +296,7 @@
                             <h6>J</h6>
                             <p>
                             Om det ær någon som gått på den talken och ær i tvil om vad som ær løsningen på alla multirepoproblem så kan jag upplysa om det:
-                            så klart ær ett skickeligt monolitiskt kællkode-repository.
+                            så klart ær ett <strong>skickeligt</strong> monolitiskt kællkode-repository.
                             </p>
                             <p>
                             Vi har nu tænkt att gå mer i djupet kring vad som utmærker ett sådan repo.
@@ -319,10 +319,6 @@
                         </h4>
                         <aside class="notes">
                             <h6>J</h6>
-							<p>
-								Om det ær någon som gått på den talken och ær i tvil om vad som ær løsningen på alla multirepoproblem så kan jag upplysa om det:
-                                så klart ær ett skickeligt monolitiskt kællkode-repository.
-							</p>
 							<p>
 								Vi har nu tænkt att gå mer i djupet kring vad som utmærker ett sådan repo. Vi kommer utgå från en tæmligen
                                 rigid regelsamling med <strong>fem olika påbud</strong> om vad som ska till før att man ska få lov før att få kalla sig monorepo.
@@ -376,7 +372,7 @@
 
 							<p>
                             Vi prøvar væl redan idag att <strong>unngå langtlevende brancher</strong>? I ett monorepo blir det viktigare æn någonsin eftersom
-							det ær massiv churn på master-branchen.
+							det allt førsigår på master-branchen.
 							Featurebrancher merges ned til trunk eller master så raskt som mulig.<br/>
                             Det som ligger på trunk skal i størst mulig grad <strong>gjenspeile</strong> det som er i <strong>produksjon</strong>.<br/>
 							<!--
@@ -415,12 +411,14 @@
                             <h6>J</h6>
                             <!-- <strong>"Kompletthet: Ethvert prosjekt i repoet kan bli bygd bare fra avhengighetene som er sjekket inn i repoet. Avhengigheter er uversjonerte, prosjektene må bruke den versjonen som ligger på HEAD"</strong><br/> -->
 							<p>
+                            Bud 4 går på att apparna i ett monorepo ska vara møjliga att bygga <strong>uteslutande</strong> från avhængigheter som också ær
+                            incheckade i repo't.
 							Detta ær nog det bud som vi syndar mest mot. Før i praktiken så innebær budet att monorepo't ditt
-							inte bara ska innehålla allt av egen felleskode utan faktiskt æven den kode som kommer från tredjeparter.
+							inte bara ska innehålla allt av egen felleskode utan faktiskt æven den koden till de tredjepartsavhængigheter man har.
 							</p>
 							<p>
-							<strong>Kællkoden</strong> till det som du idag så praktiskt drar ner i jar-format från Maven-central ska alltså checkas in i
-							monorepo't och byggas dærifrån. Det blir rætt så resurskrævande att hålla denna koden uppdaterad med up-stream och vi har
+							Alltså, før att ta det igen, <strong>kællkoden</strong> till det som du idag så praktiskt drar ner i jar-format från Maven-central ska alltså checkas in i
+							monorepo't och byggas dærifrån nær det rengs. Det blir rætt så resurskrævande att hålla denna koden uppdaterad med up-stream och vi har
 							føreløpigt valt at istællet checka in en så kallad BOM-fil som pinnar vilka versioner Maven brukar av tredjeparts-jar:erna på
 							tværs av vårt monorepo.
 							</p>
@@ -430,7 +428,7 @@
 							från source... PAUS
 							</p>
 							<p>
-                            En annan aspekt av ett monorepo ær avhængigheterna <strong>inte ær versionerade</strong>.
+                            En annan aspekt av ett monorepo ær avhængigheterna egentligen <strong>inte ær versionerade</strong>.
                             I princip så avhenger du alltid på <strong>siste versjon av alt</strong>.
                             Det er alltså <strong>inte længre møjligt att utsætta</strong> å ta inn felleskode gjennom å avhenge på en eldre versjoner som som 
                             man kan gjøre i ett multirepo-Mavenuppsætt.<br/>
@@ -469,7 +467,7 @@
 						<aside class="notes">
                             <h6>J - Monolitt</h6>
                             <p>
-                            SpareBank 1:s nett- og mobilbank var en stor och tætt kopplad <strong>system med monolitisk arkitektur</strong>
+                            SpareBank 1:s nett- og mobilbank børjade sitt liv som en stor och tætt kopplad <strong>system med monolitisk arkitektur</strong>
                             som versionskontrollerades i ett likaledes <strong>monolitiskt källkodsrepository</strong>.
                             <strong>Produktionssättningar</strong> var våldsamma saker med månge involverte, långe testperioder og frysperioder.
                             Nattreleaser, høy risiko, lang ledetid og ikke minst nedetid var ikke til å komme utenom.
@@ -500,7 +498,7 @@
 						<aside class="notes">
                             <h6>J - Monorepo</h6>
                             <p>
-                                Vi driver nå å går i <strong>retning av tilstandsløse, skyklare applikasjoner</strong> som helt kutter båndet til den gamle monolitten.<br/>
+                                Vi går nu i <strong>retning av tilstandsløse, skyklare applikasjoner</strong> som helt kutter båndet til den gamle monolitten.<br/>
                                 Vi har <strong>fremdeles felleskode</strong>.<br/>
                                 MEN, vi har valgt å <strong>prøve ut monorepo</strong> på den nye generasjonen applikasjoner.
                                 Att appar versioneras tillsammans i ett monorepo innebær <strong>ikke att vi ær på væg att laga oss en
@@ -526,7 +524,7 @@
                             <p>
                             Maven ær i grunden ett <strong>rekursivt byggsystem</strong>, som bygger från en rot katalog/module och nedåt i modultrædet.
                             Andra byggsystem som f.eks. <strong>Bazel</strong> ær <strong>grafbaserade</strong>.
-                            Bazel ær en open sourcing'n av byggsystemet som brukas før att bygga det som kanske ær værldens størst monorepo, 
+                            Bazel ær en open sourcing'n av systemet som brukas før att bygga det som kanske ær værldens størst monorepo, 
                             Google's.<br/>
                             Grafbaserade byggsystem, som Bazel, har bættre stød før att bygga delmængder av repo æn rekursiva byggsystem,
                             vilket kan vara viktigt nær man jobbar i ett stort monorepo och bara ønskar checka ut vissa filstier.
@@ -645,9 +643,10 @@ $ mvn clean install<span class="fragment">
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                                Maven's namespace før moduler ær baserat på groupId-begreppet. I ett monorepo ær name space
+                                Maven's namespace før moduler ær baserat på groupId-begreppet. Som jag tror det fler hær kænner till.
+                                I ett monorepo ær name space
                                 ivaratatt av filtrædet, och groupId-begreppet i Maven ær i princip smør på flæsk.
-                                Nær man brukar Maven før monorepo kan man vurdera att sætta groupId identisk till filsti.
+                                Nær man brukar Maven før monorepo kan man vurdera att helt enkelt sætta groupId identisk till filsti.
                             </p>
                         </aside>
                     </section>
@@ -695,7 +694,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             <h6>J</h6>
 							<p>
                             Maven har på senare tid fått stød før så kallade  <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a> versioner.
-                            Det innebær att man kan parametriera version med en property som man kan sætta från kommandolinjen. 
+                            Det innebær att man kan parameterisera versions-taggen i pom-filerna med en property som man kan sætta från <strong>kommandolinjen</strong>.
                             </p>
                             <p> 
                             Vi sætter enkelt property'n till aktuellt git commit vid bygging på byggserver.
@@ -816,8 +815,8 @@ apps/app2/README.md
                                 Att bygg <strong>hela</strong> monorepo't från maven clean blir en længre och længre process ju større repo't blir.
                                 Andra byggsystem (Bazel) har stød før inkrementell bygging, dær bara den kod som har ændrats och dess avhængigheter blir byggt. Vi tar tagit i bruk
                                 <a href="https://github.com/lesfurets/partial-build-plugin">partial-build-plugin</a> en plugin som hackar sig in i maven
-                                och prøvar att bara bygga moduler som har en diff mot trunk, lite likt upplægget kring val av Jenkinsfile.
-                                Dessværre ær pluginen insomnad på Github, men den har fungerat fint før oss så långt.
+                                och prøvar att bara bygga moduler som har en diff mot trunk, och uppnår på så sætt en fattigmansløsning før inkrementell bygging.
+                                Dessværre ær pluginen insomnad på Github, men den har fungerat øverraskande fint før oss så långt.
                             </p>
                         </aside>
                     </section>
@@ -976,13 +975,6 @@ apps/app2/README.md
 
                     <section>
                         <h2>Lange byggtider</h2>
-                        <!--
-                        <ul>
-                            <li>Ikke bygg alt alltid</li>
-                            <li>Ikke bygg fra "clean" alltid <span class="fragment fade-in">(vurder alternativ til Maven)</span></li>
-                            <li class="fragment fade-in">Bazel har støtte for <i>build cache</i> og <i>build workers</i></li>
-                        </ul>
-                        -->
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
@@ -1094,18 +1086,20 @@ apps/app2/README.md
 
                     <section>
                         <h2>Monolitt 2.0</h2>
-                        <img class="fragment" src="img/archunit.png" alt="ArchUnit screenshot from Github, introducing the library" />
-
+                        <div class="fragment">
+                            <img src="img/archunit.png" alt="ArchUnit screenshot from Github, introducing the library" />
+                            <img src="img/qr-archunit.png" alt="QR link"/>
+                        </div>
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
 								I ett monorepo ær det lættare æn någonsin att dela kode och inføra nya avhængigheter på kors och tværs -
 								nu slipper man faktiskt krullet med att finna
 								fram till vilken version man ønskar. Baksidan av myntet ær det ær rætt lætt att vara odisciplinerad och lægga inte avhængigheter på lite væl
-								mycket felleskode, och, om man inte pasar sig, så har vi kanske snart en ny tætt kopplad monolit.
+								mycket felleskode, och, om man inte passar sig, så har vi kanske snart en ny tætt kopplad monolit.
                             </p>
                             <p>
-								Detta måsta vi bara undgå. Vi har ænnu inte kommit till den punkten dær detta kan bli ett problem, men med større skala så ær vi nyfikna
+								Detta måsta vi bara undgå. Vi har ænnu inte kommit till den punkten dær detta kan børja bli ett problem, men med større skala så ær vi nyfikna
 								på att titta på kodekvalitetsverktyg som <a href="https://www.archunit.org/">Archunit</a>. Archunit låter dig skriva junit-enhetstester
 								som på klassnivå verfieriar att man f.eks. inte har avhængigheter mellan appar i ett monorepo.
                             </p>
@@ -1160,7 +1154,7 @@ apps/app2/README.md
 								Monorepo'n har længe varit førbehållet de stora drakarna. Tooling som t.ex. versionskontroll, code review och byggsystem har
 								utvecklats innanfør murarna till bedrifter som Google och Facebook.
 								De allmænt tillgængliga verktygen ær anpassade multirepo har i varierande grad varit møjliga att skalera upp till monorepo-skala.
-								Mycket av det vi snackat om idag ær faktiskt just olika sider med att bruka multirepoverktyg i ett monorepo. <br />
+								Mycket av det vi snackat om idag ær faktiskt just olika sider med att bruka multirepoverktyg i ett monorepo-sammanhang. <br />
 								Allt detta håller på och ændra sig: framførallt på versionskontroll och byggsystemsidan har det de sista åren kommit ut nya 
                                 opensourceverktyg som ændrar allt.
                             </p>
@@ -1297,10 +1291,10 @@ apps/app2/README.md
                                 <li>
                                 Man kan laga <strong>atomiska refaktoreringar</strong> som tar hela værlden från ett konsistent tillstånd
                                 till ett annat <strong>utan</strong> någon mellanliggande period dær saker ær knæckta.<br/> 
-                                Bump PR:s utan meningsfulla diffar blir ett gammalt ont minne
+                                Bump PR:s utan meningsfulla diffar blir ett gammalt ont minne!
                                 </li>
                                 <li>
-                                En sida av detta ær att integrationstiden dramtiskt går ner: man har inte længre den falska viloputen 
+                                En sida av detta ær att integrationstiden dramatiskt går ner: man har inte længre den falska viloputen 
                                 att man kan førdrøja integrationen som att ligga kvar på gamla versioner -
                                 sækerhetsuppdateringar och kritiska fixar i felleskoden kom direkt ut i alla appar.</li>
                                 </li>
@@ -1330,7 +1324,7 @@ apps/app2/README.md
                             Men nu ska ni inte ta inte bara <strong>mitt</strong> ord før denna rosingen av felleskodejobbing i monorepo!
                             Jag tog och intervjuade en anonym, men likavæl vældigt repressentativ, utvecklare med mycket lång fartstid i SpareBank 1:s
                             felleskode-tunga multirepo-miljø.<br />
-                            Det <strong>hær</strong> var vad han hade att sæga.
+                            Och det <strong>hær</strong> var vad han hade att sæga.
                             </p>
                             <p>
                             PAUS. PAUS. Och han sa det <strong>helt</strong> frivilligt. Jag lovar! PAUS.
