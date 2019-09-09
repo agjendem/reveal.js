@@ -830,16 +830,33 @@ apps/app2/README.md
 /apps/app1/*
 </span></code></pre>
 
+                        <pre class="fragment"><code class="console" data-trim data-noescape>
+<span>$ git read-tree -mu HEAD</span>
+<span class="fragment">$ ls -1 apps</span>
+<span class="fragment">app1/</span></code></pre>
+
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
                                 Hvis <strong>kodebasen</strong> blir så stor at det er <strong>upraktisk å sjekke ut</strong> alt, eller man faktisk bare <strong>jobber med en konkret applikasjon</strong> uten behov for å endre felleskode så finnes det utveier.<br/>
                                 Med <strong>"sparse checkout"</strong> kan man instruere Git til å sjekke ut en delmengde av arbeidstreet.<br/>
                                 I <strong>eksempelet</strong> her så sier vi at vi i utgangspunktet vil ha alle filer, men ikke alle applikasjonene, før vi igjen sier at vi vil ha app1 som er den vi jobber på.<br/>
-                                Resultatet blir da at vi får det vi trenger av felleskode samt app1.<br/>
+                                Resultatet blir da at vi får det vi trenger av felleskode samt app1.
+                            </p>
+                            <p>
                                 Ved å bruke sparse checkout på denne måten får man i praksis en <strong>utvikleropplevelse som er temmelig lik den man har med multirepo</strong>, foruten at felleskoden er tilgjengelig.<br/>
-                                Hvis man endrer på felleskoden bør man jo helst ha all koden tilgjengelig.<br/>
-                                Eventuelt så vil forhåpentligvis byggserveren og tester plukke opp eventuelle feil og mangler.<br/>
+                            </p>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <img alt="Sparse checkout støtteverktøy" src="img/sparse-checkout-tool.png" />
+
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
+                                Hos oss har vi <strong>utvidet verktøykassa</strong> vår med et enkelt gui, for å enkelt <strong>redigere sparse-checkout-fila</strong><br/>
+                                I eksempelrepoet ser det litt stusselig ut, men når man begynner å måtte scrolle i lista, da er det supert<br/>
                             </p>
                         </aside>
                     </section>
