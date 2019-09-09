@@ -822,9 +822,9 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <h2>Sparse checkouts</h2>
-                        <pre><code class="console" data-trim data-noescape>
-<span class="fragment">$ cat .git/info/sparse-checkout</span>
+                        <h2>Sparse checkout</h2>
+                        <pre class="fragment"><code class="console" data-trim data-noescape>
+<span>$ cat .git/info/sparse-checkout</span>
 <span class="fragment">/*
 !/apps/*/*
 /apps/app1/*
@@ -834,10 +834,10 @@ apps/app2/README.md
                             <h6>A</h6>
                             <p>
                                 Hvis <strong>kodebasen</strong> blir så stor at det er <strong>upraktisk å sjekke ut</strong> alt, eller man faktisk bare <strong>jobber med en konkret applikasjon</strong> uten behov for å endre felleskode så finnes det utveier.<br/>
-                                Med <strong>"sparse checkouts"</strong> kan man instruere Git til å sjekke ut en delmengde av arbeidstreet.<br/>
+                                Med <strong>"sparse checkout"</strong> kan man instruere Git til å sjekke ut en delmengde av arbeidstreet.<br/>
                                 I <strong>eksempelet</strong> her så sier vi at vi i utgangspunktet vil ha alle filer, men ikke alle applikasjonene, før vi igjen sier at vi vil ha app1 som er den vi jobber på.<br/>
                                 Resultatet blir da at vi får det vi trenger av felleskode samt app1.<br/>
-                                Ved å bruke sparse checkouts på denne måten får man i praksis en <strong>utvikleropplevelse som er temmelig lik den man har med multirepo</strong>, foruten at felleskoden er tilgjengelig.<br/>
+                                Ved å bruke sparse checkout på denne måten får man i praksis en <strong>utvikleropplevelse som er temmelig lik den man har med multirepo</strong>, foruten at felleskoden er tilgjengelig.<br/>
                                 Hvis man endrer på felleskoden bør man jo helst ha all koden tilgjengelig.<br/>
                                 Eventuelt så vil forhåpentligvis byggserveren og tester plukke opp eventuelle feil og mangler.<br/>
                             </p>
@@ -845,13 +845,13 @@ apps/app2/README.md
                     </section>
 
                     <section>
-                        <img alt="Manglende app2 i filstrukturen ved Sparse checkouts og standard maven modules-liste" style="height: 152px" src="img/modules-missing-sparse.png" />
+                        <img alt="Manglende app2 i filstrukturen ved Sparse checkout og standard maven modules-liste" style="height: 152px" src="img/modules-missing-sparse.png" />
 
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
                                 Nå skurrer kanskje dette litt for mange av dere, <strong>Maven, som ju ær ett rekursivt byggverktyg, vil jo ikke like at halve kodebasen er borte</strong>?<br/>
-                                I utgangspunktet <strong>støtter ikke Maven sparse checkouts</strong>, siden modul-lista i apps f.eks. vil referere til applikasjoner vi ikke har koden til.<br/>
+                                I utgangspunktet <strong>støtter ikke Maven sparse checkout</strong>, siden modul-lista i apps f.eks. vil referere til applikasjoner vi ikke har koden til.<br/>
                                 Maven ønsker jo å bygge en komplett modell av alle modulene, basert på pom.xml før den gjør noe som helst, og vil selvfølgelig protestere.<br/>
                             </p>
                         </aside>
@@ -916,7 +916,7 @@ apps/app2/README.md
                         <h2>Stort repository?</h2>
                         <ul>
                             <li class="fragment fade-in">VFS for Git</li>
-                            <li class="fragment fade-in">Sparse Checkouts</li>
+                            <li class="fragment fade-in">Sparse checkout</li>
                             <li class="fragment fade-in">Large File Storage</li>
                         </ul>
 
@@ -927,7 +927,7 @@ apps/app2/README.md
                             <ul>
                                 <li>Vente og håpe verktøyene blir bedre av seg selv</li>
                                 <li>Hvis det er metadata/historikk i .git/-katalogen kan kanskje virtuelle filsystem a'la Microsofts <strong>VFS for Git</strong> være løsningen. Foreløpig best støtte på Windows, men Mac støttes og Linux ser ut til å være under arbeid.</li>
-                                <li>Hvis det er working-treet som er problemer er kanskje <strong>sparse checkouts</strong> som nevnt over en del av løsningen</li>
+                                <li>Hvis det er working-treet som er problemer er kanskje <strong>sparse checkout</strong> som nevnt over en del av løsningen</li>
                                 <li>også kan det kanskje være lurt å så på om <strong>Git Large File Storage</strong> kan være et alternativ for å unngå å ha store binærfiler som del av selve repositoriet. <strong>Arbeidsflyten i Git forblir uendret</strong> når de filene som skal lagres med LFS er definert, så det kan være et godt alternativ. I praksis så lagres det en fil med en peker til hvor fila kan finnes. Den lagres på en egen LFS-server knyttet til repositoriet ditt. Både Github og BitBucket støtter LFS.</li>
                             </ul>
                         </aside>
