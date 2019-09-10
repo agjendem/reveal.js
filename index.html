@@ -322,7 +322,7 @@
 							<p>
 								Vi kommer utgå från en tæmligen
                                 rigid regelsamling med <strong>fem olika påbud</strong> om vad som ska till før att man ska få lov før att få kalla sig monorepo.
-                                Principerna ær givna till oss från det som ær høgsta møjliga ort i alla monoreposammanhang - <strong>Google</strong>. PAUS.
+                                Principerna ær givna till oss från det som ær høgsta møjliga ort i alla monoreposammanhang - <strong><i>Google</i></strong>. PAUS.
 							</p>
 							<hr />
                             <p>
@@ -371,7 +371,7 @@
                             <!-- <strong>"Synkronisering: Utviklingsprosessen er trunkbasert. Utviklerne committer til trunk i repositoriet"</strong><br/> -->
 
 							<p>
-                            Vi prøvar væl redan idag att <strong>unngå langtlevende brancher</strong>? I ett monorepo blir det viktigare æn någonsin eftersom
+                            Bud 2. PAUS. Vi prøvar væl redan idag att <strong>unngå langtlevende brancher</strong>? I ett monorepo blir det viktigare æn någonsin eftersom
 							det allt førsigår på master-branchen.
 							Featurebrancher merges ned til trunk eller master så raskt som mulig.<br/>
                             Det som ligger på trunk skal i størst mulig grad <strong>gjenspeile</strong> det som er i <strong>produksjon</strong>.<br/>
@@ -414,7 +414,7 @@
                             Bud 4. PAUS. Detta går på att apparna i ett monorepo ska vara møjliga att bygga <strong>uteslutande</strong> från avhængigheter som också ær
                             incheckade i repo't.
 							Detta ær nog det bud som vi syndar mest mot. Før i praktiken så innebær budet att monorepo't ditt
-							inte bara ska innehålla allt av egen felleskode utan faktiskt æven den koden till de tredjepartsavhængigheter man har.
+                            inte bara ska innehålla allt av egen felleskode utan faktiskt æven <strong>koden till de tredjepartsavhængigheter</strong> man har.
 							</p>
 							<p>
 							Alltså, før att ta det igen, <strong>kællkoden</strong> till det som du idag så praktiskt drar ner i jar-format från Maven-central ska alltså checkas in i
@@ -428,16 +428,18 @@
 							från source... PAUS
 							</p>
 							<p>
-                            En annan aspekt av ett monorepo ær avhængigheterna egentligen <strong>inte ær versionerade</strong>.
+                            En annan aspekt av ett monorepo ær avhængigheterna egentligen <strong><i><u>inte ær versionerade</u></i></strong>.
                             I princip så avhenger du alltid på <strong>siste versjon av alt</strong>.
+                            <!--
                             Det er alltså <strong>inte længre møjligt att utsætta</strong> å ta inn felleskode gjennom å avhenge på en eldre versjoner som som 
                             man kan gjøre i ett multirepo-Mavenuppsætt.<br/>
+                            -->
                             </p>
                             <p>
-							I et monorepo gjøres faktiskt <strong>all versjonering med versjonshåndteringssystemet</strong>.
+							I et monorepo gjøres faktiskt <strong>all versjonering med versjonshåndteringssystemet</strong> - logiskt nog skulle man kan kunna tillægga.
 							Hvilken <strong>versjon</strong> av felleskoden som en applikation bruker <strong>avgörs</strong> ene og alene av
                             <strong>Git-revisjonen</strong> - inte några versjonsnummer i pom.xml-filer.<br/>
-							Hver git-revisjon anger en konsistent <strong>øgonblickbild</strong> av alle avhengigheter mellan appar og felleskode.<br/>
+							Hver git-revisjon anger en konsistent <strong>øgonblicksbild</strong> av alle avhengigheter mellan appar og felleskode.<br/>
 							</p>
                         </aside>
                     </section>
@@ -516,14 +518,14 @@
                             <h6>J</h6>
 
                             <p>
-                            Før att bygga monorepot brukar vi det i den hær førsamlingen kanske inte <strong>helt okænda</strong>, byggverktyget Maven.
+                            Før att bygga monorepot brukar vi det i den hær førsamlingen kanske inte <strong><i><u>helt okænda</u></i></strong>, byggverktyget Maven.
                             I Maven definierar man enheter att bygga, moduler, med pom-filer som kan referera submoduler som gærna placeras på en lægre nivå
                             i filsystemet. I praktiken brukar modulstrukturen i ett mavenprojekt avspegla filsystemshierakin rætt tætt.
                             </p>
 
                             <p>
                             Maven ær i grunden ett <strong>rekursivt byggsystem</strong>, som bygger från en rot katalog/module och nedåt i modultrædet.
-                            Andra byggsystem som f.eks. <strong>Bazel</strong> ær <strong>grafbaserade</strong>.
+                            Andra byggsystem som f.eks. <strong><i><u>Bazel</u></i></strong> ær <strong>grafbaserade</strong>.
                             Bazel ær en open sourcing'n av systemet som brukas før att bygga det som kanske ær værldens størst monorepo, 
                             Google's.<br/>
                             Grafbaserade byggsystem, som Bazel, har bættre stød før att bygga delmængder av repo æn rekursiva byggsystem,
@@ -694,10 +696,12 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             <h6>J</h6>
 							<p>
                             Maven har på senare tid fått stød før så kallade  <a href="https://maven.apache.org/maven-ci-friendly.html">ci-friendly</a> versioner.
-                            Det innebær att man kan parameterisera versions-taggen i pom-filerna med en property som man kan sætta från <strong>kommandolinjen</strong>.
+                            Det innebær att man kan parameterisera versions-taggen i pom-filerna med en property, som vi hær kallar <strong><i><u>revision</u></i></strong>
+                            som man kan sætta från <strong><i><u>kommandolinjen</u></i></strong>.
                             </p>
                             <p> 
-                            Vi sætter enkelt property'n till aktuellt git commit vid bygging på byggserver.
+                            Vi sætter helt enkelt property'n till aktuellt git commit vid bygging på byggserver. Och då uppnår vi en 1:1 førhållande mellan versionering 
+                            i versionskontrollsystemet och byggsystemet.
 							</p>
 						</aside>
                     </section>
@@ -788,7 +792,7 @@ apps/app2/README.md
                             </p>
                             <p>
                                 Detta har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
-                                Vi har løst detta med en root Jenkinsfile som hjælp av <strong>git diff-kommando</strong> finner fram till exakt vilka filer som har ændrats
+                                Vi har løst detta med en root Jenkinsfile som hjælp av <strong><i><u>git diff-kommando</u></i></strong> finner fram till exakt vilka filer som har ændrats
                                 i en PR jæmført mot master.
                             </p>
                         </aside>
@@ -914,7 +918,7 @@ apps/app2/README.md
                                 finns attraktiva alternativ.
                             </p>
                             <p>
-                            Men vi har också børjat få smake på en del av <strong>sura sidorna med monorepo</strong> som vi tror ær mer fundamentala och generiska.
+                            Men vi har också børjat få smake på en del av <strong><i><u>sura sidorna med monorepo</u></i></strong> som vi tror ær mer fundamentala och generiska.
                                 Vi har också læst upp oss en del på de problem som blir påtagliga først vid en større skala æn den vi hunnit uppnå.
                             </p>
                             <hr />
@@ -1117,7 +1121,7 @@ apps/app2/README.md
                             </p>
                             <p>
 								Detta måsta vi bara undgå. Vi har ænnu inte kommit till den punkten dær detta kan børja bli ett problem, men med større skala så ær vi nyfikna
-								på att titta på kodekvalitetsverktyg som <a href="https://www.archunit.org/">Archunit</a>. Archunit låter dig skriva junit-enhetstester
+                                på att titta på kodekvalitetsverktyg som <a href="https://www.archunit.org/"><strong><i><u>Archunit</u></i></strong></a>. Archunit låter dig skriva junit-enhetstester
 								som på klassnivå verfieriar att man f.eks. inte har avhængigheter mellan appar i ett monorepo.
                             </p>
                         </aside>
@@ -1177,9 +1181,9 @@ apps/app2/README.md
                             </p>
 							<p>
 								Samtidigt ær det inte att sticka under stolen att dessa verktygen fortfarande ær omogna.<br/>
-								<strong>Google's Bazel</strong>, ær fortsatt i beta - faktiskt med en 1.0 release planerad i dagarna - och
+                                <strong><i><u>Google's Bazel</u></i></strong>, ær fortsatt i beta - faktiskt med en 1.0 release planerad i dagarna - och
 								ekosystemet ær mycket svagare æn Maven's nær det gæller IDE-støtte, plugins och så vidare. <br/>
-								<strong>Microsoft VFS løsning før git</strong> stødjer fortsatt officiellt inte Linux.
+                                <strong><i><u>Microsoft VFS løsning før git</u></i></strong> stødjer fortsatt officiellt inte Linux.
 							</p>
 							<!--
 							<p>
@@ -1246,7 +1250,7 @@ apps/app2/README.md
 							</p>
 							<p>
                             Att vi børjade med monorepo var inte bara før att monorepo ær <strong>the next shiny thing</strong> vi trodde också att
-                            det faktiskt skulle ha en del utslagsgivande <strong>positiva effekter</strong>. Vi har nu tillræckligt med <strong>praktiska erfarenheter</strong>
+                            det faktiskt skulle ha en del utslagsgivande <strong><i><u>positiva effekter</u></i></strong>. Vi har nu tillræckligt med <strong>praktiska erfarenheter</strong>
                             før att kunna dela lite kring vilka effekter vi har upplevt.
                             </p>
 							<hr />
@@ -1341,7 +1345,7 @@ apps/app2/README.md
                             Men nu ska ni inte ta inte bara <strong>mitt</strong> ord før denna rosingen av felleskodejobbing i monorepo!
                             Jag tog och intervjuade en anonym, men likavæl vældigt repressentativ, utvecklare med mycket lång fartstid i SpareBank 1:s
                             felleskode-tunga multirepo-miljø.<br />
-                            Och det <strong>hær</strong> var vad han hade att sæga.
+                            Och det <strong><i><u>hær</u></i></strong> var vad han hade att sæga.
                             </p>
                             <p>
                             PAUS. PAUS. Och han sa det <strong>helt</strong> frivilligt. Jag lovar! PAUS.
