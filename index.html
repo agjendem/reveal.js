@@ -419,7 +419,7 @@
 							<p>
 							Alltså, før att ta det igen, <strong>kællkoden</strong> till det som du idag så praktiskt drar ner i jar-format från Maven-central ska alltså checkas in i
 							monorepo't och byggas dærifrån nær det rengs. Det blir rætt så resurskrævande att hålla denna koden uppdaterad med up-stream och vi har
-							føreløpigt valt at istællet checka in en så kallad BOM-fil som pinnar vilka versioner Maven brukar av tredjeparts-jar:erna på
+							føreløpigt valt at istællet checka in en så kallad BOM-fil som låser vilka versioner Maven brukar av tredjeparts-jar:erna på
 							tværs av vårt monorepo.
 							</p>
                             <p>
@@ -760,7 +760,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
                             </p>
 
 							<p>
-                                En <strong>CODEOWNERS-fil</strong> i monorepoet definerer hvilke team/teammedlemmer som eier koden under ulike filstier.<br/>
+                            En <strong><u>CODEOWNERS-fil</u></strong> i monorepoet definerer hvilke team/teammedlemmer som eier koden under ulike filstier.<br/>
                                 Dette kan brukes til å f.eks. automatisk legga inn eiere som reviewers på pull requester som treffer deres respektive kode.<br/>
                             </p>
 
@@ -770,7 +770,7 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 							</p>
 
 							<p>
-                                I dette eksempelet fra Github blir jeg automatisk lagt til som reviewer med et spesielt nøkkelhullikon på alle pull requests som treffer min app - app1.
+                            I <strong><u>dette eksempelet</u></strong> fra Github blir jeg automatisk lagt til som reviewer med et spesielt nøkkelhullikon på alle pull requests som treffer min app - app2.
                             </p>
 						</aside>
 					</section>
@@ -1143,7 +1143,7 @@ apps/app2/README.md
                     <section>
                         <h2>Overmodent</h2>
 
-							<span class="fragment">
+							<span>
                                 <img src="img/maven.png" style="height: 100px;" alt="Maven logo" />
 							</span>
 							<span class="fragment">
@@ -1160,14 +1160,14 @@ apps/app2/README.md
                                 Mange av <strong>de tingene som knirker mest</strong> nå i Maven-monoreposammenheng har vi allerede vært inne på:<br/>
                             </p>
                             <ul>
-                                <li>Ikke polyglot - <strong>Javasentrisk</strong></li>
-                                <li><strong>Sparse checkout må hackes til</strong> siden Mavens repomodell bygges opp av pom.xml filer - ikke hva som finnes på disk</li>
-                                <li>Maven trenger <strong>eksplisitt referanse til roten</strong> av repositoryet. Bazel finner den fint selv.</li>
-                                <li><strong>Mangler inkrementella bygg</strong> - man bygger i hovedsak alltid fra clean tilstand</li>
+                                <li><strong>Sparse checkout må hackes til</strong></li>
+                                <li>Maven trenger <strong>eksplisitt referanse til roten</strong> av repositoryet.</li>
+                                <li><strong>Mangler inkrementella bygg</strong></li>
                                 <li>Maven brukar <strong>groupId og versjons-begrep</strong> for moduler som i et monorepo <strong>heller utledes</strong> fra filkatalogstrukturen respektive Git</li>
                             </ul>
+                            <p>I tillegg er ikke Maven polyglot - men <strong>Javasentrisk</strong></p>
                             <p>
-                                Jenkins er en annen gammel traver som først så dagens lys under navnet Hudson tilbake i 2008.<br/>
+                                <strong><u>Jenkins</u></strong> er en annen gammel traver som først så dagens lys under navnet Hudson tilbake i 2008.<br/>
                                 Mange år og mange plugins senere, så mangler Jenkins fremdeles støtte for monorepo i form av selektiv bygging basert på diff.<br/>
                             </p>
                         </aside>
@@ -1217,14 +1217,6 @@ apps/app2/README.md
 
                         <aside class="notes">
                             <h6>A</h6>
-                            <p>
-                                Det er <strong>fordeler og ulemper</strong> med alt. Vi har nå prøvd <strong>multirepo i ganske mange år</strong>, og
-                                håndterer forsåvidt det "greit nok" - men det er ikke gøy med 100+ repository heller.
-                            </p>
-                            <p>
-                                Nå hadde vi <strong>muligheten til å se på om monorepo</strong> kunne løse noen av våre utfordringer,
-                                og vi har tid og lyst til å se om dette kan være <strong>noe for oss i større eller mindre skala</strong>.
-                            </p>
                             <p>
                                 Mange av <strong>ankepunktene</strong> mot monorepo gjelder <strong>store organisasjoner</strong> med enorme mengder kode.
                                 Vi har mange utviklere, vi har mye kode, på mange språk, men <strong>vi er på ingen måte enorme</strong>.
