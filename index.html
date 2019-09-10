@@ -776,8 +776,24 @@ $ mvn -Drevision=$(git rev-parse HEAD) clean install
 					</section>
 
                     <section>
-                        <img class="fragment" src="img/maven-moduler-jenkinsfile1.svg" />
-                        <pre class="fragment" ><code class="console" data-trim data-noescape>
+                        <img class="fragment" src="img/maven-moduler-jenkinsfile3.svg" />
+
+                        <aside class="notes">
+                            <h6>J</h6>
+                            <p>
+                                I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
+                                Vi har valt att lægga upp <strong><i><u>egna Jenkinsfile's før varje app</u></i></strong> i monorepot så att teamen som æger de olika apparna har møjlighet
+                                att f.eks. sætta upp sina testmiljøer som man ønskar.
+                            </p>
+                            <p>
+                            Detta har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
+                            </p>
+                        </aside>
+                    </section>
+
+                    <section data-transition="none">
+                        <img src="img/maven-moduler-jenkinsfile2.svg" />
+                        <pre class="fragment"><code class="console" data-trim data-noescape>
 $ git diff --name-only origin/master...HEAD
 apps/app2/src/main/java/no/monorepo/app2/App2.java
 apps/app2/README.md
@@ -786,18 +802,11 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>J</h6>
                             <p>
-                                I ett monorepo vill man ha møjligt att køra olika byggpipelines beroende på vilka filer som har ændrat sig.
-                                Vi har valt att lægga upp <strong>egna Jenkinsfile's før varje app</strong> i monorepot så att teamen som æger de olika apparna har møjlighet
-                                att f.eks. sætta upp sina testmiljøer som man ønskar.
-                            </p>
-                            <p>
-                                Detta har i utgångspunkt inte Jenkins stød før, och det finns inte heller læmpliga plugins att tillgå.
-                                Vi har løst detta med en root Jenkinsfile som hjælp av <strong><i><u>git diff-kommando</u></i></strong> finner fram till exakt vilka filer som har ændrats
-                                i en PR jæmført mot master.
+                            Vi har løst detta med en root Jenkinsfile som hjælp av <strong><i><u>git diff-kommando</u></i></strong> finner fram till exakt vilka filer som har ændrats
+                            i en PR jæmført mot master.
                             </p>
                         </aside>
                     </section>
-
                     <section>
                         <h4>Valg av Jenkinsfile</h4>
                         <img alt="Jenkinsfile diagram - appspesifikk Jenkinsfile eller build-the-world?" src="img/jenkinsfile-diagram.svg" />
@@ -833,19 +842,14 @@ apps/app2/README.md
 !/apps/*/*
 /apps/app1/*
 </span></code></pre>
-
-                        <pre class="fragment"><code class="console" data-trim data-noescape>
-<span>$ git read-tree -mu HEAD</span>
-<span class="fragment">$ ls -1 apps</span>
-<span class="fragment">app1/</span></code></pre>
-
+                        <img class="fragment" src="img/maven-moduler-sparse.svg" />
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
                                 Hvis <strong>kodebasen</strong> blir så stor at det er <strong>upraktisk å sjekke ut</strong> alt, eller man faktisk bare <strong>jobber med en konkret applikasjon</strong> uten behov for å endre felleskode så finnes det utveier.<br/>
-                                Med <strong>"sparse checkout"</strong> kan man instruere Git til å sjekke ut en delmengde av arbeidstreet.<br/>
-                                I <strong>eksempelet</strong> her så sier vi at vi i utgangspunktet vil ha alle filer, men ikke alle applikasjonene, før vi igjen sier at vi vil ha app1 som er den vi jobber på.<br/>
-                                Resultatet blir da at vi får det vi trenger av felleskode samt app1.
+                                Med en <strong><u>"sparse checkout"-fil</u></strong> i ditt repo kan man instruere Git til å sjekke ut en delmengde av arbeidstreet.<br/>
+                                I <strong><u>eksempelet</u></strong> her så sier vi at vi i utgangspunktet vil ha alle filer, men ikke alle applikasjonene, før vi igjen sier at vi vil ha app1 som er den vi jobber på.<br/>
+                                <strong><u>Resultatet</u></strong> blir da at vi får det vi trenger av felleskode samt app1.
                             </p>
                             <p>
                                 Ved å bruke sparse checkout på denne måten får man i praksis en <strong>utvikleropplevelse som er temmelig lik den man har med multirepo</strong>, foruten at felleskoden er tilgjengelig.<br/>
@@ -871,9 +875,10 @@ apps/app2/README.md
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                                Nå skurrer kanskje dette litt for mange av dere, <strong>Maven, som ju ær ett rekursivt byggverktyg, vil jo ikke like at halve kodebasen er borte</strong>?<br/>
-                                I utgangspunktet <strong>støtter ikke Maven sparse checkout</strong>, siden modul-lista i apps f.eks. vil referere til applikasjoner vi ikke har koden til.<br/>
-                                Maven ønsker jo å bygge en komplett modell av alle modulene, basert på pom.xml før den gjør noe som helst, og vil selvfølgelig protestere.<br/>
+                            Nå skurrer kanskje dette litt for mange av dere.<br/>
+                            Maven, som jo er et rekursivt byggverktøy, vil jo ikke like at <strong>app2 er borte fra disken</strong> og
+                            module-listen i apps-pom-filen nå peker på noe som ikke finnes.<br/>
+                            Maven vil selvfølgelig <strong>protestere</strong> her.<br/>
                             </p>
                         </aside>
                     </section>
@@ -1037,12 +1042,20 @@ apps/app2/README.md
                         </aside>
                     </section>
 
-					<section data-background="img/git-graph1.svg" data-background-size="contain">
+                    <section>
                         <aside class="notes">
                             <h6>A</h6>
                             <p>
-                                <strong>Den første måten</strong> å sikre dette kan man ikke tillate å merge pull requester som ikke er <strong>basert på siste versjon av master</strong>.<br/>
-                                Hvis ikke, kan man <strong>ikke garantere at det etter en merge ikke vil kunne brekke</strong>.<br/>
+                            <strong>Den første måten</strong> er å bare tillate merge av pull requester som er <strong>basert på siste versjon av master</strong>.<br/>
+                            Hvis ikke er det <strong>mulig at master bygger rødt etter merge</strong>, fordi <strong>mergecommitten aldri ble bygget</strong> på featurebranchen.<br/>
+                            </p>
+                        </aside>
+                    </section>
+                    
+                    <section data-background="img/git-graph1.svg" data-background-size="contain">
+                        <aside class="notes">
+                            <h6>A</h6>
+                            <p>
                                 Så, <strong>hvis dette er vår master branch</strong>
                             </p>
                         </aside>
@@ -1274,7 +1287,6 @@ apps/app2/README.md
                             <li style="font-family: monospace" class="fragment fade-out">Bill-of-Materials (BOM)</li>
                             <li style="font-family: monospace" class="fragment fade-out">dependency-version-convergence</li>
                             <li style="font-family: monospace" class="fragment fade-out">npm semantisk versjonering</li>
-                            <li style="font-family: monospace" class="fragment fade-out">npm pinning</li>
                             <li style="font-family: monospace" class="fragment fade-out">npm lock-filer</li>
                         </ul>
 						<aside class="notes">
@@ -1284,7 +1296,7 @@ apps/app2/README.md
                                 I monorepo versjonerer vi bare i Git<br/>
 
                                 Konseptuelt så er det mye <strong>lettere å forholde seg til KUN en Git revisjon</strong>,<br/>
-                                enn å måtte forholde seg til maven sin version plugin, release-plugin, &lt;version&gt; SNAPSHOTs, dependencyManagement, BOM'er, dependency-version-convergence, og npm SemVer, pinning, lock-filer og alt annet som er oppfunnet for å gjøre avhengigheter til å leve med.<br/>
+                                enn å måtte forholde seg til maven sin version plugin, release-plugin, &lt;version&gt; SNAPSHOTs, dependencyManagement, BOM'er, dependency-version-convergence, og npm SemVer, lock-filer og alt annet som er oppfunnet for å gjøre avhengigheter til å leve med.<br/>
                                 Det vil si, så lenge vi beholder <strong>tredjepartsbibliotek eksternt</strong>, så må vi beholde noe av dette - men det <strong>blir ihvertfall mindre og mer oversiktlig</strong><br/>
 							</p>
 							<p>
